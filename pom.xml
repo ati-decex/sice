@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
@@ -34,11 +35,11 @@
 		</dependency>
 
 		<!-- Implementação Clonador -->
-		<!-- dependency >
+		<dependency>
 			<groupId>br.mil.eb.decex.ati</groupId>
 			<artifactId>clonador-sice</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency -->
+		</dependency>
 
 
 		<!-- Implementação JSF 2.2 Mojarra -->
@@ -66,6 +67,17 @@
 			<version>1.0.10</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
+
+
+
+
 		<!-- Driver JDBC do postgres -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -73,6 +85,7 @@
 			<version>9.3-1100-jdbc4</version>
 
 		</dependency>
+
 
 		<!-- for JPA, use hibernate-entitymanager instead of hibernate-core -->
 		<dependency>
