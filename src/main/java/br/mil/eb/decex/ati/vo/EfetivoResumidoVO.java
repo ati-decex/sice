@@ -2,11 +2,9 @@ package br.mil.eb.decex.ati.vo;
 
 import java.io.Serializable;
 
-import br.mil.eb.decex.ati.clonador_sice.App1;
-
 public class EfetivoResumidoVO implements Serializable, Comparable<EfetivoResumidoVO> {
 
-	private App1 app;
+	/*private App1 app;*/
 
 	private static final long serialVersionUID = 1L;
 	private int mes;
@@ -14,22 +12,22 @@ public class EfetivoResumidoVO implements Serializable, Comparable<EfetivoResumi
 	private int efetivo;
 
 	public int getMes() {
-		this.getApp();
+		/*this.getApp();*/
 		return mes;
 	}
 
 	public EfetivoResumidoVO(int mes, int ano, int efetivo) {
 		super();
-		this.getApp();
+		//this.getApp();
 		String[] v = new String[1];
-		this.getApp().main(v);
+		//this.getApp().main(v);
 		this.mes = mes;
 		this.ano = ano;
 		this.efetivo = efetivo;
 	}
 
 	public EfetivoResumidoVO(int mes, int ano) {
-		this.getApp();
+		//this.getApp();
 		this.mes = mes;
 		this.ano = ano;
 	}
@@ -39,7 +37,7 @@ public class EfetivoResumidoVO implements Serializable, Comparable<EfetivoResumi
 	}
 
 	public void setMes(int mes) {
-		this.getApp();
+		//this.getApp();
 		this.mes = mes;
 	}
 
@@ -102,15 +100,6 @@ public class EfetivoResumidoVO implements Serializable, Comparable<EfetivoResumi
 		}
 	}
 
-	public App1 getApp() {
-		if (app == null) {
-			app = new App1();
-		}
-		return app;
-	}
 
-	public void setApp(App1 app) {
-		this.app = app;
-	}
 
 }

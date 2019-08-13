@@ -35,11 +35,11 @@
 		</dependency>
 
 		<!-- Implementação Clonador -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>br.mil.eb.decex.ati</groupId>
 			<artifactId>clonador-sice</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		</dependency> -->
 
 
 		<!-- Implementação JSF 2.2 Mojarra -->
