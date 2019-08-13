@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class EfetivoResumidoVO implements Serializable, Comparable<EfetivoResumidoVO> {
 
-	private App1 app;
+	//private App1 app;
 
 	private static final long serialVersionUID = 1L;
 	private int mes;
@@ -14,7 +14,7 @@ public class EfetivoResumidoVO implements Serializable, Comparable<EfetivoResumi
 	private int efetivo;
 
 	public int getMes() {
-		this.getApp();
+//		this.getApp();
 		return mes;
 	}
 
@@ -102,7 +102,7 @@ public class EfetivoResumidoVO implements Serializable, Comparable<EfetivoResumi
 		}
 	}
 
-	public App1 getApp() {
+	/*public App1 getApp() {
 		if (app == null) {
 			app = new App1();
 		}
@@ -111,6 +111,6 @@ public class EfetivoResumidoVO implements Serializable, Comparable<EfetivoResumi
 
 	public void setApp(App1 app) {
 		this.app = app;
-	}
+	}*/
 
 }
