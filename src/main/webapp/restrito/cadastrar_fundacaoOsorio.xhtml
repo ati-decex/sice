@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
+				
+	<ui:define name="conteudo">
+	
+		<h:form id="form">
+		
+			<p:growl id="mensagem" showDetail="true" sticky="true"/>
+			<p:panel style="background-color:#8B8989 !important; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight:bolder; color:white  !important; " value="#{msgs.tela_efetivoFundacaoOsorio}" />
+			</p:panel>
+			<p:panel style="text-align: center; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight: bold;" value="#{msgs.cadastrar_efetivo_FundacaoOsorio}"/>
+			</p:panel>
+		
+			<p:panel style="margin-bottom: 10px;">
+				<p:panelGrid style="width: 100%;">
+					<p:row>
+						<p:column>
+							<p:outputLabel for="serie" value="#{msgs.serie}:" />
+						</p:column>
+						<p:column colspan="4">
+							<p:selectOneMenu style="width: 20%" value="#{fundacaoOsorioController.alunoFundacao.serieFundacao}" id="serie"  required="true" requiredMessage="#{msgs.requerido_serie_militar}">
+								<f:selectItem itemLabel="#{msgs.selecione}" />
+								<p:ajax listener="#{fundacaoOsorioController.verificarRegistro}" update="masculino, feminino" />
+								<f:selectItems value="#{fundacaoOsorioController.serie}" var="serie" itemLabel="#{serie.value}" itemValue="#{serie}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="4">
+							<p:outputLabel value="#{msgs.sexo}" style="color: #0f4098; font-weight: bold;" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel for="masculino" value="#{msgs.masculino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber value="#{fundacaoOsorioController.alunoFundacao.masculino}" id="masculino" required="true" requiredMessage="#{msgs.requerido_masculino}" minValue="0" maxValue="99999" />
+						</p:column>
+						<p:column>
+							<p:outputLabel for="feminino" value="#{msgs.feminino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber value="#{fundacaoOsorioController.alunoFundacao.feminino}" id="feminino" required="true" requiredMessage="#{msgs.requerido_feminino}" minValue="0" maxValue="99999" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+			<p:panel style="text-align: center; margin-bottom: 10px; height: 34px;">
+				<p:commandButton id="botaoProsseguir" icon="ui-icon-arrowthick-1-e" title="#{msgs.prosseguir_tela}" disabled="#{fundacaoOsorioController.habilitaBotao}" action="#{telas.avancarTela}" rendered="#{telas.exibirBotaoProximo}" immediate="true" style="float: right; top: -3px;" />
+				<p:commandButton icon="ui-icon-arrowthick-1-w" title="#{msgs.voltar_tela}" action="#{telas.voltarTela}" rendered="#{telas.exibirBotaoAnterior}" immediate="true" style="float: right; top: -3px; right: 5px;" />
+				<p:commandButton icon="ui-icon-disk" title="#{msgs.gravar}" action="#{fundacaoOsorioController.salvarOuAtualizar}" update=":form, :formListaExistente" style="float: right; top: -3px; right: 10px;"/>
+			</p:panel>
+		</h:form>
+		
+		<h:form id="formListaExistente">
+			<p:dataTable id="listaFundacao" editable="true" rows="10" var="fundacao" value="#{fundacaoOsorioController.listaAlunos}" paginator="true" emptyMessage="Nenhum registro encontrado!"
+				rowsPerPageTemplate="10,25,50,100" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+			
+				<p:ajax event="rowEdit"
+					listener="#{fundacaoOsorioController.editar(fundacao)}" update="form:mensagem" />
+	
+				<f:facet name="header">
+	            	<h:outputLabel value="#{msgs.efetivo_existente_cadastrado}" />
+	        	</f:facet>
+	        	
+	        	<p:column id="listaSerie" headerText="#{msgs.serie}">
+	        		<h:outputText value="#{fundacao.serieFundacao.value}" />
+	        	</p:column>
+	        	
+	        	<p:column id="listaMasculinoOf" headerText="#{msgs.masculino}">
+	        		<p:cellEditor>
+	        			<f:facet name="output"><h:outputText value="#{fundacao.masculino}" /></f:facet>
+	        			<f:facet name="input">
+							<p:inputNumber  minValue="0" maxValue="99999"  value="#{fundacao.feminino}" />
+						</f:facet>
+	        		</p:cellEditor>
+	        	</p:column>
+	        	
+	        	<p:column id="listaFemininoOf" headerText="#{msgs.feminino}">
+	        		<p:cellEditor>
+	        			<f:facet name="output"><h:outputText value="#{fundacao.feminino}" /></f:facet>
+	        			<f:facet name="input">
+							<p:inputNumber  minValue="0" maxValue="99999"  value="#{fundacao.feminino}" />
+						</f:facet>
+	        		</p:cellEditor>
+	        	</p:column>
+	        	
+	        	<p:column style="width:32px">
+	        	     <p:rowEditor editTitle="#{msgs.editar_efetivo_existente}" />
+	        	</p:column>
+	
+				<p:column style="width:39px">
+					<p:commandButton icon="ui-icon-trash" update=":formListaExistente" action="#{fundacaoOsorioController.excluir(fundacao)}" title="#{msgs.excluir_efetivo_existente}" />
+				</p:column>
+			
+			</p:dataTable>
+		
+		</h:form>
+	</ui:define>
+</ui:composition>

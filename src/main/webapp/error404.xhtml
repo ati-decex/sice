@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
+				
+	<ui:define id="conteudoErro" name="conteudo" prependId="false">
+
+		<p:panel id="falha" header="#{msgs.erro_404}">
+			<h:outputLabel value="#{msgs.mensagem_404}"/>
+		</p:panel>
+		
+	</ui:define>
+	
+	
+</ui:composition>

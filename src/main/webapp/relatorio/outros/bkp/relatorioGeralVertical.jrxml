@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sice" language="groovy" pageWidth="500" pageHeight="700" columnWidth="363" leftMargin="69" rightMargin="68" topMargin="0" bottomMargin="0" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="89"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/nunes/workspace/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="aluno_fem" class="java.lang.Integer"/>
+	<field name="aluno_masc" class="java.lang.Integer"/>
+	<field name="asp_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="asp_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="asp_belica_temp_fem" class="java.lang.Integer"/>
+	<field name="asp_belica_temp_masc" class="java.lang.Integer"/>
+	<field name="asp_cietec_temp_fem" class="java.lang.Integer"/>
+	<field name="asp_cietec_temp_masc" class="java.lang.Integer"/>
+	<field name="asp_qcm_temp_masc" class="java.lang.Integer"/>
+	<field name="asp_saude_temp_fem" class="java.lang.Integer"/>
+	<field name="asp_saude_temp_masc" class="java.lang.Integer"/>
+	<field name="cap_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="cap_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="cap_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="cap_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="cap_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="cap_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="cap_praca_qao_fem" class="java.lang.Integer"/>
+	<field name="cap_praca_qao_masc" class="java.lang.Integer"/>
+	<field name="cap_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="cap_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="cap_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="cap_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="cb_ep" class="java.lang.Integer"/>
+	<field name="cb_et" class="java.lang.Integer"/>
+	<field name="cb_ev" class="java.lang.Integer"/>
+	<field name="cel_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="cel_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="cel_belica_quema_fem" class="java.lang.Integer"/>
+	<field name="cel_belica_quema_masc" class="java.lang.Integer"/>
+	<field name="cel_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="cel_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="cel_cietec_quema_fem" class="java.lang.Integer"/>
+	<field name="cel_cietec_quema_masc" class="java.lang.Integer"/>
+	<field name="cel_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="cel_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="cel_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="cel_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="cel_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="cel_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="cel_saude_quema_fem" class="java.lang.Integer"/>
+	<field name="cel_saude_quema_masc" class="java.lang.Integer"/>
+	<field name="genbri_combatente" class="java.lang.Integer"/>
+	<field name="gendiv_combatente" class="java.lang.Integer"/>
+	<field name="genexe_combatente" class="java.lang.Integer"/>
+	<field name="isprevisto" class="java.lang.Boolean"/>
+	<field name="maj_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="maj_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="maj_belica_quema_fem" class="java.lang.Integer"/>
+	<field name="maj_belica_quema_masc" class="java.lang.Integer"/>
+	<field name="maj_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="maj_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="maj_cietec_quema_fem" class="java.lang.Integer"/>
+	<field name="maj_cietec_quema_masc" class="java.lang.Integer"/>
+	<field name="maj_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="maj_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="maj_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="maj_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="maj_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="maj_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="maj_saude_quema_fem" class="java.lang.Integer"/>
+	<field name="maj_saude_quema_masc" class="java.lang.Integer"/>
+	<field name="omenquadrante" class="java.lang.Object"/>
+	<field name="profciv" class="java.lang.Integer"/>
+	<field name="pttc_of" class="java.lang.Integer"/>
+	<field name="pttc_pr" class="java.lang.Integer"/>
+	<field name="sd_ep" class="java.lang.Integer"/>
+	<field name="sd_ev" class="java.lang.Integer"/>
+	<field name="servciv" class="java.lang.Integer"/>
+	<field name="sgt1_fem" class="java.lang.Integer"/>
+	<field name="sgt1_masc" class="java.lang.Integer"/>
+	<field name="sgt2_carr_fem" class="java.lang.Integer"/>
+	<field name="sgt2_carr_masc" class="java.lang.Integer"/>
+	<field name="sgt2_qe_masc" class="java.lang.Integer"/>
+	<field name="sgt3_carr_fem" class="java.lang.Integer"/>
+	<field name="sgt3_carr_masc" class="java.lang.Integer"/>
+	<field name="sgt3_qe_masc" class="java.lang.Integer"/>
+	<field name="sgt3_temp_fem" class="java.lang.Integer"/>
+	<field name="sgt3_temp_masc" class="java.lang.Integer"/>
+	<field name="st_fem" class="java.lang.Integer"/>
+	<field name="st_masc" class="java.lang.Integer"/>
+	<field name="tcel_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="tcel_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="tcel_belica_quema_fem" class="java.lang.Integer"/>
+	<field name="tcel_belica_quema_masc" class="java.lang.Integer"/>
+	<field name="tcel_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="tcel_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="tcel_cietec_quema_fem" class="java.lang.Integer"/>
+	<field name="tcel_cietec_quema_masc" class="java.lang.Integer"/>
+	<field name="tcel_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="tcel_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="tcel_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="tcel_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="tcel_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="tcel_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="tcel_saude_quema_fem" class="java.lang.Integer"/>
+	<field name="tcel_saude_quema_masc" class="java.lang.Integer"/>
+	<field name="ten1_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten1_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten1_belica_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_belica_temp_masc" class="java.lang.Integer"/>
+	<field name="ten1_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten1_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten1_cietec_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_cietec_temp_masc" class="java.lang.Integer"/>
+	<field name="ten1_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="ten1_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="ten1_compl_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_compl_temp_masc" class="java.lang.Integer"/>
+	<field name="ten1_praca_qao_fem" class="java.lang.Integer"/>
+	<field name="ten1_praca_qao_masc" class="java.lang.Integer"/>
+	<field name="ten1_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten1_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten1_qcm_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_qcm_temp_masc" class="java.lang.Integer"/>
+	<field name="ten1_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten1_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten1_saude_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_saude_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten2_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten2_belica_temp_fem" class="java.lang.Integer"/>
+	<field name="ten2_belica_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten2_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten2_cietec_temp_fem" class="java.lang.Integer"/>
+	<field name="ten2_cietec_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_compl_temp_fem" class="java.lang.Integer"/>
+	<field name="ten2_compl_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_praca_qao_masc" class="java.lang.Integer"/>
+	<field name="ten2_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten2_qcm_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten2_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten2_saude_temp_fem" class="java.lang.Integer"/>
+	<field name="ten2_saude_temp_masc" class="java.lang.Integer"/>
+	<field name="organizacao_id" class="java.lang.Long"/>
+	<field name="periodo_id" class="java.lang.Long"/>
+	<field name="seq_registro" class="java.lang.Integer"/>
+	<field name="t1" class="java.lang.Integer"/>
+	<field name="t2" class="java.lang.Integer"/>
+	<field name="tm" class="java.lang.Integer"/>
+	<field name="sd_nq" class="java.lang.Integer"/>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="aluno_masc_p" class="java.lang.Integer"/>
+	<field name="asp_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="asp_belica_temp_masc_p" class="java.lang.Integer"/>
+	<field name="asp_cietec_temp_masc_p" class="java.lang.Integer"/>
+	<field name="asp_qcm_temp_masc_p" class="java.lang.Integer"/>
+	<field name="asp_saude_temp_masc_p" class="java.lang.Integer"/>
+	<field name="cap_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cap_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cap_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="cap_praca_qao_masc_p" class="java.lang.Integer"/>
+	<field name="cap_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cap_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cb_ep_p" class="java.lang.Integer"/>
+	<field name="cb_et_p" class="java.lang.Integer"/>
+	<field name="cb_ev_p" class="java.lang.Integer"/>
+	<field name="cel_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cel_belica_quema_masc_p" class="java.lang.Integer"/>
+	<field name="cel_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cel_cietec_quema_masc_p" class="java.lang.Integer"/>
+	<field name="cel_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="cel_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cel_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cel_saude_quema_masc_p" class="java.lang.Integer"/>
+	<field name="genbri_combatente_p" class="java.lang.Integer"/>
+	<field name="gendiv_combatente_p" class="java.lang.Integer"/>
+	<field name="genexe_combatente_p" class="java.lang.Integer"/>
+	<field name="maj_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="maj_belica_quema_masc_p" class="java.lang.Integer"/>
+	<field name="maj_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="maj_cietec_quema_masc_p" class="java.lang.Integer"/>
+	<field name="maj_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="maj_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="maj_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="maj_saude_quema_masc_p" class="java.lang.Integer"/>
+	<field name="profciv_p" class="java.lang.Integer"/>
+	<field name="pttc_of_p" class="java.lang.Integer"/>
+	<field name="pttc_pr_p" class="java.lang.Integer"/>
+	<field name="sd_ep_p" class="java.lang.Integer"/>
+	<field name="sd_ev_p" class="java.lang.Integer"/>
+	<field name="seq_registro_p" class="java.lang.Integer"/>
+	<field name="servciv_p" class="java.lang.Integer"/>
+	<field name="sgt1_masc_p" class="java.lang.Integer"/>
+	<field name="sgt2_carr_masc_p" class="java.lang.Integer"/>
+	<field name="sgt2_qe_masc_p" class="java.lang.Integer"/>
+	<field name="sgt3_carr_masc_p" class="java.lang.Integer"/>
+	<field name="sgt3_qe_masc_p" class="java.lang.Integer"/>
+	<field name="sgt3_temp_masc_p" class="java.lang.Integer"/>
+	<field name="st_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_belica_quema_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_cietec_quema_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_saude_quema_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_belica_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_cietec_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_compl_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_praca_qao_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_qcm_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_saude_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_belica_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_cietec_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_compl_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_praca_qao_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_qcm_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_saude_temp_masc_p" class="java.lang.Integer"/>
+	<field name="t1_p" class="java.lang.Integer"/>
+	<field name="t2_p" class="java.lang.Integer"/>
+	<field name="tm_p" class="java.lang.Integer"/>
+	<field name="sd_nq_p" class="java.lang.Integer"/>
+	<variable name="TOTAL_CIVIS_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{profciv} + $F{servciv}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_CIVIS_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{profciv} + $F{servciv}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_ALUNOS_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{aluno_masc}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_ALUNOS_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{aluno_fem} + $F{aluno_masc}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_EFETIVO_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{aluno_masc} + $F{asp_belica_qsg_masc} + $F{asp_belica_temp_masc} + $F{asp_cietec_temp_masc} + $F{asp_qcm_temp_masc} + $F{asp_saude_temp_masc} + $F{cap_belica_qsg_masc} + $F{cap_cietec_qsg_masc} + $F{cap_compl_qco_masc} + $F{cap_praca_qao_masc} + $F{cap_qcm_qsg_masc} + $F{cap_saude_qsg_masc} + $F{cb_ep} + $F{cb_et} + $F{cb_ev} + $F{cel_belica_qsg_masc} + $F{cel_cietec_qsg_masc} + $F{cel_cietec_quema_masc} + $F{cel_compl_qco_masc} + $F{cel_qcm_qsg_masc} + $F{cel_saude_qsg_masc} + $F{cel_saude_quema_masc} + $F{genbri_combatente} + $F{gendiv_combatente} + $F{genexe_combatente} + $F{maj_belica_qsg_masc} + $F{maj_belica_quema_masc} + $F{maj_cietec_qsg_masc} + $F{maj_cietec_quema_masc} + $F{maj_compl_qco_masc} + $F{maj_qcm_qsg_masc} + $F{maj_saude_qsg_masc} + $F{maj_saude_quema_masc} + $F{profciv} + $F{pttc_of} + $F{pttc_pr} + $F{sd_ep} + $F{sd_ev} + $F{servciv} + $F{sgt1_masc} + $F{sgt2_carr_masc} + $F{sgt2_qe_masc} + $F{sgt3_carr_masc} + $F{sgt3_qe_masc} + $F{sgt3_temp_masc} + $F{st_masc} + $F{tcel_belica_qsg_masc} + $F{tcel_belica_quema_masc} + $F{tcel_cietec_qsg_masc} + $F{tcel_cietec_quema_masc} + $F{tcel_compl_qco_masc} + $F{tcel_qcm_qsg_masc} + $F{tcel_saude_qsg_masc} + $F{tcel_saude_quema_masc} + $F{ten1_belica_qsg_masc} + $F{ten1_belica_temp_masc} + $F{ten1_cietec_qsg_masc} + $F{ten1_cietec_temp_masc} + $F{ten1_compl_qco_masc} + $F{ten1_compl_temp_masc} + $F{ten1_praca_qao_masc} + $F{ten1_qcm_qsg_masc} + $F{ten1_qcm_temp_masc} + $F{ten1_saude_qsg_masc} + $F{ten1_saude_temp_masc} + $F{ten2_belica_qsg_masc} + $F{ten2_belica_temp_masc} + $F{ten2_cietec_qsg_masc} + $F{ten2_cietec_temp_masc} + $F{ten2_compl_temp_masc} + $F{ten2_praca_qao_masc} + $F{ten2_qcm_qsg_masc} + $F{ten2_qcm_temp_masc} + $F{ten2_saude_qsg_masc} + $F{ten2_saude_temp_masc} + $F{t1} + $F{t2} + $F{tm} + $F{sd_nq}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_EFETIVO_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[+ $F{aluno_fem} + $F{aluno_masc} + $F{asp_belica_qsg_fem} + $F{asp_belica_qsg_masc} + $F{asp_belica_temp_fem} + $F{asp_belica_temp_masc} + $F{asp_cietec_temp_fem} + $F{asp_cietec_temp_masc} + $F{asp_qcm_temp_masc} + $F{asp_saude_temp_fem} + $F{asp_saude_temp_masc} + $F{cap_belica_qsg_fem} + $F{cap_belica_qsg_masc} + $F{cap_cietec_qsg_fem} + $F{cap_cietec_qsg_masc} + $F{cap_compl_qco_fem} + $F{cap_compl_qco_masc} + $F{cap_praca_qao_fem} + $F{cap_praca_qao_masc} + $F{cap_qcm_qsg_fem} + $F{cap_qcm_qsg_masc} + $F{cap_saude_qsg_fem} + $F{cap_saude_qsg_masc} + $F{cb_ep} + $F{cb_et} + $F{cb_ev} + $F{cel_belica_qsg_fem} + $F{cel_belica_qsg_masc} + $F{cel_belica_quema_fem} + $F{cel_belica_quema_masc} + $F{cel_cietec_qsg_fem} + $F{cel_cietec_qsg_masc} + $F{cel_cietec_quema_fem} + $F{cel_cietec_quema_masc} + $F{cel_compl_qco_fem} + $F{cel_compl_qco_masc} + $F{cel_qcm_qsg_fem} + $F{cel_qcm_qsg_masc} + $F{cel_saude_qsg_fem} + $F{cel_saude_qsg_masc} + $F{cel_saude_quema_fem} + $F{cel_saude_quema_masc} + $F{genbri_combatente} + $F{gendiv_combatente} + $F{genexe_combatente} + $F{maj_belica_qsg_fem} + $F{maj_belica_qsg_masc} + $F{maj_belica_quema_fem} + $F{maj_belica_quema_masc} + $F{maj_cietec_qsg_fem} + $F{maj_cietec_qsg_masc} + $F{maj_cietec_quema_fem} + $F{maj_cietec_quema_masc} + $F{maj_compl_qco_fem} + $F{maj_compl_qco_masc} + $F{maj_qcm_qsg_fem} + $F{maj_qcm_qsg_masc} + $F{maj_saude_qsg_fem} + $F{maj_saude_qsg_masc} + $F{maj_saude_quema_fem} + $F{maj_saude_quema_masc} + $F{profciv} + $F{pttc_of} + $F{pttc_pr} + $F{sd_ep} + $F{sd_ev} + $F{servciv} + $F{sgt1_fem} + $F{sgt1_masc} + $F{sgt2_carr_fem} + $F{sgt2_carr_masc} + $F{sgt2_qe_masc} + $F{sgt3_carr_fem} + $F{sgt3_carr_masc} + $F{sgt3_qe_masc} + $F{sgt3_temp_fem} + $F{sgt3_temp_masc} + $F{st_fem} + $F{st_masc} + $F{tcel_belica_qsg_fem} + $F{tcel_belica_qsg_masc} + $F{tcel_belica_quema_fem} + $F{tcel_belica_quema_masc} + $F{tcel_cietec_qsg_fem} + $F{tcel_cietec_qsg_masc} + $F{tcel_cietec_quema_fem} + $F{tcel_cietec_quema_masc} + $F{tcel_compl_qco_fem} + $F{tcel_compl_qco_masc} + $F{tcel_qcm_qsg_fem} + $F{tcel_qcm_qsg_masc} + $F{tcel_saude_qsg_fem} + $F{tcel_saude_qsg_masc} + $F{tcel_saude_quema_fem} + $F{tcel_saude_quema_masc} + $F{ten1_belica_qsg_fem} + $F{ten1_belica_qsg_masc} + $F{ten1_belica_temp_fem} + $F{ten1_belica_temp_masc} + $F{ten1_cietec_qsg_fem} + $F{ten1_cietec_qsg_masc} + $F{ten1_cietec_temp_fem} + $F{ten1_cietec_temp_masc} + $F{ten1_compl_qco_fem} + $F{ten1_compl_qco_masc} + $F{ten1_compl_temp_fem} + $F{ten1_compl_temp_masc} + $F{ten1_praca_qao_fem} + $F{ten1_praca_qao_masc} + $F{ten1_qcm_qsg_fem} + $F{ten1_qcm_qsg_masc} + $F{ten1_qcm_temp_fem} + $F{ten1_qcm_temp_masc} + $F{ten1_saude_qsg_fem} + $F{ten1_saude_qsg_masc} + $F{ten1_saude_temp_fem} + $F{ten1_saude_temp_masc} + $F{ten2_belica_qsg_fem} + $F{ten2_belica_qsg_masc} + $F{ten2_belica_temp_fem} + $F{ten2_belica_temp_masc} + $F{ten2_cietec_qsg_fem} + $F{ten2_cietec_qsg_masc} + $F{ten2_cietec_temp_fem} + $F{ten2_cietec_temp_masc} + $F{ten2_compl_temp_fem} + $F{ten2_compl_temp_masc} + $F{ten2_praca_qao_masc} + $F{ten2_qcm_qsg_masc} + $F{ten2_qcm_temp_masc} + $F{ten2_saude_qsg_fem} + $F{ten2_saude_qsg_masc} + $F{ten2_saude_temp_fem} + $F{ten2_saude_temp_masc} + $F{t1} + $F{t2} + $F{tm} + $F{sd_nq}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PTTC_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{pttc_of} + $F{pttc_pr}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PTTC_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{pttc_of} + $F{pttc_pr}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PR_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cb_ep} + $F{cb_et} + $F{cb_ev} + $F{sd_ep} + $F{sd_ev} + $F{sgt1_masc} + $F{sgt2_carr_masc} + $F{sgt2_qe_masc} + $F{sgt3_carr_masc} + $F{sgt3_qe_masc} + $F{sgt3_temp_masc} + $F{st_masc} + $F{sd_nq} + $F{tm} + $F{t2} + $F{t1}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PR_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cb_ep} + $F{cb_et} + $F{cb_ev} + $F{sd_ep} + $F{sd_ev} + $F{sgt1_fem} + $F{sgt1_masc} + $F{sgt2_carr_fem} + $F{sgt2_carr_masc} + $F{sgt2_qe_masc} + $F{sgt3_carr_fem} + $F{sgt3_carr_masc} + $F{sgt3_qe_masc} + $F{sgt3_temp_fem} + $F{sgt3_temp_masc} + $F{st_fem} + $F{st_masc} + $F{t1} + $F{t2} + $F{tm} + $F{sd_nq}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_OF_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{asp_belica_qsg_masc_p} + $F{asp_belica_temp_masc_p} + $F{asp_cietec_temp_masc_p} + $F{asp_qcm_temp_masc_p} + $F{asp_saude_temp_masc_p} + $F{cap_belica_qsg_masc_p} + $F{cap_cietec_qsg_masc_p} + $F{cap_compl_qco_masc_p} + $F{cap_praca_qao_masc_p} + $F{cap_qcm_qsg_masc_p} + $F{cap_saude_qsg_masc_p} + $F{cel_belica_qsg_masc_p} + $F{cel_belica_quema_masc_p} + $F{cel_cietec_qsg_masc_p} + $F{cel_cietec_quema_masc_p} + $F{cel_compl_qco_masc_p} + $F{cel_qcm_qsg_masc_p} + $F{cel_saude_qsg_masc_p} + $F{cel_saude_quema_masc_p} + $F{genbri_combatente_p} + $F{gendiv_combatente_p} + $F{genexe_combatente_p} + $F{maj_belica_qsg_masc_p} + $F{maj_belica_quema_masc_p} + $F{maj_cietec_qsg_masc_p} + $F{maj_cietec_quema_masc_p} + $F{maj_compl_qco_masc_p} + $F{maj_qcm_qsg_masc_p} + $F{maj_saude_qsg_masc_p} + $F{maj_saude_quema_masc_p} + $F{tcel_belica_qsg_masc_p} + $F{tcel_belica_quema_masc_p} + $F{tcel_cietec_qsg_masc_p} + $F{tcel_cietec_quema_masc_p} + $F{tcel_compl_qco_masc_p} + $F{tcel_qcm_qsg_masc_p} + $F{tcel_saude_qsg_masc_p} + $F{tcel_saude_quema_masc_p} + $F{ten1_belica_qsg_masc_p} + $F{ten1_belica_temp_masc_p} + $F{ten1_cietec_qsg_masc_p} + $F{ten1_cietec_temp_masc_p} + $F{ten1_compl_qco_masc_p} + $F{ten1_compl_temp_masc_p} + $F{ten1_praca_qao_masc_p} + $F{ten1_qcm_qsg_masc_p} + $F{ten1_qcm_temp_masc_p} + $F{ten1_saude_qsg_masc_p} + $F{ten1_saude_temp_masc_p} + $F{ten2_belica_qsg_masc_p} + $F{ten2_belica_temp_masc_p} + $F{ten2_cietec_qsg_masc_p} + $F{ten2_cietec_temp_masc_p} + $F{ten2_compl_temp_masc_p} + $F{ten2_praca_qao_masc_p} + $F{ten2_qcm_qsg_masc_p} + $F{ten2_qcm_temp_masc_p} + $F{ten2_saude_qsg_masc_p} + $F{ten2_saude_temp_masc_p}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_OF_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cap_saude_qsg_masc} + $F{cap_saude_qsg_fem} + $F{cap_qcm_qsg_masc} + $F{cap_qcm_qsg_fem} + $F{cap_praca_qao_masc} + $F{cap_praca_qao_fem} + $F{cap_compl_qco_masc} + $F{cap_compl_qco_fem} + $F{cap_cietec_qsg_masc} + $F{cap_cietec_qsg_fem} + $F{cap_belica_qsg_masc} + $F{cap_belica_qsg_fem} + $F{asp_saude_temp_masc} + $F{asp_saude_temp_fem} + $F{asp_qcm_temp_masc} + $F{asp_cietec_temp_masc} + $F{asp_cietec_temp_fem} + $F{asp_belica_temp_masc} + $F{asp_belica_temp_fem} + $F{asp_belica_qsg_masc} + $F{asp_belica_qsg_fem} + $F{cel_belica_qsg_fem} + $F{cel_belica_qsg_masc} + $F{cel_belica_quema_fem} + $F{cel_belica_quema_masc} + $F{cel_cietec_qsg_fem} + $F{cel_cietec_qsg_masc} + $F{cel_cietec_quema_fem} + $F{cel_cietec_quema_masc} + $F{cel_compl_qco_fem} + $F{cel_compl_qco_masc} + $F{cel_qcm_qsg_fem} + $F{cel_qcm_qsg_masc} + $F{cel_saude_qsg_fem} + $F{cel_saude_qsg_masc} + $F{cel_saude_quema_fem} + $F{cel_saude_quema_masc} + $F{genbri_combatente} + $F{gendiv_combatente} + $F{genexe_combatente} + $F{maj_belica_qsg_fem} + $F{maj_belica_qsg_masc} + $F{maj_belica_quema_fem} + $F{maj_belica_quema_masc} + $F{maj_cietec_qsg_fem} + $F{maj_cietec_qsg_masc} + $F{maj_cietec_quema_fem} + $F{maj_cietec_quema_masc} + $F{maj_compl_qco_fem} + $F{maj_compl_qco_masc} + $F{maj_qcm_qsg_fem} + $F{maj_qcm_qsg_masc} + $F{maj_saude_qsg_fem} + $F{maj_saude_qsg_masc} + $F{maj_saude_quema_fem} + $F{maj_saude_quema_masc} + $F{tcel_belica_qsg_fem} + $F{tcel_belica_qsg_masc} + $F{tcel_belica_quema_fem} + $F{tcel_belica_quema_masc} + $F{tcel_cietec_qsg_fem} + $F{tcel_cietec_qsg_masc} + $F{tcel_cietec_quema_fem} + $F{tcel_cietec_quema_masc} + $F{tcel_compl_qco_fem} + $F{tcel_compl_qco_masc} + $F{tcel_qcm_qsg_fem} + $F{tcel_qcm_qsg_masc} + $F{tcel_saude_qsg_fem} + $F{tcel_saude_qsg_masc} + $F{tcel_saude_quema_fem} + $F{tcel_saude_quema_masc} + $F{ten1_belica_qsg_fem} + $F{ten1_belica_qsg_masc} + $F{ten1_belica_temp_fem} + $F{ten1_belica_temp_masc} + $F{ten1_cietec_qsg_fem} + $F{ten1_cietec_qsg_masc} + $F{ten1_cietec_temp_fem} + $F{ten1_cietec_temp_masc} + $F{ten1_compl_qco_fem} + $F{ten1_compl_qco_masc} + $F{ten1_compl_temp_fem} + $F{ten1_compl_temp_masc} + $F{ten1_praca_qao_fem} + $F{ten1_praca_qao_masc} + $F{ten1_qcm_qsg_fem} + $F{ten1_qcm_qsg_masc} + $F{ten1_qcm_temp_fem} + $F{ten1_qcm_temp_masc} + $F{ten1_saude_qsg_fem} + $F{ten1_saude_qsg_masc} + $F{ten1_saude_temp_fem} + $F{ten1_saude_temp_masc} + $F{ten2_belica_qsg_fem} + $F{ten2_belica_qsg_masc} + $F{ten2_belica_temp_fem} + $F{ten2_belica_temp_masc} + $F{ten2_cietec_qsg_fem} + $F{ten2_cietec_qsg_masc} + $F{ten2_cietec_temp_fem} + $F{ten2_cietec_temp_masc} + $F{ten2_compl_temp_fem} + $F{ten2_compl_temp_masc} + $F{ten2_praca_qao_masc} + $F{ten2_qcm_qsg_masc} + $F{ten2_qcm_temp_masc} + $F{ten2_saude_qsg_fem} + $F{ten2_saude_qsg_masc} + $F{ten2_saude_temp_fem} + $F{ten2_saude_temp_masc}]]></variableExpression>
+	</variable>
+	<group name="Relatorio">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+		<groupHeader>
+			<band height="215">
+				<subreport>
+					<reportElement x="0" y="0" width="363" height="76"/>
+					<subreportParameter name="id_om">
+						<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_periodo">
+						<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioGeralVertical_GEN_MAJ.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement x="0" y="77" width="363" height="1"/>
+				</break>
+				<subreport>
+					<reportElement x="0" y="155" width="363" height="60"/>
+					<subreportParameter name="id_om">
+						<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_periodo">
+						<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioGeralVertical_PRA.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement x="0" y="79" width="363" height="72"/>
+					<subreportParameter name="id_om">
+						<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_periodo">
+						<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioGeralVertical_1TEN_ASP.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement x="0" y="152" width="363" height="1"/>
+				</break>
+			</band>
+		</groupHeader>
+	</group>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="97" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="67" width="187" height="30" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Posto / Graduação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="187" y="67" width="88" height="30" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Efetivo Previsto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="275" y="82" width="44" height="15" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[M]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="319" y="82" width="44" height="15" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[F]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="275" y="67" width="88" height="15" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Efetivo Existente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="30" width="363" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Relatório Geral "+$F{sigla}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="187" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EFETIVO TOTAL]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="0" width="88" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL_EFETIVO_PREV}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="0" width="88" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL_EFETIVO_EXIST}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

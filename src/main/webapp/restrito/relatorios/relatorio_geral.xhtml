@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+
+		<h:form id="form">
+
+			<p:growl id="mensagem" showDetail="true" sticky="true" />
+			<p:panel style="background-color:#8B8989 !important; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight:bolder; color:white  !important; " value="#{msgs.msg_relatorio_geral}" />
+			</p:panel>
+			<p:panel style="text-align: center; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight: bold;" value="#{msgs.titulo_relatorio_geral}" />
+			</p:panel>
+
+			<p:panel style="margin-bottom: 10px;">
+				<p:panelGrid columns="2" style="width: 100%;">
+					
+					<p:outputLabel id="label_subordinacao" value="#{msgs.subordinacao}: *" />
+					<p:selectOneMenu value="#{relatorioGeral.superiorSelected}" converter="organizacaoConverter" required="true"
+						requiredMessage="#{msgs.requerido_organizacao_militar}" disabled="#{relatorioGeral.desabilitarComboDepartamentoDiretorias}" styleClass="classeSelectMenu">
+						<p:ajax listener="#{relatorioGeral.listarSubordinados}" update="organizacoes,periodo,relatorio" />
+						<f:selectItem itemLabel="#{msgs.selecione}" />
+						<f:selectItems value="#{relatorioGeral.superiores}" var="superior" itemLabel="#{superior.sigla}" itemValue="#{superior}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="#{msgs.organizacao_militar}:" for="organizacoes" />
+					<p:selectOneMenu id="organizacoes" value="#{relatorioGeral.organizacaoMilitar}" styleClass="classeSelectMenu"
+						converter="organizacaoConverter" required="true" disabled="#{relatorioGeral.desabilitarComboOrganizacoesSubordinadas}"
+						requiredMessage="#{msgs.requerido_organizacao_militar}">
+						<p:ajax listener="#{relatorioGeral.carregarRelatoriosDisponiveis}" update="relatorio" />
+						<f:selectItem itemLabel="#{msgs.selecione}" itemDisabled="#{relatorioGeral.desabilitarComboOrganizacoesSubordinadas}"/>
+						 <p:ajax listener="#{relatorioGeral.carregarPeriodosDoAno}" update="periodo" />
+						<f:selectItems value="#{relatorioGeral.organizacoesMilitares}" var="organizacao" itemLabel="#{organizacao.sigla}"
+							itemValue="#{organizacao}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="#{msgs.periodo}:" for="periodo" />
+					<p:selectOneMenu id="periodo" value="#{relatorioGeral.periodo}" styleClass="classeSelectMenu"
+						converter="periodoConverter" required="true" requiredMessage="#{msgs.requerido_periodo}">
+						<f:selectItem itemLabel="#{msgs.selecione}" />
+						<f:selectItems value="#{relatorioGeral.periodos}" var="periodo" itemLabel="#{periodo}"
+							itemValue="#{periodo}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="#{msgs.relatorio}" for="relatorio" />					
+					<p:selectOneMenu id="relatorio" value="#{relatorioGeral.relatorioEscolhido}" styleClass="classeSelectMenu"
+					converter="telaConverter" required="true" requiredMessage="#{msgs.requerido_relatorio}">
+						<f:selectItem itemLabel="#{msgs.selecione}" />
+						<f:selectItems value="#{relatorioGeral.relatoriosDisponiveis}"  var="relatorio" itemLabel="#{relatorio.tituloRelatorio}" itemValue="#{relatorio}"/>
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="console" value="Tipo de Arquivo:" rendered="#{usuarioCorrente.administrador}" />
+					<p:selectOneRadio id="console" value="#{relatorioGeral.tipoSelected}" rendered="#{usuarioCorrente.administrador}">
+						<f:selectItem itemLabel="PDF" itemValue="1" />
+						<f:selectItem itemLabel="Excel" itemValue="2" />
+					</p:selectOneRadio>
+
+				</p:panelGrid>
+			</p:panel>
+			
+			<p:panel style="height:40px !important;">
+				<p:commandButton value="Visualizar" ajax="false" icon="ui-icon-print" style="float:right;">
+					<p:fileDownload value="#{relatorioGeral.arquivoRetorno}" />
+				</p:commandButton>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

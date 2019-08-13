@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ins_mon_exercito" language="groovy" pageWidth="340" pageHeight="15" whenNoDataType="AllSectionsNoDetail" columnWidth="340" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+	omv.sigla,
+	aomv.feminino,
+	aomv.masculino,
+	(aomv.feminino+aomv.masculino) AS total
+
+FROM organizacaomilitar omv
+INNER JOIN organizacaomilitar om ON om.id = $P{id_om}
+INNER JOIN superiores_subordinados ss ON ss.superior_id = om.id and omv.id = ss.superior_subordinado_id
+left JOIN alunoomvinculada aomv ON aomv.organizacao_id= omv.id and periodo_id = $P{id_periodo}
+
+WHERE omv.tipo ='VINCULADA'
+order by omv.sigla]]>
+	</queryString>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="feminino" class="java.lang.Integer"/>
+	<field name="masculino" class="java.lang.Integer"/>
+	<field name="total" class="java.lang.Integer"/>
+	<detail>
+		<band height="15" splitType="Immediate">
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="132" height="15" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sigla}==null?'-':$F{sigla}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="132" y="0" width="72" height="15" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{masculino}==null?'-':$F{masculino}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="204" y="0" width="68" height="15" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{feminino}==null?'-':$F{feminino}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="272" y="0" width="68" height="15" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total}==null?'-':$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

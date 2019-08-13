@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_relatorio_minitares_nacoes_amigas" language="groovy" pageWidth="420" pageHeight="15" whenNoDataType="AllSectionsNoDetail" columnWidth="420" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.3579476910000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT DIRETORIA,
+     SIGLA,
+     SUPERIOR_ID AS SUPERIOR_ID,
+    COALESCE(SUM(ALUNO_FEMININO), 0) AS ALUNO_FEMININO ,
+    COALESCE(SUM(ALUNO_MASCULINO), 0) AS ALUNO_MASCULINO ,
+    COALESCE(SUM(OFICIAL_FEMININO), 0) AS OFICIAL_FEMININO ,
+    COALESCE(SUM(OFICIAL_MASCULINO), 0) AS OFICIAL_MASCULINO,
+    COALESCE(SUM(MONITOR_FEMININO), 0) AS MONITOR_FEMININO ,
+    COALESCE(SUM(MONITOR_MASCULINO), 0) AS MONITOR_MASCULINO
+
+  FROM (
+
+SELECT  'DETMIL' AS DIRETORIA,
+     OM.SIGLA,
+     SS.SUPERIOR_ID AS SUPERIOR_ID,
+COALESCE((MNA.FEMININO+MNA4.FEMININO), 0) AS ALUNO_FEMININO ,
+    COALESCE((MNA.MASCULINO+MNA4.MASCULINO), 0) AS ALUNO_MASCULINO ,
+    COALESCE(SUM(MNA2.FEMININO), 0) AS OFICIAL_FEMININO ,
+    COALESCE(SUM(MNA2.MASCULINO), 0) AS OFICIAL_MASCULINO,
+    COALESCE(SUM(MNA3.FEMININO), 0) AS MONITOR_FEMININO ,
+    COALESCE(SUM(MNA3.MASCULINO), 0) AS MONITOR_MASCULINO
+
+    FROM ORGANIZACAOMILITAR OM
+    LEFT JOIN SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = OM.ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA ON OM.ID = MNA.ORGANIZACAO_ID
+    AND MNA.TIPOMILITARNACOESAMIGAS in ('ALUNO_OF') AND  MNA.PERIODO_ID =$P{id_periodo}
+
+LEFT JOIN SUPERIORES_SUBORDINADOS SS4 ON SS4.SUPERIOR_SUBORDINADO_ID = OM.ID
+    AND SS4.SUPERIOR_SUBORDINADO_ID = SS.SUPERIOR_SUBORDINADO_ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA4 ON OM.ID = MNA4.ORGANIZACAO_ID
+    AND MNA4.ORGANIZACAO_ID = MNA.ORGANIZACAO_ID
+    AND MNA4.TIPOMILITARNACOESAMIGAS = 'ALUNO_PR' AND MNA4.PERIODO_ID =$P{id_periodo}
+
+    LEFT JOIN SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = OM.ID
+    AND SS2.SUPERIOR_SUBORDINADO_ID = SS.SUPERIOR_SUBORDINADO_ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA2 ON OM.ID = MNA2.ORGANIZACAO_ID
+    AND MNA2.ORGANIZACAO_ID = MNA.ORGANIZACAO_ID
+    AND MNA2.TIPOMILITARNACOESAMIGAS = 'OFICIAL' AND MNA2.PERIODO_ID =$P{id_periodo}
+
+    LEFT JOIN SUPERIORES_SUBORDINADOS SS3 ON SS3.SUPERIOR_SUBORDINADO_ID = OM.ID
+    AND SS3.SUPERIOR_SUBORDINADO_ID = SS.SUPERIOR_SUBORDINADO_ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA3 ON OM.ID = MNA3.ORGANIZACAO_ID
+    AND MNA3.ORGANIZACAO_ID = MNA.ORGANIZACAO_ID
+    AND MNA3.TIPOMILITARNACOESAMIGAS = 'PRACA' AND MNA3.PERIODO_ID =$P{id_periodo}
+
+    WHERE SS.SUPERIOR_ID = 4
+    AND om.id  IN(128,18,125,124,121,21,116,122,22,119,117,24,19,118,115,120,20,136,123,23)
+    GROUP BY OM.SIGLA,SS.SUPERIOR_ID,MNA.FEMININO, MNA4.FEMININO, MNA.MASCULINO, MNA4.MASCULINO
+
+
+union
+
+SELECT  'DESMIL' AS DIRETORIA,
+     OM.SIGLA,
+     SS.SUPERIOR_ID AS SUPERIOR_ID,
+COALESCE((MNA.FEMININO+MNA4.FEMININO), 0) AS ALUNO_FEMININO ,
+    COALESCE((MNA.MASCULINO+MNA4.MASCULINO), 0) AS ALUNO_MASCULINO ,
+    COALESCE(SUM(MNA2.FEMININO), 0) AS OFICIAL_FEMININO ,
+    COALESCE(SUM(MNA2.MASCULINO), 0) AS OFICIAL_MASCULINO,
+    COALESCE(SUM(MNA3.FEMININO), 0) AS MONITOR_FEMININO ,
+    COALESCE(SUM(MNA3.MASCULINO), 0) AS MONITOR_MASCULINO
+
+    FROM ORGANIZACAOMILITAR OM
+    LEFT JOIN SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = OM.ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA ON OM.ID = MNA.ORGANIZACAO_ID
+    AND MNA.TIPOMILITARNACOESAMIGAS  IN ('ALUNO_OF')  AND  MNA.PERIODO_ID =$P{id_periodo}
+
+LEFT JOIN SUPERIORES_SUBORDINADOS SS4 ON SS4.SUPERIOR_SUBORDINADO_ID = OM.ID
+    AND SS4.SUPERIOR_SUBORDINADO_ID = SS.SUPERIOR_SUBORDINADO_ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA4 ON OM.ID = MNA4.ORGANIZACAO_ID
+    AND MNA4.ORGANIZACAO_ID = MNA.ORGANIZACAO_ID
+    AND MNA4.TIPOMILITARNACOESAMIGAS = 'ALUNO_PR' AND MNA4.PERIODO_ID =$P{id_periodo}
+
+
+    LEFT JOIN SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = OM.ID
+    AND SS2.SUPERIOR_SUBORDINADO_ID = SS.SUPERIOR_SUBORDINADO_ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA2 ON OM.ID = MNA2.ORGANIZACAO_ID
+    AND MNA2.ORGANIZACAO_ID = MNA.ORGANIZACAO_ID
+    AND MNA2.TIPOMILITARNACOESAMIGAS = 'OFICIAL' AND MNA2.PERIODO_ID =$P{id_periodo}
+
+    LEFT JOIN SUPERIORES_SUBORDINADOS SS3 ON SS3.SUPERIOR_SUBORDINADO_ID = OM.ID
+    AND SS3.SUPERIOR_SUBORDINADO_ID = SS.SUPERIOR_SUBORDINADO_ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA3 ON OM.ID = MNA3.ORGANIZACAO_ID
+    AND MNA3.ORGANIZACAO_ID = MNA.ORGANIZACAO_ID
+    AND MNA3.TIPOMILITARNACOESAMIGAS = 'PRACA' AND MNA3.PERIODO_ID =$P{id_periodo}
+
+    WHERE SS.SUPERIOR_ID = 2
+    AND om.id  IN(7,9,8)
+    GROUP BY OM.SIGLA,SS.SUPERIOR_ID,MNA.FEMININO, MNA4.FEMININO, MNA.MASCULINO, MNA4.MASCULINO
+
+  UNION
+
+  SELECT  'DESMIL' AS DIRETORIA,
+     OM.SIGLA,
+     SS.SUPERIOR_ID AS SUPERIOR_ID,
+COALESCE((MNA.FEMININO+MNA4.FEMININO), 0) AS ALUNO_FEMININO ,
+    COALESCE((MNA.MASCULINO+MNA4.MASCULINO), 0) AS ALUNO_MASCULINO ,
+    COALESCE(SUM(MNA2.FEMININO), 0) AS OFICIAL_FEMININO ,
+    COALESCE(SUM(MNA2.MASCULINO), 0) AS OFICIAL_MASCULINO,
+    COALESCE(SUM(MNA3.FEMININO), 0) AS MONITOR_FEMININO ,
+    COALESCE(SUM(MNA3.MASCULINO), 0) AS MONITOR_MASCULINO
+
+    FROM ORGANIZACAOMILITAR OM
+    LEFT JOIN SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = OM.ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA ON OM.ID = MNA.ORGANIZACAO_ID
+    AND MNA.TIPOMILITARNACOESAMIGAS  IN ('ALUNO_OF')  AND  MNA.PERIODO_ID =$P{id_periodo}
+
+LEFT JOIN SUPERIORES_SUBORDINADOS SS4 ON SS4.SUPERIOR_SUBORDINADO_ID = OM.ID
+    AND SS4.SUPERIOR_SUBORDINADO_ID = SS.SUPERIOR_SUBORDINADO_ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA4 ON OM.ID = MNA4.ORGANIZACAO_ID
+    AND MNA4.ORGANIZACAO_ID = MNA.ORGANIZACAO_ID
+    AND MNA4.TIPOMILITARNACOESAMIGAS = 'ALUNO_PR' AND MNA4.PERIODO_ID =$P{id_periodo}
+
+    LEFT JOIN SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = OM.ID
+    AND SS2.SUPERIOR_SUBORDINADO_ID = SS.SUPERIOR_SUBORDINADO_ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA2 ON OM.ID = MNA2.ORGANIZACAO_ID
+    AND MNA2.ORGANIZACAO_ID = MNA.ORGANIZACAO_ID
+    AND MNA2.TIPOMILITARNACOESAMIGAS = 'OFICIAL' AND MNA2.PERIODO_ID =$P{id_periodo}
+
+    LEFT JOIN SUPERIORES_SUBORDINADOS SS3 ON SS3.SUPERIOR_SUBORDINADO_ID = OM.ID
+    AND SS3.SUPERIOR_SUBORDINADO_ID = SS.SUPERIOR_SUBORDINADO_ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA3 ON OM.ID = MNA3.ORGANIZACAO_ID
+    AND MNA3.ORGANIZACAO_ID = MNA.ORGANIZACAO_ID
+    AND MNA3.TIPOMILITARNACOESAMIGAS = 'PRACA' AND MNA3.PERIODO_ID =$P{id_periodo}
+
+    WHERE SS.SUPERIOR_ID = 2
+    AND om.id  IN(7,9,8)
+    GROUP BY OM.SIGLA , SS.SUPERIOR_ID,MNA.FEMININO, MNA4.FEMININO, MNA.MASCULINO, MNA4.MASCULINO
+
+
+UNION
+
+
+SELECT  'CCFEX' AS DIRETORIA,
+     OM.SIGLA,
+     SS.SUPERIOR_ID AS SUPERIOR_ID,
+    COALESCE((MNA.FEMININO+MNA4.FEMININO), 0) AS ALUNO_FEMININO ,
+    COALESCE((MNA.MASCULINO+MNA4.MASCULINO), 0) AS ALUNO_MASCULINO ,
+    COALESCE(SUM(MNA2.FEMININO), 0) AS OFICIAL_FEMININO ,
+    COALESCE(SUM(MNA2.MASCULINO), 0) AS OFICIAL_MASCULINO,
+    COALESCE(SUM(MNA3.FEMININO), 0) AS MONITOR_FEMININO ,
+    COALESCE(SUM(MNA3.MASCULINO), 0) AS MONITOR_MASCULINO
+
+    FROM ORGANIZACAOMILITAR OM
+    LEFT JOIN SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = OM.ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA ON OM.ID = MNA.ORGANIZACAO_ID
+    AND MNA.TIPOMILITARNACOESAMIGAS  IN ('ALUNO_OF')  AND  MNA.PERIODO_ID =$P{id_periodo}
+
+
+LEFT JOIN SUPERIORES_SUBORDINADOS SS4 ON SS4.SUPERIOR_SUBORDINADO_ID = OM.ID
+    AND SS4.SUPERIOR_SUBORDINADO_ID = SS.SUPERIOR_SUBORDINADO_ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA4 ON OM.ID = MNA4.ORGANIZACAO_ID
+    AND MNA4.ORGANIZACAO_ID = MNA.ORGANIZACAO_ID
+    AND MNA4.TIPOMILITARNACOESAMIGAS = 'ALUNO_PR' AND MNA4.PERIODO_ID =$P{id_periodo}
+
+
+    LEFT JOIN SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = OM.ID
+    AND SS2.SUPERIOR_SUBORDINADO_ID = SS.SUPERIOR_SUBORDINADO_ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA2 ON OM.ID = MNA2.ORGANIZACAO_ID
+    AND MNA2.ORGANIZACAO_ID = MNA.ORGANIZACAO_ID
+    AND MNA2.TIPOMILITARNACOESAMIGAS = 'OFICIAL' AND MNA2.PERIODO_ID =$P{id_periodo}
+
+    LEFT JOIN SUPERIORES_SUBORDINADOS SS3 ON SS3.SUPERIOR_SUBORDINADO_ID = OM.ID
+    AND SS3.SUPERIOR_SUBORDINADO_ID = SS.SUPERIOR_SUBORDINADO_ID
+    LEFT JOIN MILITARESNACOESAMIGAS MNA3 ON OM.ID = MNA3.ORGANIZACAO_ID
+    AND MNA3.ORGANIZACAO_ID = MNA.ORGANIZACAO_ID
+    AND MNA3.TIPOMILITARNACOESAMIGAS = 'PRACA' AND MNA3.PERIODO_ID =$P{id_periodo}
+
+    WHERE SS.SUPERIOR_ID = 6
+    GROUP BY OM.SIGLA,SS.SUPERIOR_ID,MNA.FEMININO, MNA4.FEMININO, MNA.MASCULINO, MNA4.MASCULINO
+
+
+
+) TABELAO
+
+WHERE TABELAO.SUPERIOR_ID = $P{id_om}
+
+
+GROUP BY SIGLA,SUPERIOR_ID, DIRETORIA
+
+
+
+------------------------------------------------------------------------]]>
+	</queryString>
+	<field name="ALUNO_MASCULINO" class="java.lang.Integer"/>
+	<field name="ALUNO_FEMININO" class="java.lang.Integer"/>
+	<field name="OFICIAL_MASCULINO" class="java.lang.Integer"/>
+	<field name="OFICIAL_FEMININO" class="java.lang.Integer"/>
+	<field name="MONITOR_MASCULINO" class="java.lang.Integer"/>
+	<field name="MONITOR_FEMININO" class="java.lang.Integer"/>
+	<field name="SIGLA" class="java.lang.String"/>
+	<detail>
+		<band height="15">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="84" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SIGLA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="84" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUNO_MASCULINO}==0?'-':$F{ALUNO_MASCULINO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="140" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUNO_FEMININO}==0?'-':$F{ALUNO_FEMININO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="196" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OFICIAL_MASCULINO}==0?'-':$F{OFICIAL_MASCULINO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="252" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OFICIAL_FEMININO}==0?'-':$F{OFICIAL_FEMININO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="308" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MONITOR_MASCULINO}==0?'-':$F{MONITOR_MASCULINO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="364" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MONITOR_FEMININO}==0?'-':$F{MONITOR_FEMININO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:define name="conteudo">
+
+	<h:form id="form">
+		<p:growl id="mensagem" showDetail="true" sticky="true" />
+
+			<p:panel
+				style="background-color:#8B8989 !important; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight:bolder; color:white  !important;" value="#{msgs.usuario_informacoes_cadastro_alunos_militares_omds}:" />
+			</p:panel>
+
+			<p:panel style="text-align: center;  margin-bottom: 10px;">
+				<p:outputLabel style="font-weight: bold;" value="#{msgs.cadastro_alunos_militares_omds}" />
+			</p:panel>
+
+			<p:panel style="margin-bottom: 10px;">
+				<p:panelGrid style="width: 100%;">
+					<p:row>
+						<p:column>
+							<p:outputLabel for="om" value="#{msgs.om}:" />
+						</p:column>
+						
+						<p:column colspan="3">
+							<p:selectOneMenu style="width: 36%" value="#{alunosOmds.subordinado}" id="om" converter="organizacaoConverter" required="true" requiredMessage="#{msgs.requerido_organizacao_militar}">
+								<f:selectItem itemLabel="#{msgs.selecione}" />
+								<p:ajax listener="#{alunosOmds.carregarAno}" update="ano" />
+								<f:selectItems value="#{alunosOmds.organizacoesMilitares}" var="organizacoes" itemLabel="#{organizacoes.sigla}" itemValue="#{organizacoes}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					
+					<p:row rendered="#{alunosOmds.habilitaAno}">
+						<p:column>
+							<p:outputLabel for="ano" value="#{msgs.ano}:" />
+						</p:column>
+						
+						<p:column colspan="3">
+							<p:selectOneMenu style="width: 36%" value="#{alunosOmds.anoSelecionado}" id="ano" required="#{alunosOmds.habilitaAno}" requiredMessage="#{msgs.requerido_ano}">
+								<f:selectItem itemLabel="#{msgs.selecione}" />
+								<p:ajax listener="#{alunosOmds.carregarRegistro}" update="OF_masculino, OF_feminino, PC_masculino, PC_feminino, botaoProsseguir" />
+								<f:selectItems value="#{alunosOmds.ano}" var="ano" itemLabel="#{ano.value}" itemValue="#{ano}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column colspan="4">
+							<p:outputLabel value="#{msgs.tipo_praca}" style="color: #0f4098; font-weight: bold;" />
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel for="OF_masculino" value="#{msgs.masculino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="OF_masculino" value="#{alunosOmds.alunosMilitarPraca.masculino}" minValue="0" maxValue="99999" required="true" requiredMessage="#{msgs.requerido_total_masculino_oficial}" />
+						</p:column>
+						<p:column>
+							<p:outputLabel for="OF_feminino" value="#{msgs.feminino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="OF_feminino" value="#{alunosOmds.alunosMilitarPraca.feminino}" minValue="0" maxValue="99999" required="true" requiredMessage="#{msgs.requerido_total_femnino_oficial}" />
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column colspan="4">
+							<p:outputLabel value="#{msgs.tipo_oficial}" style="color: #0f4098; font-weight: bold;" />
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel for="PC_masculino" value="#{msgs.masculino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="PC_masculino" value="#{alunosOmds.alunosMilitarOficial.masculino}" minValue="0" maxValue="99999" required="true" requiredMessage="#{msgs.requerido_total_masculino_praca}" />
+						</p:column>
+						<p:column>
+							<p:outputLabel for="PC_feminino" value="#{msgs.feminino}:" />
+						</p:column>					
+							<p:column>
+							<p:inputNumber id="PC_feminino" value="#{alunosOmds.alunosMilitarOficial.feminino}" minValue="0" maxValue="99999" required="true" requiredMessage="#{msgs.requerido_total_feminino_praca}" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+
+			<p:panel style="text-align: center; margin-bottom: 10px; height: 34px;">
+				
+				<p:commandButton id="botaoProsseguir" icon="ui-icon-arrowthick-1-e" title="#{msgs.prosseguir_tela}" disabled="#{alunosOmds.habilitaBotao}" 
+					action="#{telas.avancarTela}" rendered="#{telas.exibirBotaoProximo}" immediate="true" style="float: right; top: -3px;" />
+				<p:commandButton icon="ui-icon-arrowthick-1-w" title="#{msgs.voltar_tela}" action="#{telas.voltarTela}" rendered="#{telas.exibirBotaoAnterior}" 
+					immediate="true" style="float: right; top: -3px; right: 5px;" />
+				<p:commandButton id="salvar" icon="ui-icon-disk" title="#{msgs.gravar_efetivo_existente}" style="float: right; top: -3px; right: 5px;" 
+					update=":formListaExistente :form" action="#{alunosOmds.prepararDados}" />
+			</p:panel>
+		</h:form>
+
+		<h:form id="formListaExistente">
+			<p:dataTable id="listaExistente" editable="true" rows="10" var="omds" value="#{alunosOmds.listaAlunoOmds}" paginator="true" emptyMessage="Nenhum registro encontrado!"
+				rowsPerPageTemplate="10,25,50,100" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+			
+				<p:ajax event="rowEdit" listener="#{alunosOmds.editar(omds)}" update="form:mensagem" />
+	
+				<f:facet name="header">
+	            	<h:outputLabel value="#{msgs.efetivo_existente_cadastrado}" />
+	        	</f:facet>
+	        		
+	        	<p:column id="listaOm" headerText="#{msgs.om}">
+	        		<h:outputText value="#{omds.organizacaoMilitar}" />
+	        	</p:column>
+	        	
+	        	<p:column id="listaAno" headerText="#{msgs.ano}">
+	        		<h:outputText value="#{omds.ano.value}" />
+	        	</p:column>
+	        	
+	        	<p:column id="tipo" headerText="#{msgs.tipo}">
+	        		<h:outputText value="#{omds.tipoAlunosMilitaresOMDS.value}" />
+	        	</p:column>
+	        		
+	        	<p:column id="listaMasculino" headerText="#{msgs.masculino}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{omds.masculino}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{omds.masculino}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="listaFeminino" headerText="#{msgs.feminino}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{omds.feminino}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{omds.feminino}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+	
+				<p:column style="width:32px">
+	        	   <p:rowEditor editTitle="#{msgs.editar_efetivo_existente}" />
+				</p:column>
+	
+				<p:column style="width:39px">
+					<p:commandButton icon="ui-icon-trash" update=":formListaExistente, :form" action="#{alunosOmds.excluir(omds)}" title="#{msgs.excluir_efetivo_existente}" />
+				</p:column>
+			
+			</p:dataTable>
+		</h:form>		
+
+	</ui:define>
+</ui:composition>

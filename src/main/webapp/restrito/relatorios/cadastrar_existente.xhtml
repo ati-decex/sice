@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+
+		<h:form id="formExistente">
+			<p:growl id="mensagem" showDetail="true" sticky="true" />
+
+			<p:panel
+				style="background-color:#8B8989 !important; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight:bolder; color:white  !important; "
+					value="#{msgs.usuario_informacoes_cadastro_efetivo_existente}:" />
+			</p:panel>
+
+			<p:panel style="text-align: center;  margin-bottom: 10px;">
+				<p:outputLabel style="font-weight: bold;"
+					value="#{msgs.cadastro_efetivo_existente}" />
+			</p:panel>
+
+			<p:panel style="margin-bottom: 10px;">
+				<p:panelGrid columns="2" style="width: 100%;"
+					columnClasses="classe1,classe2">
+
+					<p:outputLabel value="#{msgs.periodo}:" />
+
+					<p:outputLabel value="#{periodoCtrl.periodo}" />
+
+					<p:outputLabel value="#{msgs.posto_graduacao}:" for="posto" />
+
+					<p:selectOneMenu id="posto" value="#{realizado.efetivo.linhaConfiguracao.postoGraduacao}" required="true" requiredMessage="#{msgs.requerido_posto_graduacao}"
+						style="width: 36%;">
+						<f:selectItem itemLabel="#{msgs.selecione}" itemValue="" />
+						<p:ajax listener="#{realizado.carregarLinhaMilitar}" update="linha, tipo, mp, masculino, feminino, especialidade" />
+						<f:selectItems value="#{realizado.postos}" var="posto" itemLabel="#{posto.value}" itemValue="#{posto}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="#{msgs.linha}:" for="linha" />
+
+					<p:selectOneMenu id="linha" value="#{realizado.efetivo.linhaConfiguracao.linha}" required="true" requiredMessage="#{msgs.requerido_linha}"
+						style="width: 36%;">
+						<f:selectItem itemLabel="#{msgs.selecione}" itemValue="" />
+						<p:ajax listener="#{realizado.carregarTipoMilitar}" update="tipo, mp, masculino, feminino, especialidade" />
+						<f:selectItems value="#{realizado.linhas}" var="linha" itemLabel="#{linha.value}" itemValue="#{linha}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="#{msgs.tipo}:" for="tipo" />
+
+					<p:selectOneMenu id="tipo" value="#{realizado.efetivo.linhaConfiguracao.tipo}" required="true" requiredMessage="#{msgs.requerido_tipo}"
+						style="width: 36%;">
+						<f:selectItem itemLabel="#{msgs.selecione}" itemValue="" />
+						<p:ajax listener="#{realizado.preparaCarregarEfetivoPrevisto}" update="mp, masculino, feminino, especialidade" />
+						<f:selectItems value="#{realizado.tipos}" var="tipo" itemLabel="#{tipo.value}" itemValue="#{tipo}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="#{msgs.especialidade}:" for="especialidade" />
+
+					<p:selectOneMenu id="especialidade" value="#{realizado.efetivo.especialidade}" converter="especialidadeConverter" disabled="#{realizado.desabilitarEspecialidade}" required="true"
+						requiredMessage="#{msgs.requerido_especialidade}" style="width: 36%;">
+						<f:selectItem itemLabel="#{msgs.selecione}" itemValue="" />
+						<f:selectItems value="#{realizado.especialidades}" var="especialidade" itemLabel="#{especialidade.nomeEspecialidade}" itemValue="#{especialidade}" />
+						<p:ajax listener="#{realizado.carregarEfetivoPrevisto}" update="mp, masculino, feminino" />
+					</p:selectOneMenu>
+
+					<p:outputLabel style="font-size: 10px; font-weight:bold; color:#f00; "
+						value="#{msgs.qcpAprovadoEm}: #{realizado.labelQCP}" />
+					<p:outputLabel />
+
+					<p:outputLabel id="mp" style="font-weight:bold; font-size: 10px; color:#f00;"
+						value="#{msgs.efetivo_previsto}: #{realizado.efetivoPrevisto.quantidade}" />
+					<p:outputLabel />
+
+					<p:outputLabel value="#{msgs.masculino}:" for="masculino" />
+
+					<p:inputNumber id="masculino" value="#{realizado.efetivo.masculino}" style="width: 98%; margin-right:15px;" required="true" requiredMessage="#{msgs.requerido_masculino}" 
+						minValue="0" maxValue="99999" />
+
+					<p:outputLabel value="#{msgs.feminino}:" for="feminino" />
+
+					<p:inputNumber id="feminino" value="#{realizado.efetivo.feminino}" style="width: 98%; margin-right:15px;" required="true" requiredMessage="#{msgs.requerido_feminino}" minValue="0"
+						maxValue="99999" />
+
+					<p:outputLabel />
+
+					<p:outputLabel value="#{msgs.preenchimento_obrigatorio}" />
+
+				</p:panelGrid>
+			</p:panel>
+
+			<p:panel
+				style="text-align: center; margin-bottom: 10px; height: 34px;">
+				<p:commandButton id="proximaTela" icon="ui-icon-arrowthick-1-e" title="#{msgs.prosseguir_tela}" action="#{telas.avancarTela}" rendered="#{telas.exibirBotaoProximo}"
+					disabled="#{realizado.habilitaBotao}" immediate="true" style="float: right; top: -3px;" />
+				<p:commandButton id="salvar" icon="ui-icon-disk" title="#{msgs.gravar_efetivo_existente}" 	style="float: right; top: -3px; right: 5px;" update=":formListaExistente, :formExistente"
+					action="#{realizado.salvar(realizado.efetivo)}" />
+			</p:panel>
+		</h:form>
+
+		<h:form id="formListaExistente" prependId="false">
+			<p:dataTable id="listaEfetivoExistente" editable="true" rows="1000" var="listaExistente" value="#{realizado.listaEfetivoRealizado}" paginator="false" 
+				mptyMessage="Nenhum registro encontrado!" rowsPerPageTemplate="10,25,50,100" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+				 {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+
+				<p:ajax event="rowEdit" listener="#{realizado.editar(listaExistente)}" update="formExistente:mensagem" />
+
+				<f:facet name="header">
+					<h:outputLabel value="#{msgs.efetivo_existente_cadastrado}" />
+				</f:facet>
+
+				<p:column id="listaPostoGraduacao" headerText="#{msgs.posto_graduacao}">
+					<h:outputText
+						value="#{listaExistente.linhaConfiguracao.postoGraduacao.value}" />
+				</p:column>
+
+				<p:column id="listaLinha" headerText="#{msgs.linha}">
+					<h:outputText value="#{listaExistente.linhaConfiguracao.linha.value}" />
+				</p:column> prependId="false"
+
+				<p:column id="listaTipo" headerText="#{msgs.tipo}">
+					<h:outputText
+						value="#{listaExistente.linhaConfiguracao.tipo.value}" />
+				</p:column>
+				
+				<p:column id="especialidade" headerText="#{msgs.especialidade}">
+					<h:outputText value="#{listaExistente.especialidade.nomeEspecialidade}" rendered="#{not empty listaExistente.especialidade.id}" />
+					<h:outputText value="- - -" rendered="#{empty listaExistente.especialidade.id}" />
+				</p:column>
+
+				<p:column id="listaMasculino" headerText="#{msgs.masculino}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{listaExistente.masculino}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputNumber minValue="0" maxValue="99999"
+								value="#{listaExistente.masculino}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column id="listaFeminino" headerText="#{msgs.feminino}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{listaExistente.feminino}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputNumber minValue="0" maxValue="99999"
+								value="#{listaExistente.feminino}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:32px">
+					<p:rowEditor editTitle="#{msgs.editar_efetivo_existente}" />
+				</p:column>
+
+				<p:column style="width:39px">
+					<p:commandButton icon="ui-icon-trash" update=":formListaExistente, :formExistente" action="#{realizado.excluir(listaExistente)}" title="#{msgs.excluir_efetivo_existente}" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+		<h:form id="formPergunta" onsubmit="return false;">
+			<p:dialog id="dPergunta" header="#{msgs.perguntaEfetivoExistente}" visible="#{realizado.validarClonagem == true}" widgetVar="dlgPergunta" resizable="false" appendToBody="true"
+				modal="true" closable="false">
+
+				<p:growl id="growlPergunta" />
+
+				<h:panelGrid columns="2">
+					<p:commandButton icon="ui-icon-check" value="Sim" onclick="PF('dlgPergunta').hide();" update=":formListaExistente, :listaEfetivoExistente, :formExistente:proximaTela" action="#{realizado.clonar(true)}" />
+					<p:commandButton icon="ui-icon-close" value="Não" onclick="PF('dlgPergunta').hide();" update=":formListaExistente, :listaEfetivoExistente, :formExistente:proximaTela" action="#{realizado.clonar(false)}" />
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

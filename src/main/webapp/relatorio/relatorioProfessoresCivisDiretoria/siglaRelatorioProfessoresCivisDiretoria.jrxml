@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="siglaRelatorioProfessoresCivisDiretoria" language="groovy" pageWidth="67" pageHeight="600" columnWidth="67" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT SUPERIOR_ID, SIGLA FROM (
+SELECT SUPERIOR_ID,
+(CASE SUPERIOR_ID WHEN 2 THEN
+
+			CASE SIGLA WHEN 'EsFCEx/CMS' THEN
+			    'EsFCEx'
+			ELSE
+				case SIGLA WHEN 'CPOR-BH/CMBH' THEN
+				       'CPOR/BH'
+				ELSE
+					  SIGLA
+			   end
+			 END
+
+		  ELSE
+		   CASE SUPERIOR_ID WHEN 3 THEN
+			  CASE SIGLA WHEN 'EsFCEx/CMS' THEN 'CMS'
+					 ELSE
+					 case SIGLA WHEN 'CPOR-BH/CMBH' THEN 'CMBH'
+						  ELSE
+						  SIGLA
+					 END
+			  END
+		  else sigla end
+
+
+	   END
+	   ) as SIGLA
+FROM (
+
+SELECT SS.SUPERIOR_ID, OM.SIGLA
+FROM SUPERIORES_SUBORDINADOS SS
+LEFT JOIN ORGANIZACAOMILITAR OM ON OM.ID = SS.SUPERIOR_SUBORDINADO_ID
+
+  WHERE SS.SUPERIOR_ID = 4
+  AND SS.SUPERIOR_SUBORDINADO_ID IN (26,23,24)
+
+UNION
+
+
+SELECT SS.SUPERIOR_ID, OM.SIGLA
+FROM SUPERIORES_SUBORDINADOS SS
+LEFT JOIN ORGANIZACAOMILITAR OM ON OM.ID = SS.SUPERIOR_SUBORDINADO_ID
+  WHERE SS.SUPERIOR_ID = 3
+  AND SS.SUPERIOR_SUBORDINADO_ID IN (27,28,12,29,30,31,32,33,34,35,36,17,37)
+
+UNION
+
+SELECT  SS.SUPERIOR_ID, OM.SIGLA
+FROM SUPERIORES_SUBORDINADOS SS
+LEFT JOIN ORGANIZACAOMILITAR OM ON OM.ID = SS.SUPERIOR_SUBORDINADO_ID
+  WHERE SS.SUPERIOR_ID = 2
+  AND SS.SUPERIOR_SUBORDINADO_ID IN (9,7,12,10,17)
+
+UNION
+
+  SELECT SS.SUPERIOR_ID, OM.SIGLA
+FROM SUPERIORES_SUBORDINADOS SS
+LEFT JOIN ORGANIZACAOMILITAR OM ON OM.ID = SS.SUPERIOR_SUBORDINADO_ID
+  WHERE SS.SUPERIOR_ID = 6
+  AND SS.SUPERIOR_SUBORDINADO_ID IN (44,46)
+
+
+UNION
+
+  SELECT SS.SUPERIOR_ID, OM.SIGLA
+FROM SUPERIORES_SUBORDINADOS SS
+LEFT JOIN ORGANIZACAOMILITAR OM ON OM.ID = SS.SUPERIOR_SUBORDINADO_ID
+  WHERE SS.SUPERIOR_ID = 5
+  AND SS.SUPERIOR_SUBORDINADO_ID IN (42,40)
+
+   )TABELAO
+
+   WHERE TABELAO.SUPERIOR_ID = $P{id_om}
+) AS TABELA ORDER BY SIGLA]]>
+	</queryString>
+	<field name="superior_id" class="java.lang.Long"/>
+	<field name="sigla" class="java.lang.String"/>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="67" height="30" isPrintWhenDetailOverflows="true" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sigla}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

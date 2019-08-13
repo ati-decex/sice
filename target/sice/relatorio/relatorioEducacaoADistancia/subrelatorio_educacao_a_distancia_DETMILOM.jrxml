@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subrelatorio_educacao_a_distancia" language="groovy" pageWidth="420" pageHeight="15" whenNoDataType="AllSectionsNoDetail" columnWidth="420" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+
+DISTINCT
+om.sigla,
+COALESCE(alunoof,0) AS alunoof,
+COALESCE( alunopr,0)  as alunopr,
+COALESCE(alunocm,0) as alunocm,
+(COALESCE(alunoof,0) + COALESCE( alunopr,0) + COALESCE(alunocm,0)) as total
+
+FROM combotela ct
+INNER JOIN organizacaomilitar om on om.id = ct.organizacao_vinculada_para_tela_id
+LEFT JOIN ensinoadistancia ead on ead.organizacao_id = om.id  AND ead.periodo_id = $P{id_periodo}
+WHERE ct.organizacao_usuario_id = 146 and tela_id = 2
+ORDER BY om.sigla]]>
+	</queryString>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="alunoof" class="java.lang.Integer"/>
+	<field name="alunopr" class="java.lang.Integer"/>
+	<field name="alunocm" class="java.lang.Integer"/>
+	<field name="total" class="java.lang.Integer"/>
+	<variable name="alunoof_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{alunoof}]]></variableExpression>
+	</variable>
+	<variable name="alunopr_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{alunopr}]]></variableExpression>
+	</variable>
+	<variable name="alunocm_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{alunocm}]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="15">
+			<textField>
+				<reportElement mode="Opaque" x="336" y="0" width="84" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total}==null?"-":$F{total}==0?"-":$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="252" y="0" width="84" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{alunocm}==null?"-":$F{alunocm}==0?"-":$F{alunocm}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="168" y="0" width="84" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{alunopr}==null?"-":$F{alunopr}==0?"-":$F{alunopr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="84" y="0" width="84" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{alunoof}==null?"-":$F{alunoof}==0?"-":$F{alunoof}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="84" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sigla}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="84" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="84" y="0" width="84" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{alunoof_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="168" y="0" width="84" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{alunopr_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="252" y="0" width="84" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{alunocm_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="336" y="0" width="84" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{total_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+
+
+		<h:form id="form">
+
+
+			<p:growl id="mensagem" showDetail="false" sticky="true" />
+
+			<p:panel id="panel-principal" styleClass="panel-principal">
+
+
+
+
+
+				<p:panel id="dica-tela" styleClass="dica-tela">
+					<p:outputLabel styleClass="label-dica-tela" value="Gráficos e Informações" />
+				</p:panel>
+
+				<p:panelGrid styleClass="panel-principal-meio" columns="2">
+
+
+					<p:outputLabel id="label_subordinacao" value="#{msgs.subordinacao}: *" />
+					<p:selectOneMenu value="#{relatorioGeral.superiorSelected}" converter="organizacaoConverter" required="true" requiredMessage="#{msgs.requerido_organizacao_militar}" disabled="#{relatorioGeral.desabilitarComboDepartamentoDiretorias}"
+						styleClass="classeSelectMenu">
+						<p:ajax listener="#{relatorioGeral.listarSubordinados}" update="organizacoes" />
+						<f:selectItem itemLabel="#{msgs.selecione}" />
+						<f:selectItems value="#{relatorioGeral.superiores}" var="superior" itemLabel="#{superior.sigla}" itemValue="#{superior}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="#{msgs.organizacao_militar}:" for="organizacoes" />
+					<p:selectOneMenu id="organizacoes" value="#{vizAnualCtr.omEscolhida}" styleClass="classeSelectMenu" converter="organizacaoConverter">
+						<p:ajax listener="#{vizAnualCtr.carregarGraficos}" update="relatorio" />
+						<f:selectItem itemLabel="#{msgs.selecione}" />
+						<f:selectItems value="#{relatorioGeral.organizacoesMilitares}" var="organizacao" itemLabel="#{organizacao.sigla}" itemValue="#{organizacao}" />
+					</p:selectOneMenu>
+
+
+
+				</p:panelGrid>
+				<p:panelGrid id="relatorio" columns="2" style="width: 100%;">
+					<p:chart type="line" model="#{vizAnualCtr.graficoVO.grafico}" style="height:630px;" rendered="#{vizAnualCtr.graficoVO.alturaMaxima gt 0}" responsive="true" />
+					<p:outputLabel style="margin-top:15px;" value="Sem informações disponíveis." rendered="#{vizAnualCtr.graficoVO.alturaMaxima lt 10}" />
+				</p:panelGrid>
+
+
+
+				<p:panel style="text-align: left; margin-bottom: 10px; height: 34px;">
+					<p:outputLabel style="text-align: left;font-weight:bolder; !important; " value="" />
+
+				</p:panel>
+
+
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

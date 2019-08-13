@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
+				
+	<ui:define name="conteudo">		
+		
+		<h:form id="formIn">		
+				
+			<p:growl id="mensagem" showDetail="true" sticky="true"/>
+					
+			<p:panel  style="margin-bottom: 10px; background-color:#8B8989 !important; margin-bottom: 10px;" >
+				<p:outputLabel style="font-weight:bolder; color:white  !important; " value="#{msgs.selecao_telas_configuracao}"/>
+			</p:panel>
+
+			<p:panel style="text-align: center; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight: bold;" value="#{msgs.configurar_wizard}"/>
+			</p:panel>
+			
+			<p:panel style="margin-bottom: 10px;">
+			
+				<p:panelGrid id="telaConfiguracaoIn" columns="2" style="width: 100%;">
+				
+					<p:outputLabel id="label_subordinacao" value="#{msgs.subordinacao}: *" />				
+					<p:selectOneMenu value="#{configurarWizard.superiorSelected}" style="width:264px;" converter="organizacaoConverter" required="true" requiredMessage="#{msgs.requerido_organizacao_militar}">
+						<p:ajax listener="#{configurarWizard.listarSubordinados}" update="organizacoes todasTelas" />					
+						<f:selectItem/>								
+						<f:selectItems value="#{configurarWizard.superiores}" var="superior" itemLabel="#{superior.sigla}" itemValue="#{superior}"/>
+					</p:selectOneMenu>								
+								
+					<p:outputLabel id="label_assessoria" value="#{msgs.organizacao_militar}: *" />				
+					<p:selectOneMenu id="organizacoes" value="#{configurarWizard.organizacaoMilitar}" style="width:264px;" converter="organizacaoConverter" required="true" requiredMessage="#{msgs.requerido_organizacao_militar}">
+						<p:ajax listener="#{configurarWizard.recuperarTelasDaOMLogada}" update="todasTelas" />					
+						<f:selectItem/>								
+						<f:selectItems value="#{configurarWizard.organizacoesMilitares}" var="organizacaoMilitar" itemLabel="#{organizacaoMilitar.sigla}" itemValue="#{organizacaoMilitar}"/>
+					</p:selectOneMenu>
+																		
+				</p:panelGrid>
+				
+			</p:panel>
+
+			<p:panel>
+
+				<p:selectManyMenu id="todasTelas" value="#{configurarWizard.telasSelecionadas}" style="width:100%"
+				                  var="t" filter="true" filterMatchMode="contains" showCheckbox="true" converter="telaConverter" 
+				                  required="false" requiredMessage="#{msgs.requerido_telas}">
+				    <f:selectItems value="#{configurarWizard.telas}" var="theme" itemLabel="#{theme.titulo}" itemValue="#{theme}" />										
+				    <p:column>
+				        <h:outputText value="#{t.titulo}" />
+				    </p:column>
+				</p:selectManyMenu>						
+
+				<p:commandButton actionListener="#{configurarWizard.salvar}" icon="ui-icon-disk" style="margin-top:10px; text-algin:right" title="#{msgs.salvar}" update="mensagem"/>
+
+			</p:panel>
+
+		</h:form>
+				
+	</ui:define>	
+</ui:composition>

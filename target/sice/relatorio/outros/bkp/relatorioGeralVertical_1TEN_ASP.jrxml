@@ -1,0 +1,2495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sice" language="groovy" pageWidth="363" pageHeight="852" orientation="Landscape" columnWidth="363" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" isIgnorePagination="true">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT DISTINCT rg.*,
+  om.sigla,
+  rgp.aluno_masc aluno_masc_p,
+  rgp.asp_belica_qsg_masc asp_belica_qsg_masc_p,
+  rgp.asp_belica_temp_masc asp_belica_temp_masc_p,
+  rgp.asp_cietec_temp_masc asp_cietec_temp_masc_p,
+  rgp.asp_qcm_temp_masc asp_qcm_temp_masc_p,
+  rgp.asp_saude_temp_masc asp_saude_temp_masc_p,
+  rgp.cap_belica_qsg_masc cap_belica_qsg_masc_p,
+  rgp.cap_cietec_qsg_masc cap_cietec_qsg_masc_p,
+  rgp.cap_compl_qco_masc cap_compl_qco_masc_p,
+  rgp.cap_praca_qao_masc cap_praca_qao_masc_p,
+  rgp.cap_qcm_qsg_masc cap_qcm_qsg_masc_p,
+  rgp.cap_saude_qsg_masc cap_saude_qsg_masc_p,
+  rgp.cb_ep cb_ep_p,
+  rgp.cb_et cb_et_p,
+  rgp.cb_ev cb_ev_p,
+  rgp.cel_belica_qsg_masc cel_belica_qsg_masc_p,
+  rgp.cel_belica_quema_masc cel_belica_quema_masc_p,
+  rgp.cel_cietec_qsg_masc cel_cietec_qsg_masc_p,
+  rgp.cel_cietec_quema_masc cel_cietec_quema_masc_p,
+  rgp.cel_compl_qco_masc cel_compl_qco_masc_p,
+  rgp.cel_qcm_qsg_masc cel_qcm_qsg_masc_p,
+  rgp.cel_saude_qsg_masc cel_saude_qsg_masc_p,
+  rgp.cel_saude_quema_masc cel_saude_quema_masc_p,
+  rgp.genbri_combatente genbri_combatente_p,
+  rgp.gendiv_combatente gendiv_combatente_p,
+  rgp.genexe_combatente genexe_combatente_p,
+  rgp.maj_belica_qsg_masc maj_belica_qsg_masc_p,
+  rgp.maj_belica_quema_masc maj_belica_quema_masc_p,
+  rgp.maj_cietec_qsg_masc maj_cietec_qsg_masc_p,
+  rgp.maj_cietec_quema_masc maj_cietec_quema_masc_p,
+  rgp.maj_compl_qco_masc maj_compl_qco_masc_p,
+  rgp.maj_qcm_qsg_masc maj_qcm_qsg_masc_p,
+  rgp.maj_saude_qsg_masc maj_saude_qsg_masc_p,
+  rgp.maj_saude_quema_masc maj_saude_quema_masc_p,
+  rgp.profciv profciv_p,
+  rgp.pttc_of pttc_of_p,
+  rgp.pttc_pr pttc_pr_p,
+  rgp.sd_ep sd_ep_p,
+  rgp.sd_ev sd_ev_p,
+  rgp.seq_registro seq_registro_p,
+  rgp.servciv servciv_p,
+  rgp.sgt1_masc sgt1_masc_p,
+  rgp.sgt2_carr_masc sgt2_carr_masc_p,
+  rgp.sgt2_qe_masc sgt2_qe_masc_p,
+  rgp.sgt3_carr_masc sgt3_carr_masc_p,
+  rgp.sgt3_qe_masc sgt3_qe_masc_p,
+  rgp.sgt3_temp_masc sgt3_temp_masc_p,
+  rgp.st_masc st_masc_p,
+  rgp.tcel_belica_qsg_masc tcel_belica_qsg_masc_p,
+  rgp.tcel_belica_quema_masc tcel_belica_quema_masc_p,
+  rgp.tcel_cietec_qsg_masc tcel_cietec_qsg_masc_p,
+  rgp.tcel_cietec_quema_masc tcel_cietec_quema_masc_p,
+  rgp.tcel_compl_qco_masc tcel_compl_qco_masc_p,
+  rgp.tcel_qcm_qsg_masc tcel_qcm_qsg_masc_p,
+  rgp.tcel_saude_qsg_masc tcel_saude_qsg_masc_p,
+  rgp.tcel_saude_quema_masc tcel_saude_quema_masc_p,
+  rgp.ten1_belica_qsg_masc ten1_belica_qsg_masc_p,
+  rgp.ten1_belica_temp_masc ten1_belica_temp_masc_p,
+  rgp.ten1_cietec_qsg_masc ten1_cietec_qsg_masc_p,
+  rgp.ten1_cietec_temp_masc ten1_cietec_temp_masc_p,
+  rgp.ten1_compl_qco_masc ten1_compl_qco_masc_p,
+  rgp.ten1_compl_temp_masc ten1_compl_temp_masc_p,
+  rgp.ten1_praca_qao_masc ten1_praca_qao_masc_p,
+  rgp.ten1_qcm_qsg_masc ten1_qcm_qsg_masc_p,
+  rgp.ten1_qcm_temp_masc ten1_qcm_temp_masc_p,
+  rgp.ten1_saude_qsg_masc ten1_saude_qsg_masc_p,
+  rgp.ten1_saude_temp_masc ten1_saude_temp_masc_p,
+  rgp.ten2_belica_qsg_masc ten2_belica_qsg_masc_p,
+  rgp.ten2_belica_temp_masc ten2_belica_temp_masc_p,
+  rgp.ten2_cietec_qsg_masc ten2_cietec_qsg_masc_p,
+  rgp.ten2_cietec_temp_masc ten2_cietec_temp_masc_p,
+  rgp.ten2_compl_temp_masc ten2_compl_temp_masc_p,
+  rgp.ten2_praca_qao_masc ten2_praca_qao_masc_p,
+  rgp.ten2_qcm_qsg_masc ten2_qcm_qsg_masc_p,
+  rgp.ten2_qcm_temp_masc ten2_qcm_temp_masc_p,
+  rgp.ten2_saude_qsg_masc ten2_saude_qsg_masc_p,
+  rgp.ten2_saude_temp_masc ten2_saude_temp_masc_p,
+  rgp.t1 t1_p,
+  rgp.t2 t2_p,
+  rgp.tm tm_p,
+  rgp.sd_nq sd_nq_p
+FROM relatoriogeral rg
+INNER JOIN organizacaomilitar om
+ON om.id = rg.organizacao_id
+INNER JOIN relatoriogeral rgp
+ON rgp.isprevisto = true
+WHERE rg.organizacao_id = $P{id_om}
+AND rg.periodo_id = $P{id_periodo}
+AND rg.isprevisto = false;]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="aluno_fem" class="java.lang.Integer"/>
+	<field name="aluno_masc" class="java.lang.Integer"/>
+	<field name="asp_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="asp_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="asp_belica_temp_fem" class="java.lang.Integer"/>
+	<field name="asp_belica_temp_masc" class="java.lang.Integer"/>
+	<field name="asp_cietec_temp_fem" class="java.lang.Integer"/>
+	<field name="asp_cietec_temp_masc" class="java.lang.Integer"/>
+	<field name="asp_qcm_temp_masc" class="java.lang.Integer"/>
+	<field name="asp_saude_temp_fem" class="java.lang.Integer"/>
+	<field name="asp_saude_temp_masc" class="java.lang.Integer"/>
+	<field name="cap_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="cap_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="cap_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="cap_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="cap_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="cap_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="cap_praca_qao_fem" class="java.lang.Integer"/>
+	<field name="cap_praca_qao_masc" class="java.lang.Integer"/>
+	<field name="cap_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="cap_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="cap_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="cap_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="cb_ep" class="java.lang.Integer"/>
+	<field name="cb_et" class="java.lang.Integer"/>
+	<field name="cb_ev" class="java.lang.Integer"/>
+	<field name="cel_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="cel_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="cel_belica_quema_fem" class="java.lang.Integer"/>
+	<field name="cel_belica_quema_masc" class="java.lang.Integer"/>
+	<field name="cel_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="cel_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="cel_cietec_quema_fem" class="java.lang.Integer"/>
+	<field name="cel_cietec_quema_masc" class="java.lang.Integer"/>
+	<field name="cel_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="cel_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="cel_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="cel_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="cel_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="cel_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="cel_saude_quema_fem" class="java.lang.Integer"/>
+	<field name="cel_saude_quema_masc" class="java.lang.Integer"/>
+	<field name="genbri_combatente" class="java.lang.Integer"/>
+	<field name="gendiv_combatente" class="java.lang.Integer"/>
+	<field name="genexe_combatente" class="java.lang.Integer"/>
+	<field name="isprevisto" class="java.lang.Boolean"/>
+	<field name="maj_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="maj_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="maj_belica_quema_fem" class="java.lang.Integer"/>
+	<field name="maj_belica_quema_masc" class="java.lang.Integer"/>
+	<field name="maj_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="maj_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="maj_cietec_quema_fem" class="java.lang.Integer"/>
+	<field name="maj_cietec_quema_masc" class="java.lang.Integer"/>
+	<field name="maj_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="maj_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="maj_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="maj_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="maj_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="maj_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="maj_saude_quema_fem" class="java.lang.Integer"/>
+	<field name="maj_saude_quema_masc" class="java.lang.Integer"/>
+	<field name="omenquadrante" class="java.lang.Object"/>
+	<field name="profciv" class="java.lang.Integer"/>
+	<field name="pttc_of" class="java.lang.Integer"/>
+	<field name="pttc_pr" class="java.lang.Integer"/>
+	<field name="sd_ep" class="java.lang.Integer"/>
+	<field name="sd_ev" class="java.lang.Integer"/>
+	<field name="servciv" class="java.lang.Integer"/>
+	<field name="sgt1_fem" class="java.lang.Integer"/>
+	<field name="sgt1_masc" class="java.lang.Integer"/>
+	<field name="sgt2_carr_fem" class="java.lang.Integer"/>
+	<field name="sgt2_carr_masc" class="java.lang.Integer"/>
+	<field name="sgt2_qe_masc" class="java.lang.Integer"/>
+	<field name="sgt3_carr_fem" class="java.lang.Integer"/>
+	<field name="sgt3_carr_masc" class="java.lang.Integer"/>
+	<field name="sgt3_qe_masc" class="java.lang.Integer"/>
+	<field name="sgt3_temp_fem" class="java.lang.Integer"/>
+	<field name="sgt3_temp_masc" class="java.lang.Integer"/>
+	<field name="st_fem" class="java.lang.Integer"/>
+	<field name="st_masc" class="java.lang.Integer"/>
+	<field name="tcel_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="tcel_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="tcel_belica_quema_fem" class="java.lang.Integer"/>
+	<field name="tcel_belica_quema_masc" class="java.lang.Integer"/>
+	<field name="tcel_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="tcel_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="tcel_cietec_quema_fem" class="java.lang.Integer"/>
+	<field name="tcel_cietec_quema_masc" class="java.lang.Integer"/>
+	<field name="tcel_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="tcel_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="tcel_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="tcel_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="tcel_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="tcel_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="tcel_saude_quema_fem" class="java.lang.Integer"/>
+	<field name="tcel_saude_quema_masc" class="java.lang.Integer"/>
+	<field name="ten1_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten1_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten1_belica_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_belica_temp_masc" class="java.lang.Integer"/>
+	<field name="ten1_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten1_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten1_cietec_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_cietec_temp_masc" class="java.lang.Integer"/>
+	<field name="ten1_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="ten1_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="ten1_compl_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_compl_temp_masc" class="java.lang.Integer"/>
+	<field name="ten1_praca_qao_fem" class="java.lang.Integer"/>
+	<field name="ten1_praca_qao_masc" class="java.lang.Integer"/>
+	<field name="ten1_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten1_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten1_qcm_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_qcm_temp_masc" class="java.lang.Integer"/>
+	<field name="ten1_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten1_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten1_saude_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_saude_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten2_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten2_belica_temp_fem" class="java.lang.Integer"/>
+	<field name="ten2_belica_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten2_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten2_cietec_temp_fem" class="java.lang.Integer"/>
+	<field name="ten2_cietec_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_compl_temp_fem" class="java.lang.Integer"/>
+	<field name="ten2_compl_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_praca_qao_masc" class="java.lang.Integer"/>
+	<field name="ten2_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten2_qcm_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten2_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten2_saude_temp_fem" class="java.lang.Integer"/>
+	<field name="ten2_saude_temp_masc" class="java.lang.Integer"/>
+	<field name="organizacao_id" class="java.lang.Long"/>
+	<field name="periodo_id" class="java.lang.Long"/>
+	<field name="seq_registro" class="java.lang.Integer"/>
+	<field name="t1" class="java.lang.Integer"/>
+	<field name="t2" class="java.lang.Integer"/>
+	<field name="tm" class="java.lang.Integer"/>
+	<field name="sd_nq" class="java.lang.Integer"/>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="aluno_masc_p" class="java.lang.Integer"/>
+	<field name="asp_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="asp_belica_temp_masc_p" class="java.lang.Integer"/>
+	<field name="asp_cietec_temp_masc_p" class="java.lang.Integer"/>
+	<field name="asp_qcm_temp_masc_p" class="java.lang.Integer"/>
+	<field name="asp_saude_temp_masc_p" class="java.lang.Integer"/>
+	<field name="cap_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cap_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cap_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="cap_praca_qao_masc_p" class="java.lang.Integer"/>
+	<field name="cap_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cap_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cb_ep_p" class="java.lang.Integer"/>
+	<field name="cb_et_p" class="java.lang.Integer"/>
+	<field name="cb_ev_p" class="java.lang.Integer"/>
+	<field name="cel_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cel_belica_quema_masc_p" class="java.lang.Integer"/>
+	<field name="cel_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cel_cietec_quema_masc_p" class="java.lang.Integer"/>
+	<field name="cel_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="cel_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cel_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cel_saude_quema_masc_p" class="java.lang.Integer"/>
+	<field name="genbri_combatente_p" class="java.lang.Integer"/>
+	<field name="gendiv_combatente_p" class="java.lang.Integer"/>
+	<field name="genexe_combatente_p" class="java.lang.Integer"/>
+	<field name="maj_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="maj_belica_quema_masc_p" class="java.lang.Integer"/>
+	<field name="maj_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="maj_cietec_quema_masc_p" class="java.lang.Integer"/>
+	<field name="maj_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="maj_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="maj_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="maj_saude_quema_masc_p" class="java.lang.Integer"/>
+	<field name="profciv_p" class="java.lang.Integer"/>
+	<field name="pttc_of_p" class="java.lang.Integer"/>
+	<field name="pttc_pr_p" class="java.lang.Integer"/>
+	<field name="sd_ep_p" class="java.lang.Integer"/>
+	<field name="sd_ev_p" class="java.lang.Integer"/>
+	<field name="seq_registro_p" class="java.lang.Integer"/>
+	<field name="servciv_p" class="java.lang.Integer"/>
+	<field name="sgt1_masc_p" class="java.lang.Integer"/>
+	<field name="sgt2_carr_masc_p" class="java.lang.Integer"/>
+	<field name="sgt2_qe_masc_p" class="java.lang.Integer"/>
+	<field name="sgt3_carr_masc_p" class="java.lang.Integer"/>
+	<field name="sgt3_qe_masc_p" class="java.lang.Integer"/>
+	<field name="sgt3_temp_masc_p" class="java.lang.Integer"/>
+	<field name="st_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_belica_quema_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_cietec_quema_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_saude_quema_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_belica_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_cietec_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_compl_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_praca_qao_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_qcm_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_saude_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_belica_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_cietec_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_compl_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_praca_qao_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_qcm_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_saude_temp_masc_p" class="java.lang.Integer"/>
+	<field name="t1_p" class="java.lang.Integer"/>
+	<field name="t2_p" class="java.lang.Integer"/>
+	<field name="tm_p" class="java.lang.Integer"/>
+	<field name="sd_nq_p" class="java.lang.Integer"/>
+	<variable name="TOTAL_CIVIS_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{profciv} + $F{servciv}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_CIVIS_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{profciv} + $F{servciv}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_ALUNOS_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{aluno_masc}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_ALUNOS_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{aluno_fem} + $F{aluno_masc}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_EFETIVO_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{aluno_masc} + $F{asp_belica_qsg_masc} + $F{asp_belica_temp_masc} + $F{asp_cietec_temp_masc} + $F{asp_qcm_temp_masc} + $F{asp_saude_temp_masc} + $F{cap_belica_qsg_masc} + $F{cap_cietec_qsg_masc} + $F{cap_compl_qco_masc} + $F{cap_praca_qao_masc} + $F{cap_qcm_qsg_masc} + $F{cap_saude_qsg_masc} + $F{cb_ep} + $F{cb_et} + $F{cb_ev} + $F{cel_belica_qsg_masc} + $F{cel_cietec_qsg_masc} + $F{cel_cietec_quema_masc} + $F{cel_compl_qco_masc} + $F{cel_qcm_qsg_masc} + $F{cel_saude_qsg_masc} + $F{cel_saude_quema_masc} + $F{genbri_combatente} + $F{gendiv_combatente} + $F{genexe_combatente} + $F{maj_belica_qsg_masc} + $F{maj_belica_quema_masc} + $F{maj_cietec_qsg_masc} + $F{maj_cietec_quema_masc} + $F{maj_compl_qco_masc} + $F{maj_qcm_qsg_masc} + $F{maj_saude_qsg_masc} + $F{maj_saude_quema_masc} + $F{profciv} + $F{pttc_of} + $F{pttc_pr} + $F{sd_ep} + $F{sd_ev} + $F{servciv} + $F{sgt1_masc} + $F{sgt2_carr_masc} + $F{sgt2_qe_masc} + $F{sgt3_carr_masc} + $F{sgt3_qe_masc} + $F{sgt3_temp_masc} + $F{st_masc} + $F{tcel_belica_qsg_masc} + $F{tcel_belica_quema_masc} + $F{tcel_cietec_qsg_masc} + $F{tcel_cietec_quema_masc} + $F{tcel_compl_qco_masc} + $F{tcel_qcm_qsg_masc} + $F{tcel_saude_qsg_masc} + $F{tcel_saude_quema_masc} + $F{ten1_belica_qsg_masc} + $F{ten1_belica_temp_masc} + $F{ten1_cietec_qsg_masc} + $F{ten1_cietec_temp_masc} + $F{ten1_compl_qco_masc} + $F{ten1_compl_temp_masc} + $F{ten1_praca_qao_masc} + $F{ten1_qcm_qsg_masc} + $F{ten1_qcm_temp_masc} + $F{ten1_saude_qsg_masc} + $F{ten1_saude_temp_masc} + $F{ten2_belica_qsg_masc} + $F{ten2_belica_temp_masc} + $F{ten2_cietec_qsg_masc} + $F{ten2_cietec_temp_masc} + $F{ten2_compl_temp_masc} + $F{ten2_praca_qao_masc} + $F{ten2_qcm_qsg_masc} + $F{ten2_qcm_temp_masc} + $F{ten2_saude_qsg_masc} + $F{ten2_saude_temp_masc} + $F{t1} + $F{t2} + $F{tm} + $F{sd_nq}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_EFETIVO_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[+ $F{aluno_fem} + $F{aluno_masc} + $F{asp_belica_qsg_fem} + $F{asp_belica_qsg_masc} + $F{asp_belica_temp_fem} + $F{asp_belica_temp_masc} + $F{asp_cietec_temp_fem} + $F{asp_cietec_temp_masc} + $F{asp_qcm_temp_masc} + $F{asp_saude_temp_fem} + $F{asp_saude_temp_masc} + $F{cap_belica_qsg_fem} + $F{cap_belica_qsg_masc} + $F{cap_cietec_qsg_fem} + $F{cap_cietec_qsg_masc} + $F{cap_compl_qco_fem} + $F{cap_compl_qco_masc} + $F{cap_praca_qao_fem} + $F{cap_praca_qao_masc} + $F{cap_qcm_qsg_fem} + $F{cap_qcm_qsg_masc} + $F{cap_saude_qsg_fem} + $F{cap_saude_qsg_masc} + $F{cb_ep} + $F{cb_et} + $F{cb_ev} + $F{cel_belica_qsg_fem} + $F{cel_belica_qsg_masc} + $F{cel_belica_quema_fem} + $F{cel_belica_quema_masc} + $F{cel_cietec_qsg_fem} + $F{cel_cietec_qsg_masc} + $F{cel_cietec_quema_fem} + $F{cel_cietec_quema_masc} + $F{cel_compl_qco_fem} + $F{cel_compl_qco_masc} + $F{cel_qcm_qsg_fem} + $F{cel_qcm_qsg_masc} + $F{cel_saude_qsg_fem} + $F{cel_saude_qsg_masc} + $F{cel_saude_quema_fem} + $F{cel_saude_quema_masc} + $F{genbri_combatente} + $F{gendiv_combatente} + $F{genexe_combatente} + $F{maj_belica_qsg_fem} + $F{maj_belica_qsg_masc} + $F{maj_belica_quema_fem} + $F{maj_belica_quema_masc} + $F{maj_cietec_qsg_fem} + $F{maj_cietec_qsg_masc} + $F{maj_cietec_quema_fem} + $F{maj_cietec_quema_masc} + $F{maj_compl_qco_fem} + $F{maj_compl_qco_masc} + $F{maj_qcm_qsg_fem} + $F{maj_qcm_qsg_masc} + $F{maj_saude_qsg_fem} + $F{maj_saude_qsg_masc} + $F{maj_saude_quema_fem} + $F{maj_saude_quema_masc} + $F{profciv} + $F{pttc_of} + $F{pttc_pr} + $F{sd_ep} + $F{sd_ev} + $F{servciv} + $F{sgt1_fem} + $F{sgt1_masc} + $F{sgt2_carr_fem} + $F{sgt2_carr_masc} + $F{sgt2_qe_masc} + $F{sgt3_carr_fem} + $F{sgt3_carr_masc} + $F{sgt3_qe_masc} + $F{sgt3_temp_fem} + $F{sgt3_temp_masc} + $F{st_fem} + $F{st_masc} + $F{tcel_belica_qsg_fem} + $F{tcel_belica_qsg_masc} + $F{tcel_belica_quema_fem} + $F{tcel_belica_quema_masc} + $F{tcel_cietec_qsg_fem} + $F{tcel_cietec_qsg_masc} + $F{tcel_cietec_quema_fem} + $F{tcel_cietec_quema_masc} + $F{tcel_compl_qco_fem} + $F{tcel_compl_qco_masc} + $F{tcel_qcm_qsg_fem} + $F{tcel_qcm_qsg_masc} + $F{tcel_saude_qsg_fem} + $F{tcel_saude_qsg_masc} + $F{tcel_saude_quema_fem} + $F{tcel_saude_quema_masc} + $F{ten1_belica_qsg_fem} + $F{ten1_belica_qsg_masc} + $F{ten1_belica_temp_fem} + $F{ten1_belica_temp_masc} + $F{ten1_cietec_qsg_fem} + $F{ten1_cietec_qsg_masc} + $F{ten1_cietec_temp_fem} + $F{ten1_cietec_temp_masc} + $F{ten1_compl_qco_fem} + $F{ten1_compl_qco_masc} + $F{ten1_compl_temp_fem} + $F{ten1_compl_temp_masc} + $F{ten1_praca_qao_fem} + $F{ten1_praca_qao_masc} + $F{ten1_qcm_qsg_fem} + $F{ten1_qcm_qsg_masc} + $F{ten1_qcm_temp_fem} + $F{ten1_qcm_temp_masc} + $F{ten1_saude_qsg_fem} + $F{ten1_saude_qsg_masc} + $F{ten1_saude_temp_fem} + $F{ten1_saude_temp_masc} + $F{ten2_belica_qsg_fem} + $F{ten2_belica_qsg_masc} + $F{ten2_belica_temp_fem} + $F{ten2_belica_temp_masc} + $F{ten2_cietec_qsg_fem} + $F{ten2_cietec_qsg_masc} + $F{ten2_cietec_temp_fem} + $F{ten2_cietec_temp_masc} + $F{ten2_compl_temp_fem} + $F{ten2_compl_temp_masc} + $F{ten2_praca_qao_masc} + $F{ten2_qcm_qsg_masc} + $F{ten2_qcm_temp_masc} + $F{ten2_saude_qsg_fem} + $F{ten2_saude_qsg_masc} + $F{ten2_saude_temp_fem} + $F{ten2_saude_temp_masc} + $F{t1} + $F{t2} + $F{tm} + $F{sd_nq}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PTTC_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{pttc_of} + $F{pttc_pr}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PTTC_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{pttc_of} + $F{pttc_pr}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PR_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cb_ep} + $F{cb_et} + $F{cb_ev} + $F{sd_ep} + $F{sd_ev} + $F{sgt1_masc} + $F{sgt2_carr_masc} + $F{sgt2_qe_masc} + $F{sgt3_carr_masc} + $F{sgt3_qe_masc} + $F{sgt3_temp_masc} + $F{st_masc} + $F{sd_nq} + $F{tm} + $F{t2} + $F{t1}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PR_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cb_ep} + $F{cb_et} + $F{cb_ev} + $F{sd_ep} + $F{sd_ev} + $F{sgt1_fem} + $F{sgt1_masc} + $F{sgt2_carr_fem} + $F{sgt2_carr_masc} + $F{sgt2_qe_masc} + $F{sgt3_carr_fem} + $F{sgt3_carr_masc} + $F{sgt3_qe_masc} + $F{sgt3_temp_fem} + $F{sgt3_temp_masc} + $F{st_fem} + $F{st_masc} + $F{t1} + $F{t2} + $F{tm} + $F{sd_nq}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_OF_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{asp_belica_qsg_masc_p} + $F{asp_belica_temp_masc_p} + $F{asp_cietec_temp_masc_p} + $F{asp_qcm_temp_masc_p} + $F{asp_saude_temp_masc_p} + $F{cap_belica_qsg_masc_p} + $F{cap_cietec_qsg_masc_p} + $F{cap_compl_qco_masc_p} + $F{cap_praca_qao_masc_p} + $F{cap_qcm_qsg_masc_p} + $F{cap_saude_qsg_masc_p} + $F{cel_belica_qsg_masc_p} + $F{cel_belica_quema_masc_p} + $F{cel_cietec_qsg_masc_p} + $F{cel_cietec_quema_masc_p} + $F{cel_compl_qco_masc_p} + $F{cel_qcm_qsg_masc_p} + $F{cel_saude_qsg_masc_p} + $F{cel_saude_quema_masc_p} + $F{genbri_combatente_p} + $F{gendiv_combatente_p} + $F{genexe_combatente_p} + $F{maj_belica_qsg_masc_p} + $F{maj_belica_quema_masc_p} + $F{maj_cietec_qsg_masc_p} + $F{maj_cietec_quema_masc_p} + $F{maj_compl_qco_masc_p} + $F{maj_qcm_qsg_masc_p} + $F{maj_saude_qsg_masc_p} + $F{maj_saude_quema_masc_p} + $F{tcel_belica_qsg_masc_p} + $F{tcel_belica_quema_masc_p} + $F{tcel_cietec_qsg_masc_p} + $F{tcel_cietec_quema_masc_p} + $F{tcel_compl_qco_masc_p} + $F{tcel_qcm_qsg_masc_p} + $F{tcel_saude_qsg_masc_p} + $F{tcel_saude_quema_masc_p} + $F{ten1_belica_qsg_masc_p} + $F{ten1_belica_temp_masc_p} + $F{ten1_cietec_qsg_masc_p} + $F{ten1_cietec_temp_masc_p} + $F{ten1_compl_qco_masc_p} + $F{ten1_compl_temp_masc_p} + $F{ten1_praca_qao_masc_p} + $F{ten1_qcm_qsg_masc_p} + $F{ten1_qcm_temp_masc_p} + $F{ten1_saude_qsg_masc_p} + $F{ten1_saude_temp_masc_p} + $F{ten2_belica_qsg_masc_p} + $F{ten2_belica_temp_masc_p} + $F{ten2_cietec_qsg_masc_p} + $F{ten2_cietec_temp_masc_p} + $F{ten2_compl_temp_masc_p} + $F{ten2_praca_qao_masc_p} + $F{ten2_qcm_qsg_masc_p} + $F{ten2_qcm_temp_masc_p} + $F{ten2_saude_qsg_masc_p} + $F{ten2_saude_temp_masc_p}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_OF_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cap_saude_qsg_masc} + $F{cap_saude_qsg_fem} + $F{cap_qcm_qsg_masc} + $F{cap_qcm_qsg_fem} + $F{cap_praca_qao_masc} + $F{cap_praca_qao_fem} + $F{cap_compl_qco_masc} + $F{cap_compl_qco_fem} + $F{cap_cietec_qsg_masc} + $F{cap_cietec_qsg_fem} + $F{cap_belica_qsg_masc} + $F{cap_belica_qsg_fem} + $F{asp_saude_temp_masc} + $F{asp_saude_temp_fem} + $F{asp_qcm_temp_masc} + $F{asp_cietec_temp_masc} + $F{asp_cietec_temp_fem} + $F{asp_belica_temp_masc} + $F{asp_belica_temp_fem} + $F{asp_belica_qsg_masc} + $F{asp_belica_qsg_fem} + $F{cel_belica_qsg_fem} + $F{cel_belica_qsg_masc} + $F{cel_belica_quema_fem} + $F{cel_belica_quema_masc} + $F{cel_cietec_qsg_fem} + $F{cel_cietec_qsg_masc} + $F{cel_cietec_quema_fem} + $F{cel_cietec_quema_masc} + $F{cel_compl_qco_fem} + $F{cel_compl_qco_masc} + $F{cel_qcm_qsg_fem} + $F{cel_qcm_qsg_masc} + $F{cel_saude_qsg_fem} + $F{cel_saude_qsg_masc} + $F{cel_saude_quema_fem} + $F{cel_saude_quema_masc} + $F{genbri_combatente} + $F{gendiv_combatente} + $F{genexe_combatente} + $F{maj_belica_qsg_fem} + $F{maj_belica_qsg_masc} + $F{maj_belica_quema_fem} + $F{maj_belica_quema_masc} + $F{maj_cietec_qsg_fem} + $F{maj_cietec_qsg_masc} + $F{maj_cietec_quema_fem} + $F{maj_cietec_quema_masc} + $F{maj_compl_qco_fem} + $F{maj_compl_qco_masc} + $F{maj_qcm_qsg_fem} + $F{maj_qcm_qsg_masc} + $F{maj_saude_qsg_fem} + $F{maj_saude_qsg_masc} + $F{maj_saude_quema_fem} + $F{maj_saude_quema_masc} + $F{tcel_belica_qsg_fem} + $F{tcel_belica_qsg_masc} + $F{tcel_belica_quema_fem} + $F{tcel_belica_quema_masc} + $F{tcel_cietec_qsg_fem} + $F{tcel_cietec_qsg_masc} + $F{tcel_cietec_quema_fem} + $F{tcel_cietec_quema_masc} + $F{tcel_compl_qco_fem} + $F{tcel_compl_qco_masc} + $F{tcel_qcm_qsg_fem} + $F{tcel_qcm_qsg_masc} + $F{tcel_saude_qsg_fem} + $F{tcel_saude_qsg_masc} + $F{tcel_saude_quema_fem} + $F{tcel_saude_quema_masc} + $F{ten1_belica_qsg_fem} + $F{ten1_belica_qsg_masc} + $F{ten1_belica_temp_fem} + $F{ten1_belica_temp_masc} + $F{ten1_cietec_qsg_fem} + $F{ten1_cietec_qsg_masc} + $F{ten1_cietec_temp_fem} + $F{ten1_cietec_temp_masc} + $F{ten1_compl_qco_fem} + $F{ten1_compl_qco_masc} + $F{ten1_compl_temp_fem} + $F{ten1_compl_temp_masc} + $F{ten1_praca_qao_fem} + $F{ten1_praca_qao_masc} + $F{ten1_qcm_qsg_fem} + $F{ten1_qcm_qsg_masc} + $F{ten1_qcm_temp_fem} + $F{ten1_qcm_temp_masc} + $F{ten1_saude_qsg_fem} + $F{ten1_saude_qsg_masc} + $F{ten1_saude_temp_fem} + $F{ten1_saude_temp_masc} + $F{ten2_belica_qsg_fem} + $F{ten2_belica_qsg_masc} + $F{ten2_belica_temp_fem} + $F{ten2_belica_temp_masc} + $F{ten2_cietec_qsg_fem} + $F{ten2_cietec_qsg_masc} + $F{ten2_cietec_temp_fem} + $F{ten2_cietec_temp_masc} + $F{ten2_compl_temp_fem} + $F{ten2_compl_temp_masc} + $F{ten2_praca_qao_masc} + $F{ten2_qcm_qsg_masc} + $F{ten2_qcm_temp_masc} + $F{ten2_saude_qsg_fem} + $F{ten2_saude_qsg_masc} + $F{ten2_saude_temp_fem} + $F{ten2_saude_temp_masc}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="480" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="63" height="75" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Cap]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="0" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Bélica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="60" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="45" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QCO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="30" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="15" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="0" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="60" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QCM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="45" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Compl]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="30" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L C&T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="15" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Saúde]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="0" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_belica_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="15" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_saude_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="30" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_cietec_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="45" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_compl_qco_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="60" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_qcm_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="0" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_belica_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="0" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_belica_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="15" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_saude_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="15" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_saude_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="30" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_cietec_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="30" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_cietec_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="45" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_compl_qco_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="45" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_compl_qco_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="60" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_qcm_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="60" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cap_qcm_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="75" width="63" height="165" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[1º Ten ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="75" width="62" height="30" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Bélica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="105" width="62" height="30" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Saúde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="135" width="62" height="30" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L C&T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="75" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="150" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="135" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="120" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="105" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="90" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="165" width="62" height="30" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Compl]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="165" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QCO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="180" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="195" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Pr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="195" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QAO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="210" width="62" height="30" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QCM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="210" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="225" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="240" width="63" height="150" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[2º Ten ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="240" width="62" height="30" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Bélica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="270" width="62" height="30" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Saúde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="300" width="62" height="30" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L C&T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="330" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Compl]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="345" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Pr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="360" width="62" height="30" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QCM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="240" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="255" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="270" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="285" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="300" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="315" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="330" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="345" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QAO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="360" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="375" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="390" width="63" height="75" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Asp]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="390" width="62" height="30" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Bélica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="420" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Saúde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="435" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L C&T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="450" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QCM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="390" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="405" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="420" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="435" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="450" width="62" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tmpr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="465" width="187" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[TOTAL Of]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="75" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_belica_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="90" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_belica_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="105" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_saude_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="120" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_saude_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="135" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_cietec_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="150" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_cietec_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="165" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_compl_qco_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="180" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_compl_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="195" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_praca_qao_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="210" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_qcm_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="225" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_qcm_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="240" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_belica_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="255" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_belica_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="270" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_saude_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="285" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_saude_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="300" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_cietec_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="315" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_cietec_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="330" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_compl_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="345" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_praca_qao_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="360" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_qcm_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="375" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_qcm_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="390" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_belica_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="405" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_belica_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="420" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_saude_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="435" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_cietec_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="450" width="88" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_qcm_temp_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="75" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_belica_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="75" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_belica_temp_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="90" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_belica_temp_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="90" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_belica_temp_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="105" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_saude_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="105" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_saude_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="120" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_saude_temp_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="120" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_saude_temp_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="135" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_cietec_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="135" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_cietec_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="150" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_cietec_temp_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="150" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_cietec_temp_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="165" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_compl_qco_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="165" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_compl_qco_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="180" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_compl_temp_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="180" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_compl_temp_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="195" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_praca_qao_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="195" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_praca_qao_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="210" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_qcm_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="210" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_qcm_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="225" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_qcm_temp_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="225" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten1_qcm_temp_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="240" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_belica_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="240" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_belica_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="255" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_belica_temp_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="255" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_belica_temp_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="270" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_saude_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="270" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_saude_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="285" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_saude_temp_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="285" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_saude_temp_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="300" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_cietec_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="300" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_cietec_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="315" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_cietec_temp_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="315" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_cietec_temp_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="330" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_compl_temp_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="330" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_compl_temp_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="345" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_praca_qao_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="360" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_qcm_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="375" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten2_qcm_temp_masc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="319" y="345" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="319" y="360" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="319" y="375" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="390" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_belica_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="390" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_belica_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="405" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_belica_temp_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="405" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_belica_temp_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="420" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_saude_temp_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="420" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_saude_temp_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="435" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_cietec_temp_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="435" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_cietec_temp_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="450" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{asp_qcm_temp_masc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="319" y="450" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="465" width="88" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL_OF_PREV}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="465" width="88" height="15" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL_OF_EXIST}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

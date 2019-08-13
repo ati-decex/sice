@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sice" language="groovy" pageWidth="500" pageHeight="1700" whenNoDataType="AllSectionsNoDetail" columnWidth="420" leftMargin="40" rightMargin="40" topMargin="0" bottomMargin="40" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/crespo/Projetos/SICE/workspace/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT id, sigla, tipo, ordem
+  FROM organizacaomilitar where id = $P{id_om};]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="ordem" class="java.lang.Integer"/>
+	<variable name="ofi_mas_eb" class="java.lang.Integer" resetType="None"/>
+	<variable name="ofi_mas" class="java.lang.Integer" resetType="None"/>
+	<variable name="ofi_fem_eb" class="java.lang.Integer" resetType="None"/>
+	<variable name="ofi_fem" class="java.lang.Integer" resetType="None"/>
+	<variable name="pra_mas_eb" class="java.lang.Integer" resetType="None"/>
+	<variable name="pra_fem_eb" class="java.lang.Integer" resetType="None"/>
+	<variable name="pra_mas" class="java.lang.Integer" resetType="None"/>
+	<variable name="pra_fem" class="java.lang.Integer" resetType="None"/>
+	<variable name="total" class="java.lang.Integer" resetType="None"/>
+	<variable name="TOTAL" class="java.lang.Integer" resetType="None"/>
+	<variable name="ofi_mas_total" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$V{ofi_mas_eb}+$V{ofi_mas}]]></variableExpression>
+	</variable>
+	<variable name="ofi_fem_total" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$V{ofi_fem_eb}+$V{ofi_fem}]]></variableExpression>
+	</variable>
+	<variable name="pra_mas_total" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$V{pra_mas_eb}+$V{pra_mas}]]></variableExpression>
+	</variable>
+	<variable name="pra_fem_total" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$V{pra_fem}+$V{pra_fem_eb}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="total_geral" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$V{total}+$V{TOTAL}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="116" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="52" width="420" height="19"/>
+				<subreportParameter name="id_om">
+					<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "cabecalho/periodo.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement mode="Opaque" x="212" y="71" width="68" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Oficiais]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="32" width="420" height="20" forecolor="#FFFFFF" backcolor="#006699"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Alunos Militares]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="212" y="101" width="34" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Masc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="246" y="101" width="34" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="348" y="71" width="72" height="45" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="80" y="71" width="132" height="45" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Força]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="71" width="80" height="45" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="212" y="86" width="68" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="314" y="101" width="34" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="280" y="101" width="34" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Masc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="280" y="86" width="68" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="280" y="71" width="68" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Praças]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="105">
+			<subreport>
+				<reportElement x="80" y="29" width="340" height="76"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_om">
+					<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_om_enquadrante">
+					<subreportParameterExpression><![CDATA[$P{id_om_enquadrante}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="ofi_mas" toVariable="ofi_mas"/>
+				<returnValue subreportVariable="ofi_fem" toVariable="ofi_fem"/>
+				<returnValue subreportVariable="pra_mas" toVariable="pra_mas"/>
+				<returnValue subreportVariable="pra_fem" toVariable="pra_fem"/>
+				<returnValue subreportVariable="total" toVariable="total"/>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioAlunosMilitaresDiretoria/alunos_militares_outras_forcasDiretoria.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="80" y="-1" width="340" height="30"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_om">
+					<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_om_enquadrante">
+					<subreportParameterExpression><![CDATA[$P{id_om_enquadrante}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="ofi_mas_eb" toVariable="ofi_mas_eb"/>
+				<returnValue subreportVariable="ofi_fem_eb" toVariable="ofi_fem_eb"/>
+				<returnValue subreportVariable="pra_mas_eb" toVariable="pra_mas_eb"/>
+				<returnValue subreportVariable="pra_fem_eb" toVariable="pra_fem_eb"/>
+				<returnValue subreportVariable="TOTAL" toVariable="TOTAL"/>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioAlunosMilitaresDiretoria/"+
+(($P{id_om}==7)?"alunos_militares_exercito_ECEME.jasper":
+($P{id_om}==9)?"alunos_militares_exercito_AMAN.jasper":
+"alunos_militares_exercitoDiretoria.jasper")]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="43">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="-106" width="80" height="120" forecolor="#000000" backcolor="#99CCFF"/>
+				<box bottomPadding="20">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sigla}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="80" y="-1" width="340" height="15"/>
+				<subreportParameter name="id_om">
+					<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioAlunosMilitaresDiretoria/relatorioAlunosMilitaresDiretoria_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

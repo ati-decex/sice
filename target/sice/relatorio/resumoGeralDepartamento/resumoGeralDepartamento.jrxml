@@ -1,0 +1,1220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="310" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="310" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_periodo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/nunes/workspace/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT  1 AS INDICE,
+'EFETIVO_EXISTENTE_EE' AS TIPO_EFETIVO,
+
+ COALESCE(
+
+  SUM(aluno_fem)+
+SUM(aluno_masc)+
+SUM(asp_belica_qsg_fem)+
+SUM(asp_belica_qsg_masc)+
+SUM(asp_belica_temp_fem)+
+SUM(asp_belica_temp_masc)+
+SUM(asp_cietec_temp_fem)+
+SUM(asp_cietec_temp_masc)+
+SUM(asp_qcm_temp_masc)+
+SUM(asp_saude_temp_fem)+
+SUM(asp_saude_temp_masc)+
+SUM(cap_belica_qsg_fem)+
+SUM(cap_belica_qsg_masc)+
+SUM(cap_cietec_qsg_fem)+
+SUM(cap_cietec_qsg_masc)+
+SUM(cap_compl_qco_fem)+
+SUM(cap_compl_qco_masc)+
+SUM(cap_praca_qao_fem)+
+SUM(cap_praca_qao_masc)+
+SUM(cap_qcm_qsg_fem)+
+SUM(cap_qcm_qsg_masc)+
+SUM(cap_saude_qsg_fem)+
+SUM(cap_saude_qsg_masc)+
+SUM(cb_ep)+
+SUM(cb_et)+
+SUM(cb_ev)+
+SUM(cel_belica_qsg_fem)+
+SUM(cel_belica_qsg_masc)+
+SUM(cel_belica_quema_fem)+
+SUM(cel_belica_quema_masc)+
+SUM(cel_cietec_qsg_fem)+
+SUM(cel_cietec_qsg_masc)+
+SUM(cel_cietec_quema_fem)+
+SUM(cel_cietec_quema_masc)+
+SUM(cel_compl_qco_fem)+
+SUM(cel_compl_qco_masc)+
+SUM(cel_qcm_qsg_fem)+
+SUM(cel_qcm_qsg_masc)+
+SUM(cel_saude_qsg_fem)+
+SUM(cel_saude_qsg_masc)+
+SUM(cel_saude_quema_fem)+
+SUM(cel_saude_quema_masc)+
+SUM(genbri_combatente)+
+SUM(gendiv_combatente)+
+SUM(genexe_combatente)+
+SUM(maj_belica_qsg_fem)+
+SUM(maj_belica_qsg_masc)+
+SUM(maj_belica_quema_fem)+
+SUM(maj_belica_quema_masc)+
+SUM(maj_cietec_qsg_fem)+
+SUM(maj_cietec_qsg_masc)+
+SUM(maj_cietec_quema_fem)+
+SUM(maj_cietec_quema_masc)+
+SUM(maj_compl_qco_fem)+
+SUM(maj_compl_qco_masc)+
+SUM(maj_qcm_qsg_fem)+
+SUM(maj_qcm_qsg_masc)+
+SUM(maj_saude_qsg_fem)+
+SUM(maj_saude_qsg_masc)+
+SUM(maj_saude_quema_fem)+
+SUM(maj_saude_quema_masc)+
+SUM(profciv)+
+SUM(pttc_of)+
+SUM(pttc_pr)+
+SUM(sd_ep)+
+SUM(sd_ev)+
+SUM(servciv)+
+SUM(sgt1_fem)+
+SUM(sgt1_masc)+
+SUM(sgt2_carr_fem)+
+SUM(sgt2_carr_masc)+
+SUM(sgt2_qe_masc)+
+SUM(sgt3_carr_fem)+
+SUM(sgt3_carr_masc)+
+SUM(sgt3_qe_masc)+
+SUM(sgt3_temp_fem)+
+SUM(sgt3_temp_masc)+
+SUM(st_fem)+
+SUM(st_masc)+
+SUM(tcel_belica_qsg_fem)+
+SUM(tcel_belica_qsg_masc)+
+SUM(tcel_belica_quema_fem)+
+SUM(tcel_belica_quema_masc)+
+SUM(tcel_cietec_qsg_fem)+
+SUM(tcel_cietec_qsg_masc)+
+SUM(tcel_cietec_quema_fem)+
+SUM(tcel_cietec_quema_masc)+
+SUM(tcel_compl_qco_fem)+
+SUM(tcel_compl_qco_masc)+
+SUM(tcel_qcm_qsg_fem)+
+SUM(tcel_qcm_qsg_masc)+
+SUM(tcel_saude_qsg_fem)+
+SUM(tcel_saude_qsg_masc)+
+SUM(tcel_saude_quema_fem)+
+SUM(tcel_saude_quema_masc)+
+SUM(ten1_belica_qsg_fem)+
+SUM(ten1_belica_qsg_masc)+
+SUM(ten1_belica_temp_fem)+
+SUM(ten1_belica_temp_masc)+
+SUM(ten1_cietec_qsg_fem)+
+SUM(ten1_cietec_qsg_masc)+
+SUM(ten1_cietec_temp_fem)+
+SUM(ten1_cietec_temp_masc)+
+SUM(ten1_compl_qco_fem)+
+SUM(ten1_compl_qco_masc)+
+SUM(ten1_compl_temp_fem)+
+SUM(ten1_compl_temp_masc)+
+SUM(ten1_praca_qao_fem)+
+SUM(ten1_praca_qao_masc)+
+SUM(ten1_qcm_qsg_fem)+
+SUM(ten1_qcm_qsg_masc)+
+SUM(ten1_qcm_temp_fem)+
+SUM(ten1_qcm_temp_masc)+
+SUM(ten1_saude_qsg_fem)+
+SUM(ten1_saude_qsg_masc)+
+SUM(ten1_saude_temp_fem)+
+SUM(ten1_saude_temp_masc)+
+SUM(ten2_belica_qsg_fem)+
+SUM(ten2_belica_qsg_masc)+
+SUM(ten2_belica_temp_fem)+
+SUM(ten2_belica_temp_masc)+
+SUM(ten2_cietec_qsg_fem)+
+SUM(ten2_cietec_qsg_masc)+
+SUM(ten2_cietec_temp_fem)+
+SUM(ten2_cietec_temp_masc)+
+SUM(ten2_compl_temp_fem)+
+SUM(ten2_compl_temp_masc)+
+SUM(ten2_praca_qao_masc)+
+SUM(ten2_qcm_qsg_masc)+
+SUM(ten2_qcm_temp_masc)+
+SUM(ten2_saude_qsg_fem)+
+SUM(ten2_saude_qsg_masc)+
+SUM(ten2_saude_temp_fem)+
+SUM(ten2_saude_temp_masc)+
+SUM(t1)+
+SUM(t2)+
+SUM(tm)+
+SUM(sd_nq)+
+SUM(cel_belica_qfe_fem)+
+SUM(cel_belica_qfe_masc)+
+SUM(maj_belica_qfe_fem)+
+SUM(maj_belica_qfe_masc)+
+SUM(tcel_belica_qfe_fem)+
+SUM(tcel_belica_qfe_masc)+
+SUM(asp_compl_temp_fem)+
+SUM(asp_compl_temp_masc)+
+SUM(cb_et_fem)+
+SUM(profciv_fem)+
+SUM(pttc_of_fem)+
+SUM(pttc_pr_fem)+
+SUM(servciv_fem	)
+, 0) AS TOTAL_EFETIVO
+
+
+FROM (
+
+SELECT
+  OM.SIGLA,
+  RG.ID,
+  RG.ISPREVISTO,
+  RG.ORGANIZACAO_ID,
+  RG.PERIODO_ID,
+  RG.OMENQUADRANTE,
+  COALESCE(RG.aluno_fem,0) aluno_fem,
+COALESCE(RG.aluno_masc,0) aluno_masc,
+COALESCE(RG.asp_belica_qsg_fem,0) asp_belica_qsg_fem,
+COALESCE(RG.asp_belica_qsg_masc,0) asp_belica_qsg_masc,
+COALESCE(RG.asp_belica_temp_fem,0) asp_belica_temp_fem,
+COALESCE(RG.asp_belica_temp_masc,0) asp_belica_temp_masc,
+COALESCE(RG.asp_cietec_temp_fem,0) asp_cietec_temp_fem,
+COALESCE(RG.asp_cietec_temp_masc,0) asp_cietec_temp_masc,
+COALESCE(RG.asp_qcm_temp_masc,0) asp_qcm_temp_masc,
+COALESCE(RG.asp_saude_temp_fem,0) asp_saude_temp_fem,
+COALESCE(RG.asp_saude_temp_masc,0) asp_saude_temp_masc,
+COALESCE(RG.cap_belica_qsg_fem,0) cap_belica_qsg_fem,
+COALESCE(RG.cap_belica_qsg_masc,0) cap_belica_qsg_masc,
+COALESCE(RG.cap_cietec_qsg_fem,0) cap_cietec_qsg_fem,
+COALESCE(RG.cap_cietec_qsg_masc,0) cap_cietec_qsg_masc,
+COALESCE(RG.cap_compl_qco_fem,0) cap_compl_qco_fem,
+COALESCE(RG.cap_compl_qco_masc,0) cap_compl_qco_masc,
+COALESCE(RG.cap_praca_qao_fem,0) cap_praca_qao_fem,
+COALESCE(RG.cap_praca_qao_masc,0) cap_praca_qao_masc,
+COALESCE(RG.cap_qcm_qsg_fem,0) cap_qcm_qsg_fem,
+COALESCE(RG.cap_qcm_qsg_masc,0) cap_qcm_qsg_masc,
+COALESCE(RG.cap_saude_qsg_fem,0) cap_saude_qsg_fem,
+COALESCE(RG.cap_saude_qsg_masc,0) cap_saude_qsg_masc,
+COALESCE(RG.cb_ep,0) cb_ep,
+COALESCE(RG.cb_et,0) cb_et,
+COALESCE(RG.cb_ev,0) cb_ev,
+COALESCE(RG.cel_belica_qsg_fem,0) cel_belica_qsg_fem,
+COALESCE(RG.cel_belica_qsg_masc,0) cel_belica_qsg_masc,
+COALESCE(RG.cel_belica_quema_fem,0) cel_belica_quema_fem,
+COALESCE(RG.cel_belica_quema_masc,0) cel_belica_quema_masc,
+COALESCE(RG.cel_cietec_qsg_fem,0) cel_cietec_qsg_fem,
+COALESCE(RG.cel_cietec_qsg_masc,0) cel_cietec_qsg_masc,
+COALESCE(RG.cel_cietec_quema_fem,0) cel_cietec_quema_fem,
+COALESCE(RG.cel_cietec_quema_masc,0) cel_cietec_quema_masc,
+COALESCE(RG.cel_compl_qco_fem,0) cel_compl_qco_fem,
+COALESCE(RG.cel_compl_qco_masc,0) cel_compl_qco_masc,
+COALESCE(RG.cel_qcm_qsg_fem,0) cel_qcm_qsg_fem,
+COALESCE(RG.cel_qcm_qsg_masc,0) cel_qcm_qsg_masc,
+COALESCE(RG.cel_saude_qsg_fem,0) cel_saude_qsg_fem,
+COALESCE(RG.cel_saude_qsg_masc,0) cel_saude_qsg_masc,
+COALESCE(RG.cel_saude_quema_fem,0) cel_saude_quema_fem,
+COALESCE(RG.cel_saude_quema_masc,0) cel_saude_quema_masc,
+COALESCE(RG.genbri_combatente,0) genbri_combatente,
+COALESCE(RG.gendiv_combatente,0) gendiv_combatente,
+COALESCE(RG.genexe_combatente,0) genexe_combatente,
+COALESCE(RG.maj_belica_qsg_fem,0) maj_belica_qsg_fem,
+COALESCE(RG.maj_belica_qsg_masc,0) maj_belica_qsg_masc,
+COALESCE(RG.maj_belica_quema_fem,0) maj_belica_quema_fem,
+COALESCE(RG.maj_belica_quema_masc,0) maj_belica_quema_masc,
+COALESCE(RG.maj_cietec_qsg_fem,0) maj_cietec_qsg_fem,
+COALESCE(RG.maj_cietec_qsg_masc,0) maj_cietec_qsg_masc,
+COALESCE(RG.maj_cietec_quema_fem,0) maj_cietec_quema_fem,
+COALESCE(RG.maj_cietec_quema_masc,0) maj_cietec_quema_masc,
+COALESCE(RG.maj_compl_qco_fem,0) maj_compl_qco_fem,
+COALESCE(RG.maj_compl_qco_masc,0) maj_compl_qco_masc,
+COALESCE(RG.maj_qcm_qsg_fem,0) maj_qcm_qsg_fem,
+COALESCE(RG.maj_qcm_qsg_masc,0) maj_qcm_qsg_masc,
+COALESCE(RG.maj_saude_qsg_fem,0) maj_saude_qsg_fem,
+COALESCE(RG.maj_saude_qsg_masc,0) maj_saude_qsg_masc,
+COALESCE(RG.maj_saude_quema_fem,0) maj_saude_quema_fem,
+COALESCE(RG.maj_saude_quema_masc,0) maj_saude_quema_masc,
+COALESCE(RG.profciv,0) profciv,
+COALESCE(RG.pttc_of,0) pttc_of,
+COALESCE(RG.pttc_pr,0) pttc_pr,
+COALESCE(RG.sd_ep,0) sd_ep,
+COALESCE(RG.sd_ev,0) sd_ev,
+COALESCE(RG.servciv,0) servciv,
+COALESCE(RG.sgt1_fem,0) sgt1_fem,
+COALESCE(RG.sgt1_masc,0) sgt1_masc,
+COALESCE(RG.sgt2_carr_fem,0) sgt2_carr_fem,
+COALESCE(RG.sgt2_carr_masc,0) sgt2_carr_masc,
+COALESCE(RG.sgt2_qe_masc,0) sgt2_qe_masc,
+COALESCE(RG.sgt3_carr_fem,0) sgt3_carr_fem,
+COALESCE(RG.sgt3_carr_masc,0) sgt3_carr_masc,
+COALESCE(RG.sgt3_qe_masc,0) sgt3_qe_masc,
+COALESCE(RG.sgt3_temp_fem,0) sgt3_temp_fem,
+COALESCE(RG.sgt3_temp_masc,0) sgt3_temp_masc,
+COALESCE(RG.st_fem,0) st_fem,
+COALESCE(RG.st_masc,0) st_masc,
+COALESCE(RG.tcel_belica_qsg_fem,0) tcel_belica_qsg_fem,
+COALESCE(RG.tcel_belica_qsg_masc,0) tcel_belica_qsg_masc,
+COALESCE(RG.tcel_belica_quema_fem,0) tcel_belica_quema_fem,
+COALESCE(RG.tcel_belica_quema_masc,0) tcel_belica_quema_masc,
+COALESCE(RG.tcel_cietec_qsg_fem,0) tcel_cietec_qsg_fem,
+COALESCE(RG.tcel_cietec_qsg_masc,0) tcel_cietec_qsg_masc,
+COALESCE(RG.tcel_cietec_quema_fem,0) tcel_cietec_quema_fem,
+COALESCE(RG.tcel_cietec_quema_masc,0) tcel_cietec_quema_masc,
+COALESCE(RG.tcel_compl_qco_fem,0) tcel_compl_qco_fem,
+COALESCE(RG.tcel_compl_qco_masc,0) tcel_compl_qco_masc,
+COALESCE(RG.tcel_qcm_qsg_fem,0) tcel_qcm_qsg_fem,
+COALESCE(RG.tcel_qcm_qsg_masc,0) tcel_qcm_qsg_masc,
+COALESCE(RG.tcel_saude_qsg_fem,0) tcel_saude_qsg_fem,
+COALESCE(RG.tcel_saude_qsg_masc,0) tcel_saude_qsg_masc,
+COALESCE(RG.tcel_saude_quema_fem,0) tcel_saude_quema_fem,
+COALESCE(RG.tcel_saude_quema_masc,0) tcel_saude_quema_masc,
+COALESCE(RG.ten1_belica_qsg_fem,0) ten1_belica_qsg_fem,
+COALESCE(RG.ten1_belica_qsg_masc,0) ten1_belica_qsg_masc,
+COALESCE(RG.ten1_belica_temp_fem,0) ten1_belica_temp_fem,
+COALESCE(RG.ten1_belica_temp_masc,0) ten1_belica_temp_masc,
+COALESCE(RG.ten1_cietec_qsg_fem,0) ten1_cietec_qsg_fem,
+COALESCE(RG.ten1_cietec_qsg_masc,0) ten1_cietec_qsg_masc,
+COALESCE(RG.ten1_cietec_temp_fem,0) ten1_cietec_temp_fem,
+COALESCE(RG.ten1_cietec_temp_masc,0) ten1_cietec_temp_masc,
+COALESCE(RG.ten1_compl_qco_fem,0) ten1_compl_qco_fem,
+COALESCE(RG.ten1_compl_qco_masc,0) ten1_compl_qco_masc,
+COALESCE(RG.ten1_compl_temp_fem,0) ten1_compl_temp_fem,
+COALESCE(RG.ten1_compl_temp_masc,0) ten1_compl_temp_masc,
+COALESCE(RG.ten1_praca_qao_fem,0) ten1_praca_qao_fem,
+COALESCE(RG.ten1_praca_qao_masc,0) ten1_praca_qao_masc,
+COALESCE(RG.ten1_qcm_qsg_fem,0) ten1_qcm_qsg_fem,
+COALESCE(RG.ten1_qcm_qsg_masc,0) ten1_qcm_qsg_masc,
+COALESCE(RG.ten1_qcm_temp_fem,0) ten1_qcm_temp_fem,
+COALESCE(RG.ten1_qcm_temp_masc,0) ten1_qcm_temp_masc,
+COALESCE(RG.ten1_saude_qsg_fem,0) ten1_saude_qsg_fem,
+COALESCE(RG.ten1_saude_qsg_masc,0) ten1_saude_qsg_masc,
+COALESCE(RG.ten1_saude_temp_fem,0) ten1_saude_temp_fem,
+COALESCE(RG.ten1_saude_temp_masc,0) ten1_saude_temp_masc,
+COALESCE(RG.ten2_belica_qsg_fem,0) ten2_belica_qsg_fem,
+COALESCE(RG.ten2_belica_qsg_masc,0) ten2_belica_qsg_masc,
+COALESCE(RG.ten2_belica_temp_fem,0) ten2_belica_temp_fem,
+COALESCE(RG.ten2_belica_temp_masc,0) ten2_belica_temp_masc,
+COALESCE(RG.ten2_cietec_qsg_fem,0) ten2_cietec_qsg_fem,
+COALESCE(RG.ten2_cietec_qsg_masc,0) ten2_cietec_qsg_masc,
+COALESCE(RG.ten2_cietec_temp_fem,0) ten2_cietec_temp_fem,
+COALESCE(RG.ten2_cietec_temp_masc,0) ten2_cietec_temp_masc,
+COALESCE(RG.ten2_compl_temp_fem,0) ten2_compl_temp_fem,
+COALESCE(RG.ten2_compl_temp_masc,0) ten2_compl_temp_masc,
+COALESCE(RG.ten2_praca_qao_masc,0) ten2_praca_qao_masc,
+COALESCE(RG.ten2_qcm_qsg_masc,0) ten2_qcm_qsg_masc,
+COALESCE(RG.ten2_qcm_temp_masc,0) ten2_qcm_temp_masc,
+COALESCE(RG.ten2_saude_qsg_fem,0) ten2_saude_qsg_fem,
+COALESCE(RG.ten2_saude_qsg_masc,0) ten2_saude_qsg_masc,
+COALESCE(RG.ten2_saude_temp_fem,0) ten2_saude_temp_fem,
+COALESCE(RG.ten2_saude_temp_masc,0) ten2_saude_temp_masc,
+COALESCE(RG.t1,0) t1,
+COALESCE(RG.t2,0) t2,
+COALESCE(RG.tm,0) tm,
+COALESCE(RG.sd_nq,0) sd_nq,
+COALESCE(RG.cel_belica_qfe_fem,0) cel_belica_qfe_fem,
+COALESCE(RG.cel_belica_qfe_masc,0) cel_belica_qfe_masc,
+COALESCE(RG.maj_belica_qfe_fem,0) maj_belica_qfe_fem,
+COALESCE(RG.maj_belica_qfe_masc,0) maj_belica_qfe_masc,
+COALESCE(RG.tcel_belica_qfe_fem,0) tcel_belica_qfe_fem,
+COALESCE(RG.tcel_belica_qfe_masc,0) tcel_belica_qfe_masc,
+COALESCE(RG.asp_compl_temp_fem,0) asp_compl_temp_fem,
+COALESCE(RG.asp_compl_temp_masc,0) asp_compl_temp_masc,
+COALESCE(RG.cb_et_fem,0) cb_et_fem,
+COALESCE(RG.profciv_fem,0) profciv_fem,
+COALESCE(RG.pttc_of_fem,0) pttc_of_fem,
+COALESCE(RG.pttc_pr_fem,0) pttc_pr_fem,
+COALESCE(RG.servciv_fem,0) servciv_fem
+
+
+
+FROM RELATORIOGERAL RG
+--INNER JOIN  SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = RG.ORGANIZACAO_ID
+INNER JOIN  ORGANIZACAOMILITAR OM ON OM.ID = RG.ORGANIZACAO_ID
+
+
+WHERE
+	RG.ISPREVISTO = FALSE
+	AND RG.PERIODO_ID = $P{id_periodo}
+
+	AND RG.ID = (SELECT MAX(ID) AS ID FROM RELATORIOGERAL RG2
+
+                                                WHERE RG2.organizacao_id = OM.ID and RG2.ISPREVISTO = FALSE AND RG2.PERIODO_ID = $P{id_periodo})
+
+
+
+) TABELA
+
+
+
+UNION
+
+
+ SELECT  2 AS INDICE,
+         'ALUNOS_MILITARES_EXERCITO' AS TIPO_EFETIVO,
+         COALESCE(SUM(PRACA_FEMININO),0) +
+         COALESCE(SUM(PRACA_MASCULINO),0) +
+         COALESCE(SUM(OFICIAIS_FEMININO),0) +
+         COALESCE(SUM(OFICIAIS_MASCULINO),0)  AS TOTAL
+
+ FROM (
+
+
+
+ SELECT 'EXERCITO' AS EXERCITO,
+        COALESCE(SUM(ALUNO_EXERCITO_DESMIL_OFICIAL_FEMININO),0) AS ALUNO_EXERCITO_DESMIL_OFICIAL_FEMININO,
+        COALESCE(SUM(ALUNO_EXERCITO_DESMIL_OFICIAL_MASCULINO),0) AS ALUNO_EXERCITO_DESMIL_OFICIAL_MASCULINO,
+        COALESCE(SUM(ALUNO_EXERCITO_DESMIL_PRACA_FEMININO),0) AS ALUNO_EXERCITO_DESMIL_PRACA_FEMININO,
+        COALESCE(SUM(ALUNO_EXERCITO_DESMIL_PRACA_MASCULINO),0) AS ALUNO_EXERCITO_DESMIL_PRACA_MASCULINO,
+
+        COALESCE(SUM(ALUNO_EXERCITO_DETMIL_OFICIAL_FEMININO),0) AS ALUNO_EXERCITO_DETMIL_OFICIAL_FEMININO,
+        COALESCE(SUM(ALUNO_EXERCITO_DETMIL_OFICIAL_MASCULINO),0) AS ALUNO_EXERCITO_DETMIL_OFICIAL_MASCULINO,
+        COALESCE(SUM(ALUNO_EXERCITO_DETMIL_PRACA_FEMININO),0) AS ALUNO_EXERCITO_DETMIL_PRACA_FEMININO,
+        COALESCE(SUM(ALUNO_EXERCITO_DETMIL_PRACA_MASCULINO),0) AS ALUNO_EXERCITO_DETMIL_PRACA_MASCULINO,
+
+        COALESCE(SUM(ALUNO_EXERCITO_DEPA_OFICIAL_FEMININO),0) AS ALUNO_EXERCITO_DEPA_OFICIAL_FEMININO,
+        COALESCE(SUM(ALUNO_EXERCITO_DEPA_OFICIAL_MASCULINO),0) AS ALUNO_EXERCITO_DEPA_OFICIAL_MASCULINO,
+        COALESCE(SUM(ALUNO_EXERCITO_DEPA_PRACA_FEMININO),0) AS ALUNO_EXERCITO_DEPA_PRACA_FEMININO,
+        COALESCE(SUM(ALUNO_EXERCITO_DEPA_PRACA_MASCULINO),0) AS ALUNO_EXERCITO_DEPA_PRACA_MASCULINO,
+
+        COALESCE(SUM(ALUNO_EXERCITO_CCFEX_OFICIAL_FEMININO),0) AS ALUNO_EXERCITO_CCFEX_OFICIAL_FEMININO,
+        COALESCE(SUM(ALUNO_EXERCITO_CCFEX_OFICIAL_MASCULINO),0) AS ALUNO_EXERCITO_CCFEX_OFICIAL_MASCULINO,
+        COALESCE(SUM(ALUNO_EXERCITO_CCFEX_PRACA_FEMININO),0) AS ALUNO_EXERCITO_CCFEX_PRACA_FEMININO,
+        COALESCE(SUM(ALUNO_EXERCITO_CCFEX_PRACA_MASCULINO),0) AS ALUNO_EXERCITO_CCFEX_PRACA_MASCULINO,
+
+
+        COALESCE(SUM(ALUNO_EXERCITO_DESMIL_OFICIAL_MASCULINO) + SUM(ALUNO_EXERCITO_DETMIL_OFICIAL_MASCULINO)
+        +SUM(ALUNO_EXERCITO_DEPA_OFICIAL_MASCULINO) + SUM(ALUNO_EXERCITO_CCFEX_OFICIAL_MASCULINO),0) AS OFICIAIS_MASCULINO,
+
+        COALESCE(SUM(ALUNO_EXERCITO_DESMIL_OFICIAL_FEMININO) + SUM(ALUNO_EXERCITO_DETMIL_OFICIAL_FEMININO)
+        +SUM(ALUNO_EXERCITO_DEPA_OFICIAL_FEMININO) + SUM(ALUNO_EXERCITO_CCFEX_OFICIAL_FEMININO),0) AS OFICIAIS_FEMININO,
+
+        COALESCE(SUM(ALUNO_EXERCITO_DESMIL_PRACA_MASCULINO) + SUM(ALUNO_EXERCITO_DETMIL_PRACA_MASCULINO)
+        +SUM(ALUNO_EXERCITO_DEPA_PRACA_MASCULINO) + SUM(ALUNO_EXERCITO_CCFEX_PRACA_MASCULINO),0) AS PRACA_MASCULINO,
+
+        COALESCE(SUM(ALUNO_EXERCITO_DESMIL_PRACA_FEMININO) + SUM(ALUNO_EXERCITO_DETMIL_PRACA_FEMININO)
+        +SUM(ALUNO_EXERCITO_DEPA_PRACA_FEMININO) + SUM(ALUNO_EXERCITO_CCFEX_PRACA_FEMININO),0) AS PRACA_FEMININO
+
+
+
+ FROM (
+
+
+
+ SELECT   DISTINCT
+       COALESCE(( SELECT SUM(AMOF2.FEMININO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = 2
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID AND SS2.SUPERIOR_SUBORDINADO_ID NOT IN (12,17)
+
+        ),0) AS ALUNO_EXERCITO_DESMIL_OFICIAL_FEMININO ,
+
+        COALESCE(( SELECT SUM(AMOF2.MASCULINO) AS TOTAL
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = 2
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID AND SS2.SUPERIOR_SUBORDINADO_ID NOT IN (12,17)
+
+        ),0) AS ALUNO_EXERCITO_DESMIL_OFICIAL_MASCULINO  ,
+
+        COALESCE(( SELECT SUM(AMOF2.FEMININO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = 2
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID AND SS2.SUPERIOR_SUBORDINADO_ID NOT IN (12,17)
+
+        ),0) AS ALUNO_EXERCITO_DESMIL_PRACA_FEMININO,
+
+       COALESCE(( SELECT SUM(AMOF2.MASCULINO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = 2
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID AND SS2.SUPERIOR_SUBORDINADO_ID NOT IN (12,17)
+
+        ),0) AS ALUNO_EXERCITO_DESMIL_PRACA_MASCULINO ,
+
+         COALESCE(( SELECT SUM(AMOF2.FEMININO)
+                   FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = 4
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_DETMIL_OFICIAL_FEMININO ,
+
+        COALESCE(( SELECT SUM(AMOF2.MASCULINO) AS TOTAL
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = 4
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_DETMIL_OFICIAL_MASCULINO  ,
+
+        COALESCE(( SELECT SUM(AMOF2.FEMININO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = 4
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_DETMIL_PRACA_FEMININO,
+
+       COALESCE(( SELECT SUM(AMOF2.MASCULINO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = 4
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_DETMIL_PRACA_MASCULINO ,
+
+
+         COALESCE(( SELECT SUM(AMOF2.FEMININO)
+                   FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = 3
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_DEPA_OFICIAL_FEMININO ,
+
+        COALESCE(( SELECT SUM(AMOF2.MASCULINO) AS TOTAL
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = 3
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_DEPA_OFICIAL_MASCULINO  ,
+
+        COALESCE(( SELECT SUM(AMOF2.FEMININO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = 3
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_DEPA_PRACA_FEMININO,
+
+       COALESCE(( SELECT SUM(AMOF2.MASCULINO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = 3
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_DEPA_PRACA_MASCULINO ,
+
+
+         COALESCE(( SELECT SUM(AMOF2.FEMININO)
+                   FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = 6
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_CCFEX_OFICIAL_FEMININO ,
+
+        COALESCE(( SELECT SUM(AMOF2.MASCULINO) AS TOTAL
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = 6
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_CCFEX_OFICIAL_MASCULINO  ,
+
+        COALESCE(( SELECT SUM(AMOF2.FEMININO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = 6
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_CCFEX_PRACA_FEMININO,
+
+       COALESCE(( SELECT SUM(AMOF2.MASCULINO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = 6
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_CCFEX_PRACA_MASCULINO
+
+
+        FROM MILITARESOMDS AMOF
+        INNER JOIN  SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = AMOF.ORGANIZACAO_ID
+
+        WHERE  AMOF.PERIODO_ID = $P{id_periodo}
+
+
+) TABELA
+
+
+)TABELA2
+
+UNION
+
+
+    SELECT 3 AS INDICE,
+      'ALUNOS_MILITARES_OUTRAS_FORCAS' AS TIPO_EFETIVO,
+     COALESCE(SUM(FEMININO)+SUM(MASCULINO),0) AS TOTAL
+      FROM   ALUNOSMILITAROUTRASFORCAS
+      WHERE PERIODO_ID = $P{id_periodo}
+
+
+UNION
+
+    SELECT 4 AS INDICE,
+     'ALUNOS_MILITARES_OM_VINCULADAS' AS TIPO_EFETIVO,
+     COALESCE(SUM(FEMININO)+SUM(MASCULINO),0) AS TOTAL
+      FROM   ALUNOOMVINCULADA
+      WHERE PERIODO_ID = $P{id_periodo}
+
+
+
+UNION
+
+  SELECT 5 AS INDICE,
+   'MILITARES_NACOES_AMIGA' AS TIPO_EFETIVO,
+   SUM(COALESCE(MASCULINO,0)+COALESCE(FEMININO,0)) AS TOTAL
+    FROM   MILITARESNACOESAMIGAS
+    WHERE PERIODO_ID = $P{id_periodo}
+
+UNION
+
+ SELECT DISTINCT 6 AS INDICE,
+        'PROFESSOR_CIVIL' AS TIPO_EFETIVO,
+        COALESCE(SUM(EBTT_DOUTOR) +
+             SUM(MAGISTERIOSUPERIOR_DOUTOR)+
+             SUM(PROFESOR_PERMANENTE_MASCULINO)+
+             SUM(MAGISTERIOSUPERIOR_MESTRE)+
+             SUM(EBTT_POSGRADUACAO)+
+             SUM(MAGISTERIOSUPERIOR_POSGRADUACAO)+
+             SUM(EBTT_GRADUACAO)+
+             SUM(MAGISTERIOSUPERIOR_GRADUACAO),0) AS TOTAL_EFETIVO
+
+ FROM (
+
+        SELECT DISTINCT 'DESMIL' AS DESMIL,
+        COALESCE(SUM(EBTT_DESMIL_DOUTOR),0) AS EBTT_DOUTOR,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_DESMIL_DOUTOR),0) AS MAGISTERIOSUPERIOR_DOUTOR,
+
+        COALESCE(SUM(EBTT_DESMIL_MESTRE),0) AS PROFESOR_PERMANENTE_MASCULINO,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_DESMIL_MESTRE),0) AS MAGISTERIOSUPERIOR_MESTRE,
+
+        COALESCE(SUM(EBTT_DESMIL_POSGRADUACAO),0) AS EBTT_POSGRADUACAO,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_DESMIL_POSGRADUACAO),0) AS MAGISTERIOSUPERIOR_POSGRADUACAO,
+
+        COALESCE(SUM(EBTT_DESMIL_GRADUACAO),0) AS EBTT_GRADUACAO,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_DESMIL_GRADUACAO),0) AS MAGISTERIOSUPERIOR_GRADUACAO
+
+
+
+ FROM (
+
+
+   SELECT  DISTINCT 'DESMIL' AS DESMIL ,
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA = 'EBTT'
+                  AND PC2.ESCOLARIDADE = 'DOUTOR'
+                  AND SS2.SUPERIOR_ID = 2
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_DESMIL_DOUTOR ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA = 'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'DOUTOR'
+                  AND SS2.SUPERIOR_ID = 2
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_DESMIL_DOUTOR,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'EBTT'
+                  AND PC2.ESCOLARIDADE = 'MESTRE'
+                  AND SS2.SUPERIOR_ID = 2
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_DESMIL_MESTRE ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA = 'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'MESTRE'
+                  AND SS2.SUPERIOR_ID = 2
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_DESMIL_MESTRE ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'EBTT'
+                  AND PC2.ESCOLARIDADE = 'POSGRADUACAO'
+                  AND SS2.SUPERIOR_ID = 2
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_DESMIL_POSGRADUACAO ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'POSGRADUACAO'
+                  AND SS2.SUPERIOR_ID = 2
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_DESMIL_POSGRADUACAO ,
+
+          COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'EBTT'
+                  AND PC2.ESCOLARIDADE = 'GRADUACAO'
+                  AND SS2.SUPERIOR_ID = 2
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_DESMIL_GRADUACAO ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'GRADUACAO'
+                  AND SS2.SUPERIOR_ID = 2
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_DESMIL_GRADUACAO
+
+
+      FROM PROFESSORCIVIL PC
+        INNER JOIN  SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = PC.ORGANIZACAO_ID
+        WHERE  PC.PERIODO_ID = $P{id_periodo}
+
+     ) TABELA
+
+
+ UNION
+
+
+
+ SELECT DISTINCT 'DETMIL' AS DETMIL,
+        COALESCE(SUM(EBTT_DETMIL_DOUTOR),0) AS EBTT_DETMIL_DOUTOR,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_DETMIL_DOUTOR),0) AS MAGISTERIOSUPERIOR_DOUTOR,
+
+        COALESCE(SUM(EBTT_DETMIL_MESTRE),0) AS PROFESOR_PERMANENTE_DETMIL_MASCULINO,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_DETMIL_MESTRE),0) AS MAGISTERIOSUPERIOR_DETMIL_MESTRE,
+
+        COALESCE(SUM(EBTT_DETMIL_POSGRADUACAO),0) AS EBTT_DETMIL_POSGRADUACAO,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_DETMIL_POSGRADUACAO),0) AS MAGISTERIOSUPERIOR_DETMIL_POSGRADUACAO,
+
+        COALESCE(SUM(EBTT_DETMIL_GRADUACAO),0) AS EBTT_DETMIL_GRADUACAO,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_DETMIL_GRADUACAO),0) AS MAGISTERIOSUPERIOR_DETMIL_GRADUACAO
+
+
+ FROM (
+
+
+   SELECT  DISTINCT 'DETMIL' AS DETMIL ,
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA = 'EBTT'
+                  AND PC2.ESCOLARIDADE = 'DOUTOR'
+                  AND SS2.SUPERIOR_ID = 4
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_DETMIL_DOUTOR ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA = 'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'DOUTOR'
+                  AND SS2.SUPERIOR_ID = 4
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_DETMIL_DOUTOR,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'EBTT'
+                  AND PC2.ESCOLARIDADE = 'MESTRE'
+                  AND SS2.SUPERIOR_ID = 4
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_DETMIL_MESTRE ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA = 'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'MESTRE'
+                  AND SS2.SUPERIOR_ID = 4
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_DETMIL_MESTRE ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'EBTT'
+                  AND PC2.ESCOLARIDADE = 'POSGRADUACAO'
+                  AND SS2.SUPERIOR_ID = 4
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_DETMIL_POSGRADUACAO ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'POSGRADUACAO'
+                  AND SS2.SUPERIOR_ID = 4
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_DETMIL_POSGRADUACAO ,
+
+          COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'EBTT'
+                  AND PC2.ESCOLARIDADE = 'GRADUACAO'
+                  AND SS2.SUPERIOR_ID = 4
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_DETMIL_GRADUACAO ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'GRADUACAO'
+                  AND SS2.SUPERIOR_ID = 4
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_DETMIL_GRADUACAO
+
+
+      FROM PROFESSORCIVIL PC
+        INNER JOIN  SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = PC.ORGANIZACAO_ID
+        WHERE  PC.PERIODO_ID = $P{id_periodo}
+
+     ) TABELA
+
+UNION
+
+
+
+ SELECT DISTINCT 'DEPA' AS DEPA,
+        COALESCE(SUM(EBTT_DEPA_DOUTOR),0) AS EBTT_DEPA_DOUTOR,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_DEPA_DOUTOR),0) AS MAGISTERIOSUPERIOR_DEPA_DOUTOR,
+
+        COALESCE(SUM(EBTT_DEPA_MESTRE),0) AS PROFESOR_PERMANENTE_DEPA_MASCULINO,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_DEPA_MESTRE),0) AS MAGISTERIOSUPERIOR_DEPA_MESTRE,
+
+        COALESCE(SUM(EBTT_DEPA_POSGRADUACAO),0) AS EBTT_DEPA_POSGRADUACAO,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_DEPA_POSGRADUACAO),0) AS MAGISTERIOSUPERIOR_DEPA_POSGRADUACAO,
+
+        COALESCE(SUM(EBTT_DEPA_GRADUACAO),0) AS EBTT_DEPA_GRADUACAO,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_DEPA_GRADUACAO),0) AS MAGISTERIOSUPERIOR_DEPA_GRADUACAO
+
+
+ FROM (
+
+
+   SELECT  DISTINCT 'DEPA' AS DEPA ,
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA = 'EBTT'
+                  AND PC2.ESCOLARIDADE = 'DOUTOR'
+                  AND SS2.SUPERIOR_ID = 3
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_DEPA_DOUTOR ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA = 'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'DOUTOR'
+                  AND SS2.SUPERIOR_ID = 3
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_DEPA_DOUTOR,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'EBTT'
+                  AND PC2.ESCOLARIDADE = 'MESTRE'
+                  AND SS2.SUPERIOR_ID = 3
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_DEPA_MESTRE ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA = 'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'MESTRE'
+                  AND SS2.SUPERIOR_ID = 3
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_DEPA_MESTRE ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'EBTT'
+                  AND PC2.ESCOLARIDADE = 'POSGRADUACAO'
+                  AND SS2.SUPERIOR_ID = 3
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_DEPA_POSGRADUACAO ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'POSGRADUACAO'
+                  AND SS2.SUPERIOR_ID = 3
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_DEPA_POSGRADUACAO ,
+
+          COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'EBTT'
+                  AND PC2.ESCOLARIDADE = 'GRADUACAO'
+                  AND SS2.SUPERIOR_ID = 3
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_DEPA_GRADUACAO ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'GRADUACAO'
+                  AND SS2.SUPERIOR_ID = 3
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_DEPA_GRADUACAO
+
+
+      FROM PROFESSORCIVIL PC
+        INNER JOIN  SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = PC.ORGANIZACAO_ID
+        WHERE  PC.PERIODO_ID = $P{id_periodo}
+
+     ) TABELA
+
+
+   UNION
+
+
+
+ SELECT DISTINCT 'CCFEX' AS CCFEX,
+        COALESCE(SUM(EBTT_CCFEX_DOUTOR),0) AS EBTT_CCFEX_DOUTOR,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_CCFEX_DOUTOR),0) AS MAGISTERIOSUPERIOR_CCFEX_DOUTOR,
+
+        COALESCE(SUM(EBTT_CCFEX_MESTRE),0) AS PROFESOR_PERMANENTE_CCFEX_MASCULINO,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_CCFEX_MESTRE),0) AS MAGISTERIOSUPERIOR_CCFEX_MESTRE,
+
+        COALESCE(SUM(EBTT_CCFEX_POSGRADUACAO),0) AS EBTT_CCFEX_POSGRADUACAO,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_CCFEX_POSGRADUACAO),0) AS MAGISTERIOSUPERIOR_CCFEX_POSGRADUACAO,
+
+        COALESCE(SUM(EBTT_CCFEX_GRADUACAO),0) AS EBTT_CCFEX_GRADUACAO,
+        COALESCE(SUM(MAGISTERIOSUPERIOR_CCFEX_GRADUACAO),0) AS MAGISTERIOSUPERIOR_CCFEX_GRADUACAO
+
+
+ FROM (
+
+
+   SELECT  DISTINCT 'CCFEX' AS CCFEX ,
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA = 'EBTT'
+                  AND PC2.ESCOLARIDADE = 'DOUTOR'
+                  AND SS2.SUPERIOR_ID = 6
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_CCFEX_DOUTOR ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA = 'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'DOUTOR'
+                  AND SS2.SUPERIOR_ID = 6
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_CCFEX_DOUTOR,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'EBTT'
+                  AND PC2.ESCOLARIDADE = 'MESTRE'
+                  AND SS2.SUPERIOR_ID = 6
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_CCFEX_MESTRE ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA = 'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'MESTRE'
+                  AND SS2.SUPERIOR_ID = 6
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_CCFEX_MESTRE ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'EBTT'
+                  AND PC2.ESCOLARIDADE = 'POSGRADUACAO'
+                  AND SS2.SUPERIOR_ID = 6
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_CCFEX_POSGRADUACAO ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'POSGRADUACAO'
+                  AND SS2.SUPERIOR_ID = 6
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_CCFEX_POSGRADUACAO ,
+
+          COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'EBTT'
+                  AND PC2.ESCOLARIDADE = 'GRADUACAO'
+                  AND SS2.SUPERIOR_ID = 6
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS EBTT_CCFEX_GRADUACAO ,
+
+         COALESCE(( SELECT SUM(PC2.MASCULINO+PC2.FEMININO)
+                  FROM PROFESSORCIVIL PC2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = PC2.ORGANIZACAO_ID
+                  AND PC2.CARREIRA =  'MAGISTERIOSUPERIOR'
+                  AND PC2.ESCOLARIDADE = 'GRADUACAO'
+                  AND SS2.SUPERIOR_ID = 6
+                  AND PC2.PERIODO_ID = PC.PERIODO_ID
+
+        ),0) AS MAGISTERIOSUPERIOR_CCFEX_GRADUACAO
+
+
+      FROM PROFESSORCIVIL PC
+        INNER JOIN  SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = PC.ORGANIZACAO_ID
+        WHERE  PC.PERIODO_ID = $P{id_periodo}
+     ) TABELA
+
+
+) TABELA2
+
+UNION
+
+
+
+SELECT 7 AS INDICE,
+      'COLEGIO_MILITAR' AS TIPO_EFETIVO,
+       SUM(COALESCE(feminino)+COALESCE(masculino))
+FROM ALUNOSCOLEGIOMILITAR ACM WHERE ACM.PERIODO_ID = $P{id_periodo}
+
+
+
+ UNION
+
+
+   SELECT 8 AS INDICE,
+    'FUNDACAO_OSORIO' AS TIPO_EFETIVO,
+    COALESCE(SUM(FEMININO)+ SUM(MASCULINO), 0) AS TOTAL_EFETIVO
+   FROM FUNDACAOOSORIO
+   WHERE PERIODO_ID = $P{id_periodo}
+
+
+ UNION
+
+
+   SELECT 9 AS INDICE,
+    'ALUNOS_CIVIS' AS TIPO_EFETIVO,
+    COALESCE(SUM(FEMININO)+ SUM(MASCULINO), 0) AS TOTAL_EFETIVO
+   FROM ALUNOSCIVIS
+   WHERE PERIODO_ID = $P{id_periodo}
+
+
+
+ ORDER BY 1]]>
+	</queryString>
+	<field name="indice" class="java.lang.Integer"/>
+	<field name="tipo_efetivo" class="java.lang.String"/>
+	<field name="total_efetivo" class="java.math.BigDecimal"/>
+	<variable name="total_efetivo_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_efetivo}]]></variableExpression>
+	</variable>
+	<variable name="total_efetivo_2" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_efetivo}]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="55" width="224" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resumo de efetivos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="224" y="55" width="86" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="15" width="310" height="20" forecolor="#FFFFFF" backcolor="#006699"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resumo Geral - DECEx Sistema]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="35" width="310" height="20"/>
+				<subreportParameter name="id_om"/>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "resumoGeralDepartamento/periodo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="15">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="224" height="15" backcolor="#99CCFF"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipo_efetivo}=="FUNDACAO_OSORIO" ? "Efetivo de alunos da Fundação Osorio" :
+$F{tipo_efetivo}=="ALUNOS_MILITARES_OUTRAS_FORCAS" ? "Efetivo de alunos militares de Outras Forças" :
+$F{tipo_efetivo}=="ALUNOS_MILITARES_EXERCITO" ? "Efetivo de alunos militares do Exército " :
+$F{tipo_efetivo}=="ALUNOS_MILITARES_OM_VINCULADAS" ? "Efetivo de alunos de OM Vinculadas" :
+$F{tipo_efetivo}=="EFETIVO_EXISTENTE_EE" ? "Efetivo existente do Relatório de EP x EE" :
+$F{tipo_efetivo}=="MILITARES_NACOES_AMIGA" ? "Efetivo de militares de Nações Amigas" :
+$F{tipo_efetivo}=="PROFESSOR_CIVIL" ? "Efetivo de Professores Civis" :
+$F{tipo_efetivo}=="ALUNOS_CIVIS" ? "Efetivo de Alunos Civis" :
+$F{tipo_efetivo}=="COLEGIO_MILITAR" ? "Efetivo de Alunos dos Colégios Militares" : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="224" y="0" width="86" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_efetivo}==0 ?'-':$F{total_efetivo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="224" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="224" y="0" width="86" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_efetivo_2}==0 ?'-':$V{total_efetivo_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

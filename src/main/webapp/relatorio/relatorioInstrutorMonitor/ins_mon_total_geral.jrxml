@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ins_mon_exercito" language="groovy" pageWidth="140" pageHeight="15" columnWidth="140" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="5.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT SUM(total_masc) as total_m ,SUM(total_fem) as total_f, SUM(total) as tot from (
+
+SELECT
+
+	(ins.masculino+mon.masculino) AS total_masc,
+	(ins.feminino+mon.feminino) AS total_fem,
+	(ins.feminino+mon.feminino+ins.masculino+mon.masculino) AS total
+
+
+FROM instrutormonitor ins
+INNER JOIN instrutormonitor mon on mon.organizacao_id = $P{id_om} and mon.organizacao_superior_id = $P{id_om_enquadrante} and mon.periodo_id = $P{id_periodo}
+AND mon.forcainstrutores='EXERCITO' AND mon.tipoinstrutoremonitor='MONITOR'
+WHERE ins.organizacao_id = $P{id_om} and ins.organizacao_superior_id = $P{id_om_enquadrante} and ins.periodo_id = $P{id_periodo} AND ins.forcainstrutores='EXERCITO' AND ins.tipoinstrutoremonitor='INSTRUTOR'
+
+UNION
+
+SELECT
+
+	(ins.masculino+mon.masculino) AS total_masc,
+	(ins.feminino+mon.feminino) AS total_fem,
+	(ins.feminino+mon.feminino+ins.masculino+mon.masculino) AS total
+
+FROM instrutormonitor ins
+INNER JOIN instrutormonitor mon on mon.organizacao_id = $P{id_om} and mon.organizacao_superior_id = $P{id_om_enquadrante} and mon.periodo_id = $P{id_periodo} AND mon.forcainstrutores='MARINHA' AND mon.tipoinstrutoremonitor='MONITOR'
+WHERE ins.organizacao_id = $P{id_om} and ins.organizacao_superior_id = $P{id_om_enquadrante} and ins.periodo_id = $P{id_periodo} AND ins.forcainstrutores='MARINHA' AND ins.tipoinstrutoremonitor='INSTRUTOR'
+
+
+UNION
+
+
+SELECT
+
+	(ins.masculino+mon.masculino) AS total_masc,
+	(ins.feminino+mon.feminino) AS total_fem,
+	(ins.feminino+mon.feminino+ins.masculino+mon.masculino) AS total
+
+FROM instrutormonitor ins
+INNER JOIN instrutormonitor mon on mon.organizacao_id = $P{id_om} and mon.organizacao_superior_id = $P{id_om_enquadrante} and mon.periodo_id = $P{id_periodo} AND mon.forcainstrutores='FORCAAEREA' AND mon.tipoinstrutoremonitor='MONITOR'
+WHERE ins.organizacao_id = $P{id_om} and ins.organizacao_superior_id = $P{id_om_enquadrante} and ins.periodo_id = $P{id_periodo} AND ins.forcainstrutores='FORCAAEREA' AND ins.tipoinstrutoremonitor='INSTRUTOR'
+
+
+
+UNION
+
+
+SELECT
+
+	(ins.masculino+mon.masculino) AS total_masc,
+	(ins.feminino+mon.feminino) AS total_fem,
+	(ins.feminino+mon.feminino+ins.masculino+mon.masculino) AS total
+
+FROM instrutormonitor ins
+INNER JOIN instrutormonitor mon on
+mon.organizacao_id = $P{id_om} and mon.organizacao_superior_id = $P{id_om_enquadrante} and mon.periodo_id = $P{id_periodo} AND mon.forcainstrutores='FORCAAUXILIAR' AND mon.tipoinstrutoremonitor='MONITOR'
+WHERE ins.organizacao_id = $P{id_om} and ins.organizacao_superior_id = $P{id_om_enquadrante} and ins.periodo_id = $P{id_periodo} AND ins.forcainstrutores='FORCAAUXILIAR' AND ins.tipoinstrutoremonitor='INSTRUTOR'
+
+UNION
+
+SELECT
+
+	(ins.masculino+mon.masculino) AS total_masc,
+	(ins.feminino+mon.feminino) AS total_fem,
+	(ins.feminino+mon.feminino+ins.masculino+mon.masculino) AS total
+
+FROM instrutormonitor ins
+INNER JOIN instrutormonitor mon on mon.organizacao_id = $P{id_om} and mon.organizacao_superior_id = $P{id_om_enquadrante} and mon.periodo_id = $P{id_periodo}
+AND mon.forcainstrutores='BOMBEIROS' AND mon.tipoinstrutoremonitor='MONITOR'
+WHERE ins.organizacao_id = $P{id_om} and ins.organizacao_superior_id = $P{id_om_enquadrante} and ins.periodo_id = $P{id_periodo} AND ins.forcainstrutores='BOMBEIROS' AND ins.tipoinstrutoremonitor='INSTRUTOR')  as tabela]]>
+	</queryString>
+	<field name="total_m" class="java.lang.Integer"/>
+	<field name="total_f" class="java.lang.Integer"/>
+	<field name="tot" class="java.lang.Integer"/>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="44" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_m}==null?'-':$F{total_m}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="44" y="0" width="44" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_f}==null?'-':$F{total_f}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="88" y="0" width="52" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tot}==null?'-':$F{tot}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

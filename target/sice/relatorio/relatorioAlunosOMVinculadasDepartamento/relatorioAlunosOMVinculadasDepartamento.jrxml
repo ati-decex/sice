@@ -1,0 +1,1140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sice" language="groovy" pageWidth="300" pageHeight="700" whenNoDataType="AllSectionsNoDetail" columnWidth="300" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/amparo/projetos/SICE/workspace/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT COALESCE(SUM(NPOR_MASCULINO),0) AS NPOR_MASCULINO,
+       COALESCE(SUM(NPOR_FEMININO),0) AS NPOR_FEMININO,
+       COALESCE(SUM(NPOR_FEMININO) + SUM(NPOR_MASCULINO),0) AS TOTAL_NPOR,
+
+       COALESCE(SUM(CENTROINSTRUCOES_OFICIAL_MASCULINO),0) AS CENTROINSTRUCOES_OFICIAL_MASCULINO,
+       COALESCE(SUM(CENTROINSTRUCOES_OFICIAL_FEMININO),0) AS CENTROINSTRUCOES_OFICIAL_FEMININO,
+       COALESCE(SUM(CENTROINSTRUCOES_OFICIAL_FEMININO) + SUM(CENTROINSTRUCOES_OFICIAL_MASCULINO),0) AS TOTAL_OFICIAL_CENTROINSTRUCOES,
+
+       COALESCE(SUM(CENTROINSTRUCOES_PRACA_MASCULINO),0) AS CENTROINSTRUCOES_PRACA_MASCULINO,
+       COALESCE(SUM(CENTROINSTRUCOES_PRACA_FEMININO),0) AS CENTROINSTRUCOES_PRACA_FEMININO,
+       COALESCE(SUM(CENTROINSTRUCOES_PRACA_FEMININO) + SUM(CENTROINSTRUCOES_PRACA_MASCULINO),0) AS TOTAL_PRACA_CENTROINSTRUCOES,
+
+       COALESCE(SUM(ESCOLAS_OFICIAL_MASCULINO),0) AS ESCOLAS_OFICIAL_MASCULINO,
+       COALESCE(SUM(ESCOLAS_OFICIAL_FEMININO),0) AS ESCOLAS_OFICIAL_FEMININO,
+       COALESCE(SUM(ESCOLAS_OFICIAL_FEMININO) + SUM(ESCOLAS_OFICIAL_MASCULINO),0) AS TOTAL_OFICIAL_ESCOLAS,
+
+       COALESCE(SUM(ESCOLAS_PRACA_MASCULINO),0) AS ESCOLAS_PRACA_MASCULINO,
+       COALESCE(SUM(ESCOLAS_PRACA_FEMININO),0) AS ESCOLAS_PRACA_FEMININO,
+       COALESCE(SUM(ESCOLAS_PRACA_FEMININO) + SUM(ESCOLAS_PRACA_MASCULINO),0) AS TOTAL_PRACA_ESCOLAS,
+
+
+       COALESCE(SUM(BPE_OFICIAL_MASCULINO),0) AS BPE_OFICIAL_MASCULINO,
+       COALESCE(SUM(BPE_OFICIAL_FEMININO),0) AS BPE_OFICIAL_FEMININO,
+       COALESCE(SUM(BPE_OFICIAL_FEMININO) + SUM(BPE_OFICIAL_MASCULINO),0) AS TOTAL_OFICIAL_BPE,
+
+       COALESCE(SUM(BPE_PRACA_MASCULINO),0) AS BPE_PRACA_MASCULINO,
+       COALESCE(SUM(BPE_PRACA_FEMININO),0) AS BPE_PRACA_FEMININO,
+       COALESCE(SUM(BPE_PRACA_FEMININO) + SUM(BPE_PRACA_MASCULINO),0) AS TOTAL_PRACA_BPE,
+
+
+
+
+
+       COALESCE(SUM(BOAI_OFICIAL_MASCULINO),0) AS BOAI_OFICIAL_MASCULINO,
+       COALESCE(SUM(BOAI_OFICIAL_FEMININO),0) AS BOAI_OFICIAL_FEMININO,
+       COALESCE(SUM(BOAI_OFICIAL_FEMININO) + SUM(BOAI_OFICIAL_MASCULINO),0) AS TOTAL_OFICIAL_BOAI,
+
+       COALESCE(SUM(BOAI_PRACA_MASCULINO),0) AS BOAI_PRACA_MASCULINO,
+       COALESCE(SUM(BOAI_PRACA_FEMININO),0) AS BOAI_PRACA_FEMININO,
+       COALESCE(SUM(BOAI_PRACA_FEMININO) + SUM(BOAI_PRACA_MASCULINO),0) AS TOTAL_PRACA_BOAI,
+
+       COALESCE(SUM(OMCT_MASCULINO),0) AS OMCT_MASCULINO,
+       COALESCE(SUM(OMCT_FEMININO),0) AS OMCT_FEMININO,
+       COALESCE(SUM(OMCT_FEMININO) + SUM(OMCT_MASCULINO),0) AS TOTAL_OMCT
+
+
+FROM (
+   SELECT
+         distinct OM.sigla,COALESCE(( SELECT SUM(AOV2.MASCULINO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (93,84,52,71,88,95,89,57,96,79,75,54,67,
+                   53,103,90,85,60,97,91,98,72,86,87,56,69,94,58,68,100,101,102,81,76,82,74,50,63,55,51,
+                   59,92,61,77,65,70,66,73,80,99,83,78,49,62,64,150,151)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+        ),0) AS NPOR_MASCULINO,
+
+         COALESCE(( SELECT SUM(AOV2.FEMININO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (93,84,52,71,88,95,89,57,96,79,75,54,67,
+                   53,103,90,85,60,97,91,98,72,86,87,56,69,94,58,68,100,101,102,81,76,82,74,50,63,55,51,
+                   59,92,61,77,65,70,66,73,80,99,83,78,49,62,64,150,151)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+        ),0) AS NPOR_FEMININO,
+
+
+
+          COALESCE(( SELECT SUM(AOV2.MASCULINO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (117,127,125,115,120,126,119,121,136,118,124,122,123,116)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'OFICIAL'
+        ),0) AS CENTROINSTRUCOES_OFICIAL_MASCULINO,
+
+         COALESCE(( SELECT SUM(AOV2.FEMININO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (117,127,125,115,120,126,119,121,136,118,124,122,123,116)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'OFICIAL'
+        ),0) AS CENTROINSTRUCOES_OFICIAL_FEMININO ,
+
+
+              COALESCE(( SELECT SUM(AOV2.MASCULINO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (117,127,125,115,120,126,119,121,136,118,124,122,123,116)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'PRACA'
+        ),0) AS CENTROINSTRUCOES_PRACA_MASCULINO,
+
+         COALESCE(( SELECT SUM(AOV2.FEMININO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (117,127,125,115,120,126,119,121,136,118,124,122,123,116)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'PRACA'
+        ),0) AS CENTROINSTRUCOES_PRACA_FEMININO ,
+
+
+         COALESCE(( SELECT SUM(AOV2.MASCULINO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (128,129)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'OFICIAL'
+        ),0) AS ESCOLAS_OFICIAL_MASCULINO,
+
+         COALESCE(( SELECT SUM(AOV2.FEMININO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (128,129)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'OFICIAL'
+        ),0) AS ESCOLAS_OFICIAL_FEMININO ,
+
+
+         COALESCE(( SELECT SUM(AOV2.MASCULINO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (128,129)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'PRACA'
+        ),0) AS ESCOLAS_PRACA_MASCULINO,
+
+         COALESCE(( SELECT SUM(AOV2.FEMININO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (128,129)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'PRACA'
+        ),0) AS ESCOLAS_PRACA_FEMININO ,
+
+
+         COALESCE(( SELECT SUM(AOV2.MASCULINO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (130,131,132,133,134)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'OFICIAL'
+        ),0) AS BPE_OFICIAL_MASCULINO,
+
+         COALESCE(( SELECT SUM(AOV2.FEMININO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (130,131,132,133,134)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'OFICIAL'
+        ),0) AS BPE_OFICIAL_FEMININO ,
+
+
+                COALESCE(( SELECT SUM(AOV2.MASCULINO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (130,131,132,133,134)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'PRACA'
+        ),0) AS BPE_PRACA_MASCULINO,
+
+         COALESCE(( SELECT SUM(AOV2.FEMININO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (130,131,132,133,134)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'PRACA'
+        ),0) AS BPE_PRACA_FEMININO ,
+
+
+         COALESCE(( SELECT SUM(AOV2.MASCULINO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (149)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'OFICIAL'
+        ),0) AS BOAI_OFICIAL_MASCULINO,
+
+         COALESCE(( SELECT SUM(AOV2.FEMININO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (149)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'OFICIAL'
+        ),0) AS BOAI_OFICIAL_FEMININO,
+
+
+  COALESCE(( SELECT SUM(AOV2.MASCULINO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (149)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'PRACA'
+        ),0) AS BOAI_PRACA_MASCULINO,
+
+         COALESCE(( SELECT SUM(AOV2.FEMININO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (149)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+                  AND AOV2.TIPOALUNOOMVINCULADA = 'PRACA'
+        ),0) AS BOAI_PRACA_FEMININO,
+
+
+         COALESCE(( SELECT SUM(AOV2.MASCULINO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (104,105,106,142,107,108,111,114,110,112,113,109)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+        ),0) AS OMCT_MASCULINO,
+
+         COALESCE(( SELECT SUM(AOV2.FEMININO)
+                  FROM ALUNOOMVINCULADA AOV2
+                  INNER JOIN ORGANIZACAOMILITAR OM2 ON AOV2.ORGANIZACAO_ID = OM2.ID
+                  WHERE  AOV2.ORGANIZACAO_ID =  AOV.ORGANIZACAO_ID
+                  AND AOV2.ORGANIZACAO_ID IN (104,105,106,142,107,108,111,114,110,112,113,109)
+                  AND AOV2.PERIODO_ID = AOV.PERIODO_ID
+                  AND OM2.TIPO = 'VINCULADA'
+        ),0) AS OMCT_FEMININO
+
+
+   FROM ALUNOOMVINCULADA AOV
+   INNER JOIN ORGANIZACAOMILITAR OM ON AOV.ORGANIZACAO_ID = OM.ID
+     WHERE  AOV.PERIODO_ID = $P{id_periodo}
+
+
+     AND OM.TIPO = 'VINCULADA'
+
+
+) TABELA]]>
+	</queryString>
+	<field name="npor_masculino" class="java.math.BigDecimal"/>
+	<field name="npor_feminino" class="java.math.BigDecimal"/>
+	<field name="total_npor" class="java.math.BigDecimal"/>
+	<field name="centroinstrucoes_oficial_masculino" class="java.math.BigDecimal"/>
+	<field name="centroinstrucoes_oficial_feminino" class="java.math.BigDecimal"/>
+	<field name="total_oficial_centroinstrucoes" class="java.math.BigDecimal"/>
+	<field name="centroinstrucoes_praca_masculino" class="java.math.BigDecimal"/>
+	<field name="centroinstrucoes_praca_feminino" class="java.math.BigDecimal"/>
+	<field name="total_praca_centroinstrucoes" class="java.math.BigDecimal"/>
+	<field name="escolas_oficial_masculino" class="java.math.BigDecimal"/>
+	<field name="escolas_oficial_feminino" class="java.math.BigDecimal"/>
+	<field name="total_oficial_escolas" class="java.math.BigDecimal"/>
+	<field name="escolas_praca_masculino" class="java.math.BigDecimal"/>
+	<field name="escolas_praca_feminino" class="java.math.BigDecimal"/>
+	<field name="total_praca_escolas" class="java.math.BigDecimal"/>
+	<field name="bpe_oficial_masculino" class="java.math.BigDecimal"/>
+	<field name="bpe_oficial_feminino" class="java.math.BigDecimal"/>
+	<field name="total_oficial_bpe" class="java.math.BigDecimal"/>
+	<field name="bpe_praca_masculino" class="java.math.BigDecimal"/>
+	<field name="bpe_praca_feminino" class="java.math.BigDecimal"/>
+	<field name="total_praca_bpe" class="java.math.BigDecimal"/>
+	<field name="boai_oficial_masculino" class="java.math.BigDecimal"/>
+	<field name="boai_oficial_feminino" class="java.math.BigDecimal"/>
+	<field name="total_oficial_boai" class="java.math.BigDecimal"/>
+	<field name="boai_praca_masculino" class="java.math.BigDecimal"/>
+	<field name="boai_praca_feminino" class="java.math.BigDecimal"/>
+	<field name="total_praca_boai" class="java.math.BigDecimal"/>
+	<field name="omct_masculino" class="java.math.BigDecimal"/>
+	<field name="omct_feminino" class="java.math.BigDecimal"/>
+	<field name="total_omct" class="java.math.BigDecimal"/>
+	<variable name="total_mas_of" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{npor_masculino}+
+$F{centroinstrucoes_oficial_masculino}+
+$F{escolas_oficial_masculino}+
+$F{bpe_oficial_masculino}+
+$F{boai_oficial_masculino}]]></variableExpression>
+	</variable>
+	<variable name="total_fem_of" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{npor_feminino}+
+$F{centroinstrucoes_oficial_feminino}+
+$F{escolas_oficial_feminino}+
+$F{bpe_oficial_feminino}+
+$F{boai_oficial_feminino}]]></variableExpression>
+	</variable>
+	<variable name="total_mas_pr" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{centroinstrucoes_praca_masculino}+
+$F{escolas_praca_masculino}+
+$F{bpe_praca_masculino}+
+$F{boai_praca_masculino}+
+$F{omct_masculino}]]></variableExpression>
+	</variable>
+	<variable name="total_fem_pr" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{centroinstrucoes_praca_feminino}+
+$F{escolas_praca_feminino}+
+$F{bpe_praca_feminino}+
+$F{boai_praca_feminino}+
+$F{omct_feminino}]]></variableExpression>
+	</variable>
+	<variable name="total_npor" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{npor_masculino}+$F{npor_feminino}]]></variableExpression>
+	</variable>
+	<variable name="total_centro" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_oficial_centroinstrucoes}+$F{total_praca_centroinstrucoes}]]></variableExpression>
+	</variable>
+	<variable name="total_bpe" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_praca_bpe}+$F{total_oficial_bpe}]]></variableExpression>
+	</variable>
+	<variable name="total_boai" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_praca_boai}+$F{total_oficial_boai}]]></variableExpression>
+	</variable>
+	<variable name="total_omct" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_omct}]]></variableExpression>
+	</variable>
+	<variable name="total_escola" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_oficial_escolas}+$F{total_praca_escolas}]]></variableExpression>
+	</variable>
+	<variable name="total_toal" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{total_escola}+
+$V{total_omct}+
+$V{total_boai}+
+$V{total_bpe}+
+$V{total_centro}+
+$V{total_npor}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="119" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="118" y="60" width="144" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade de alunos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="118" y="104" width="36" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Masc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="262" y="60" width="38" height="59" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="60" width="118" height="59" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OM Enquadrante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="154" y="104" width="36" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="118" y="89" width="72" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="190" y="89" width="72" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="118" y="75" width="72" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Oficiais]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="190" y="75" width="72" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Praças]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="226" y="104" width="36" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="190" y="104" width="36" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Masc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="20" width="300" height="20" forecolor="#FFFFFF" backcolor="#006699"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Efetivos de OM Vinculadas]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="40" width="300" height="20"/>
+				<subreportParameter name="id_om"/>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioAlunosOMVinculadasDepartamento/cabecalho/periodo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="90">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="118" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[57 NPOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="15" width="118" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[14 Centros de Instrução]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="30" width="118" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[3 Escolas (EsCom, EsIMEx e ENaDCiber)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="45" width="118" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[5 BPE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="60" width="118" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[1º BOpPsc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="75" width="118" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[13 OMCT]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="118" y="15" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{centroinstrucoes_oficial_masculino} == 0 ?'-': $F{centroinstrucoes_oficial_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="154" y="15" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{centroinstrucoes_oficial_feminino} == 0 ?'-': $F{centroinstrucoes_oficial_feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="190" y="15" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{centroinstrucoes_praca_masculino} == 0 ?'-': $F{centroinstrucoes_praca_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="226" y="15" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{centroinstrucoes_praca_feminino} == 0 ?'-': $F{centroinstrucoes_praca_feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="118" y="30" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{escolas_oficial_masculino} == 0 ?'-': $F{escolas_oficial_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="154" y="30" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{escolas_oficial_feminino} == 0 ?'-': $F{escolas_oficial_feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="190" y="30" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{escolas_praca_masculino} == 0 ?'-': $F{escolas_praca_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="226" y="30" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{escolas_praca_feminino} == 0 ?'-': $F{escolas_praca_feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="118" y="60" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{boai_oficial_masculino}== 0 ?'-': $F{boai_oficial_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="154" y="60" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{boai_oficial_feminino}== 0 ?'-': $F{boai_oficial_feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="190" y="60" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{boai_praca_masculino}== 0 ?'-': $F{boai_praca_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="226" y="60" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{boai_praca_feminino}== 0 ?'-': $F{boai_praca_feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="118" y="0" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{npor_masculino} == 0 ?'-':  $F{npor_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="154" y="0" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{npor_feminino} == 0 ?'-': $F{npor_feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="190" y="75" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{omct_masculino}== 0 ?'-': $F{omct_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="226" y="75" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{omct_feminino}== 0 ?'-': $F{omct_feminino}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="190" y="0" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="226" y="0" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="118" y="75" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="154" y="75" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="118" y="45" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{bpe_oficial_masculino} == 0 ?'-': $F{bpe_oficial_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="154" y="45" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{bpe_oficial_feminino}== 0 ?'-': $F{bpe_oficial_feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="190" y="45" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{bpe_praca_masculino}== 0 ?'-': $F{bpe_praca_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="226" y="45" width="36" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{bpe_praca_feminino}== 0 ?'-': $F{bpe_praca_feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="262" y="0" width="38" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_npor}==0?'-': $V{total_npor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="262" y="15" width="38" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_centro}==0?'-': $V{total_centro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="262" y="45" width="38" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_bpe}==0?'-': $V{total_bpe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="262" y="60" width="38" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_boai}==0?'-':$V{total_boai}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="262" y="30" width="38" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_escola}==0?'-': $V{total_escola}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="262" y="75" width="38" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_omct}==0 ?'-':$V{total_omct}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="118" height="15" forecolor="#FFFFFF" backcolor="#0099CC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="118" y="0" width="36" height="15" forecolor="#FFFFFF" backcolor="#0099CC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_mas_of} ==0 ?'-':$V{total_mas_of}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="154" y="0" width="36" height="15" forecolor="#FFFFFF" backcolor="#0099CC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_fem_of}==0 ?'-':$V{total_fem_of}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="190" y="0" width="36" height="15" forecolor="#FFFFFF" backcolor="#0099CC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_mas_pr} ==0 ?'-':$V{total_mas_pr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="226" y="0" width="36" height="15" forecolor="#FFFFFF" backcolor="#0099CC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_fem_pr}==0 ?'-':$V{total_fem_pr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="262" y="0" width="38" height="15" forecolor="#FFFFFF" backcolor="#0099CC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_toal}==0 ?'-':$V{total_toal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

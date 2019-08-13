@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+
+		<p:panel style="margin-bottom: 10px; background-color:#8B8989 !important; margin-bottom: 10px;">
+			<p:outputLabel style="font-weight:bolder; color:white  !important; " value="#{msgs.usuario_informacoes_acesso}" />
+		</p:panel>
+
+
+		<p:panel id="panel" prependId="false"
+			style="width:99.2% !important;min-height:235px;">
+
+			<h:form id="login"
+				onsubmit="document.getElementById('login').action='j_security_check';"
+				prependId="false" style="position: absolute;left: 50%;margin-left: -29%;margin-top: 29px;">
+				
+				<p:panelGrid id="gridLogin" columns="2" prependId="false"
+					columnClasses="coluna1 , coluna2">
+					
+					<p:outputLabel for="j_username" value="Identidade   :" />
+					<p:inputMask mask="?9999999999" id="j_username" name="j_username" />
+					
+					<p:outputLabel for="j_password" value="Senha:" />
+					<p:password id="j_password" name="j_password" />
+
+					<p:outputLabel value="Período de Lançamento:" />
+					<p:outputLabel style="margin-left:7px;font-weight: bold;font-size: 14px !important;" value="#{periodoCtrl.proximoPeriodoLancamento}" />
+					<p:outputLabel />
+					<p:commandButton id="submit" ajax="false" icon="ui-icon-key" />
+					
+				</p:panelGrid>
+
+			</h:form>
+			
+			
+			
+		</p:panel>
+	</ui:define>
+</ui:composition>

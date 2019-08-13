@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
+				
+	<ui:define name="conteudo">
+	
+		<h:form id="form"  prependId="true">
+		
+			<p:growl id="mensagem" showDetail="true" sticky="true"/>
+			<p:panel style="background-color:#8B8989 !important; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight:bolder; color:white  !important; " value="#{msgs.tela_efetivoInstrutorMonito}:" />
+			</p:panel>
+			<p:panel style="text-align: center; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight: bold;" value="#{msgs.cadastrar_efetivo_instrutor_monitor}"/>
+			</p:panel>
+		
+			<p:panel style="margin-bottom: 10px;">
+				<p:panelGrid style="width: 100%;">
+					<p:row>
+						<p:column>
+							<p:outputLabel for="superior" value="#{msgs.om_enquadrante}:" />
+						</p:column>
+						
+						<p:column colspan="4">
+							<p:selectOneMenu style="width: 20%" value="#{instrutorMonitor.organizacaoMilitarSuperior}" id="superior" converter="organizacaoConverter" required="true"
+							  requiredMessage="#{msgs.requerido_organizacao_militar}">
+								<f:selectItem itemLabel="#{msgs.selecione}" />
+								<p:ajax listener="#{instrutorMonitor.carregarOrganizacaoMilitar}" update="ee"  />
+								<f:selectItems value="#{instrutorMonitor.superiores}" var="organizacoes" itemLabel="#{organizacoes.sigla}" itemValue="#{organizacoes}" />
+							</p:selectOneMenu>
+						</p:column>
+						
+					</p:row>
+					
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel for="ee" value="#{msgs.organizacao_militar}:" />
+						</p:column>
+						
+						<p:column colspan="4">
+							<p:selectOneMenu style="width: 20%" value="#{instrutorMonitor.organizacaoMilitar}" id="ee" converter="organizacaoConverter"
+							required="true" requiredMessage="#{msgs.requerido_organizacao_militar}" prependId="true">
+								<p:ajax listener="#{instrutorMonitor.carregarForca}"  update="forca" />
+								<f:selectItem itemLabel="#{msgs.selecione}" />
+								<f:selectItems value="#{instrutorMonitor.organizacoesMilitares}" var="om" itemLabel="#{om.sigla}" itemValue="#{om}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					
+					<p:row >
+						<p:column>
+							<p:outputLabel for="forca" value="#{msgs.forca}:" />
+						</p:column>
+						<p:column colspan="4">
+							<p:selectOneMenu style="width: 20%" value="#{instrutorMonitor.alunosForcas}" id="forca"  required="true"
+							    requiredMessage="#{msgs.requerido_forca_Auxiliares}">
+								<f:selectItem itemLabel="#{msgs.selecione}" />
+								<p:ajax listener="#{instrutorMonitor.carregarRegistro}"  update="instrutoresMas, instrutoresFem, monitoresMas, monitoresFem, botaoProsseguir" />
+								<f:selectItems value="#{instrutorMonitor.forcas}" var="forca" itemLabel="#{forca.value}" itemValue="#{forca}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="4">
+							<p:outputLabel value="#{msgs.instrutores}" style="color: #0f4098; font-weight: bold;" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel for="instrutoresMas" value="#{msgs.masculino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="instrutoresMas" value="#{instrutorMonitor.instrutor.masculino}" required="true" requiredMessage="#{msgs.requerido_instrutor}" minValue="0" maxValue="99999" />
+						</p:column>
+						<p:column>
+							<p:outputLabel for="instrutoresFem" value="#{msgs.feminino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="instrutoresFem" value="#{instrutorMonitor.instrutor.feminino}" required="true" requiredMessage="#{msgs.requerido_instrutor}" minValue="0" maxValue="99999" />
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column colspan="4">
+							<p:outputLabel value="#{msgs.monitores}" style="color: #0f4098; font-weight: bold;" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel for="monitoresMas" value="#{msgs.masculino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="monitoresMas" value="#{instrutorMonitor.monitor.masculino}" required="true" requiredMessage="#{msgs.requerido_monitor}" minValue="0" maxValue="99999" />
+						</p:column>
+						<p:column>
+							<p:outputLabel for="monitoresFem" value="#{msgs.feminino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="monitoresFem" value="#{instrutorMonitor.monitor.feminino}" required="true" requiredMessage="#{msgs.requerido_monitor}" minValue="0" maxValue="99999" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+			
+			<p:panel style="text-align: center; margin-bottom: 10px; height: 34px;">
+				<p:commandButton id="botaoProsseguir" icon="ui-icon-arrowthick-1-e" title="#{msgs.prosseguir_tela}" disabled="#{instrutorMonitor.habilitaBotao}" action="#{telas.avancarTela}" rendered="#{telas.exibirBotaoProximo}" immediate="true" style="float: right; top: -3px;" />
+				<p:commandButton icon="ui-icon-arrowthick-1-w" title="#{msgs.voltar_tela}" action="#{telas.voltarTela}" rendered="#{telas.exibirBotaoAnterior}" immediate="true" style="float: right; top: -3px; right: 5px;" />
+				<p:commandButton icon="ui-icon-disk" title="#{msgs.gravar}" actionListener="#{instrutorMonitor.prepararDados}" update=":form, :formCadastrado, :form:ee" style="float: right; top: -3px; right: 10px;"/>
+			</p:panel>
+		</h:form>
+		
+		<h:form id="formCadastrado" prependId="true">
+			<p:dataTable id="listaEfetivoExistente" editable="true" rows="10" var="listaExistente" value="#{instrutorMonitor.efetivos}" paginator="true" emptyMessage="Nenhum registro encontrado!"
+            	rowsPerPageTemplate="10,25,50,100" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}" prependId="true">
+		        
+		        <p:ajax event="rowEdit" listener="#{instrutorMonitor.editar(listaExistente)}" update="form:mensagem" />
+		        
+		        <f:facet name="header">
+	            	<h:outputLabel value="#{msgs.efetivo_existente_cadastrado}" />
+	        	</f:facet>
+	        	
+	        	<p:column id="superiores" headerText="#{msgs.om_enquadrante}">
+	        		<h:outputText value="#{listaExistente.organizacaoMilitarSuperior}" />
+	        	</p:column>
+	        	
+	        	<p:column id="estabelecimento" headerText="#{msgs.estab_ensino}">
+	        		<h:outputText value="#{listaExistente.organizacaoMilitar}" />
+	        	</p:column>
+       	                	
+	        	<p:column id="forca" headerText="#{msgs.forca}">
+	        		<h:outputText value="#{listaExistente.forcaInstrutores.value}" />
+	        	</p:column>
+	        	
+	        	<p:column id="tipo" headerText="#{msgs.tipo}">
+	        		<h:outputText value="#{listaExistente.tipoInstrutorEMonitor.value}" />
+	        	</p:column>
+	        	
+	        	<p:column id="listaMasculinoOf" headerText="#{msgs.masculino}">
+	        		<p:cellEditor>
+	        			<f:facet name="output"><h:outputText value="#{listaExistente.masculino}" /></f:facet>
+	        			<f:facet name="input">
+							<p:inputNumber  minValue="0" maxValue="99999"  value="#{listaExistente.masculino}" />
+						</f:facet>
+	        		</p:cellEditor>
+	        	</p:column>
+	        	
+	        	<p:column id="listaFemininoOf" headerText="#{msgs.feminino}">
+	        		<p:cellEditor>
+	        			<f:facet name="output"><h:outputText value="#{listaExistente.feminino}" /></f:facet>
+	        			<f:facet name="input">
+							<p:inputNumber  minValue="0" maxValue="99999"  value="#{listaExistente.feminino}" />
+						</f:facet>
+	        		</p:cellEditor>
+	        	</p:column>
+	        	
+	        	<p:column style="width:32px">
+	        	     <p:rowEditor editTitle="#{msgs.editar_efetivo_existente}" />
+	        	</p:column>
+	        	
+	        	<p:column style="width:39px">
+		            <p:commandButton icon="ui-icon-trash" update=":formCadastrado, :form:mensagem"  title="#{msgs.excluir_efetivo_existente}" action="#{instrutorMonitor.excluir(listaExistente)}" />
+		        </p:column>
+
+			</p:dataTable>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

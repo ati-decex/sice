@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ins_mon_exercito" language="groovy" pageWidth="340" pageHeight="30" whenNoDataType="AllSectionsNoDetail" columnWidth="340" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.104606615295775"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT   DISTINCT
+       COALESCE(( SELECT SUM(AMOF2.FEMININO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_OFICIAL_FEMININO ,
+
+        COALESCE(( SELECT SUM(AMOF2.MASCULINO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_OFICIAL_MASCULINO  ,
+
+        COALESCE(( SELECT SUM(AMOF2.FEMININO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_PRACA_FEMININO,
+
+       COALESCE(( SELECT SUM(AMOF2.MASCULINO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_PRACA_MASCULINO
+
+        FROM MILITARESOMDS AMOF
+        INNER JOIN  ORGANIZACAOMILITAR OM ON OM.ID = AMOF.ORGANIZACAO_ID
+        INNER JOIN  SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = OM.ID
+        INNER JOIN  ORGANIZACAOMILITAR OMSUB ON OMSUB.ID = SS.SUPERIOR_SUBORDINADO_ID
+
+        WHERE SS.SUPERIOR_ID = $P{id_om}
+        AND  AMOF.PERIODO_ID = $P{id_periodo}]]>
+	</queryString>
+	<field name="ALUNO_EXERCITO_OFICIAL_FEMININO" class="java.lang.Integer"/>
+	<field name="ALUNO_EXERCITO_OFICIAL_MASCULINO" class="java.lang.Integer"/>
+	<field name="ALUNO_EXERCITO_PRACA_FEMININO" class="java.lang.Integer"/>
+	<field name="ALUNO_EXERCITO_PRACA_MASCULINO" class="java.lang.Integer"/>
+	<variable name="TOTAL" class="java.lang.Integer" resetType="None" incrementType="Column" calculation="First">
+		<variableExpression><![CDATA[$F{ALUNO_EXERCITO_OFICIAL_FEMININO}+
+$F{ALUNO_EXERCITO_OFICIAL_MASCULINO}+
+$F{ALUNO_EXERCITO_PRACA_FEMININO}+
+$F{ALUNO_EXERCITO_PRACA_MASCULINO}]]></variableExpression>
+	</variable>
+	<variable name="ofi_mas_eb" class="java.lang.Integer" resetType="None" incrementType="Column" calculation="First">
+		<variableExpression><![CDATA[$F{ALUNO_EXERCITO_OFICIAL_MASCULINO}]]></variableExpression>
+	</variable>
+	<variable name="ofi_fem_eb" class="java.lang.Integer" resetType="None" incrementType="Column" calculation="First">
+		<variableExpression><![CDATA[$F{ALUNO_EXERCITO_OFICIAL_FEMININO}]]></variableExpression>
+	</variable>
+	<variable name="pra_mas_eb" class="java.lang.Integer" resetType="None" incrementType="Column" calculation="First">
+		<variableExpression><![CDATA[$F{ALUNO_EXERCITO_PRACA_MASCULINO}]]></variableExpression>
+	</variable>
+	<variable name="pra_fem_eb" class="java.lang.Integer" resetType="None" incrementType="Column" calculation="First">
+		<variableExpression><![CDATA[$F{ALUNO_EXERCITO_PRACA_FEMININO}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="30">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="132" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Exército]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="132" y="0" width="34" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUNO_EXERCITO_OFICIAL_MASCULINO}== 0 ? '-' :  $F{ALUNO_EXERCITO_OFICIAL_MASCULINO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="166" y="0" width="34" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUNO_EXERCITO_OFICIAL_FEMININO}== 0 ? '-' :$F{ALUNO_EXERCITO_OFICIAL_FEMININO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="200" y="0" width="34" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUNO_EXERCITO_PRACA_MASCULINO}== 0 ? '-' :$F{ALUNO_EXERCITO_PRACA_MASCULINO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="234" y="0" width="34" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUNO_EXERCITO_PRACA_FEMININO}== 0 ? '-' :$F{ALUNO_EXERCITO_PRACA_FEMININO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="268" y="0" width="72" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL}== 0 ? '-' :$V{TOTAL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="15" width="132" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Total do Exército]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="132" y="15" width="34" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUNO_EXERCITO_OFICIAL_MASCULINO}== 0 ? '-' :$F{ALUNO_EXERCITO_OFICIAL_MASCULINO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="166" y="15" width="34" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUNO_EXERCITO_OFICIAL_FEMININO}== 0 ? '-' :$F{ALUNO_EXERCITO_OFICIAL_FEMININO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="200" y="15" width="34" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUNO_EXERCITO_PRACA_MASCULINO}== 0 ? '-' :$F{ALUNO_EXERCITO_PRACA_MASCULINO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="234" y="15" width="34" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUNO_EXERCITO_PRACA_FEMININO}== 0 ? '-' :$F{ALUNO_EXERCITO_PRACA_FEMININO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="268" y="15" width="72" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL}== 0 ? '-' : $V{TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

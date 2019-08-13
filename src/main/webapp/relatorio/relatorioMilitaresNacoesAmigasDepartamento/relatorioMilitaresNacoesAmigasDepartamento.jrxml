@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sice" language="groovy" pageWidth="472" pageHeight="780" whenNoDataType="AllSectionsNoDetail" columnWidth="472" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/marques/Projetos/SICE/workspace/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="id_om_verdadeiro" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{id_om}==146?4:$P{id_om}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 1 AS INDICE,
+        'DESMIL' AS TIPO,
+        COALESCE(SUM(ALUNO_DESMIL_MASCULINO),0) AS ALUNO_DESMIL_MASCULINO ,
+        COALESCE(SUM(ALUNO_DESMIL_FEMININO),0) AS ALUNO_DESMIL_FEMININO,
+        COALESCE(SUM(INSTRUTORES_DESMIL_MASCULINO),0) AS INSTRUTORES_DESMIL_MASCULINO,
+        COALESCE(SUM(INSTRUTORES_DESMIL_FEMININO),0) AS INSTRUTORES_DESMIL_FEMININO,
+        COALESCE(SUM(MONITOR_DESMIL_MASCULINO),0) AS MONITOR_DESMIL_MASCULINO,
+        COALESCE(SUM(MONITOR_DESMIL_FEMININO),0) AS MONITOR_DESMIL_FEMININO,
+		COALESCE(SUM(ALUNO_DESMIL_MASCULINO) + SUM(ALUNO_DESMIL_FEMININO) + SUM(INSTRUTORES_DESMIL_MASCULINO)
+				+ SUM(INSTRUTORES_DESMIL_FEMININO) + SUM(MONITOR_DESMIL_MASCULINO) + SUM(MONITOR_DESMIL_FEMININO), 0) AS TOTAL_DESMIL
+
+
+ FROM (
+
+
+ SELECT   DISTINCT
+       COALESCE(( SELECT SUM(MNA2.MASCULINO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('ALUNO_OF','ALUNO_PR')
+                  AND SS2.SUPERIOR_ID = 2
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS ALUNO_DESMIL_MASCULINO ,
+
+        COALESCE(( SELECT SUM(MNA2.FEMININO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('ALUNO_OF','ALUNO_PR')
+                  AND SS2.SUPERIOR_ID = 2
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS ALUNO_DESMIL_FEMININO ,
+
+        COALESCE(( SELECT SUM(MNA2.MASCULINO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('OFICIAL')
+                  AND SS2.SUPERIOR_ID = 2
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS INSTRUTORES_DESMIL_MASCULINO ,
+
+        COALESCE(( SELECT SUM(MNA2.FEMININO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('OFICIAL')
+                  AND SS2.SUPERIOR_ID = 2
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS INSTRUTORES_DESMIL_FEMININO ,
+
+          COALESCE(( SELECT SUM(MNA2.MASCULINO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('PRACA')
+                  AND SS2.SUPERIOR_ID = 2
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS MONITOR_DESMIL_MASCULINO ,
+
+        COALESCE(( SELECT SUM(MNA2.FEMININO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('PRACA')
+                  AND SS2.SUPERIOR_ID = 2
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS MONITOR_DESMIL_FEMININO
+
+
+
+        FROM MILITARESNACOESAMIGAS MNA
+        INNER JOIN  SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = MNA.ORGANIZACAO_ID
+
+        WHERE  MNA.PERIODO_ID = $P{id_periodo}
+
+) TABELA
+
+UNION
+
+
+ SELECT 2 AS INDICE,
+	 'DETMIL' AS TIPO,
+        COALESCE(SUM(ALUNO_DETMIL_MASCULINO),0) AS ALUNO_DETMIL_MASCULINO ,
+        COALESCE(SUM(ALUNO_DETMIL_FEMININO),0) AS ALUNO_DETMIL_FEMININO,
+        COALESCE(SUM(INSTRUTORES_DETMIL_MASCULINO),0) AS INSTRUTORES_DETMIL_MASCULINO,
+        COALESCE(SUM(INSTRUTORES_DETMIL_FEMININO),0) AS INSTRUTORES_DETMIL_FEMININO,
+        COALESCE(SUM(MONITOR_DETMIL_MASCULINO),0) AS MONITOR_DETMIL_MASCULINO,
+        COALESCE(SUM(MONITOR_DETMIL_FEMININO),0) AS MONITOR_DETMIL_FEMININO,
+		COALESCE(SUM(ALUNO_DETMIL_MASCULINO) + SUM(ALUNO_DETMIL_FEMININO) + SUM(INSTRUTORES_DETMIL_MASCULINO)
+				+ SUM(INSTRUTORES_DETMIL_FEMININO) + SUM(MONITOR_DETMIL_MASCULINO) + SUM(MONITOR_DETMIL_FEMININO), 0) AS TOTAL_DETMIL
+
+
+ FROM (
+
+
+ SELECT   DISTINCT
+       COALESCE(( SELECT SUM(MNA2.MASCULINO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('ALUNO_OF','ALUNO_PR')
+                  AND SS2.SUPERIOR_ID IN (4,146)
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS ALUNO_DETMIL_MASCULINO ,
+
+        COALESCE(( SELECT SUM(MNA2.FEMININO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('ALUNO_OF','ALUNO_PR')
+                  AND SS2.SUPERIOR_ID IN (4,146)
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS ALUNO_DETMIL_FEMININO ,
+
+        COALESCE(( SELECT SUM(MNA2.MASCULINO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('OFICIAL')
+                  AND SS2.SUPERIOR_ID IN (4,146)
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS INSTRUTORES_DETMIL_MASCULINO ,
+
+        COALESCE(( SELECT SUM(MNA2.FEMININO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('OFICIAL')
+                  AND SS2.SUPERIOR_ID IN (4,146)
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS INSTRUTORES_DETMIL_FEMININO ,
+
+          COALESCE(( SELECT SUM(MNA2.MASCULINO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('PRACA')
+                  AND SS2.SUPERIOR_ID IN (4,146)
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS MONITOR_DETMIL_MASCULINO ,
+
+        COALESCE(( SELECT SUM(MNA2.FEMININO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('PRACA')
+                  AND SS2.SUPERIOR_ID IN (4,146)
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS MONITOR_DETMIL_FEMININO
+
+
+
+        FROM MILITARESNACOESAMIGAS MNA
+        INNER JOIN  SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = MNA.ORGANIZACAO_ID
+
+        WHERE  MNA.PERIODO_ID = $P{id_periodo}
+
+) TABELA
+
+
+UNION
+
+
+ SELECT 3 AS INDICE, 'DEPA' AS TIPO,
+        COALESCE(SUM(ALUNO_DEPA_MASCULINO),0) AS ALUNO_DEPA_MASCULINO ,
+        COALESCE(SUM(ALUNO_DEPA_FEMININO),0) AS ALUNO_DEPA_FEMININO,
+        COALESCE(SUM(INSTRUTORES_DEPA_MASCULINO),0) AS INSTRUTORES_DEPA_MASCULINO,
+        COALESCE(SUM(INSTRUTORES_DEPA_FEMININO),0) AS INSTRUTORES_DEPA_FEMININO,
+        COALESCE(SUM(MONITOR_DEPA_MASCULINO),0) AS MONITOR_DEPA_MASCULINO,
+        COALESCE(SUM(MONITOR_DEPA_FEMININO),0) AS MONITOR_DEPA_FEMININO,
+		COALESCE(SUM(ALUNO_DEPA_MASCULINO) + SUM(ALUNO_DEPA_FEMININO) + SUM(INSTRUTORES_DEPA_MASCULINO)
+				+ SUM(INSTRUTORES_DEPA_FEMININO) + SUM(MONITOR_DEPA_MASCULINO) + SUM(MONITOR_DEPA_FEMININO), 0) AS TOTAL_DEPA
+
+
+ FROM (
+
+
+ SELECT   DISTINCT
+       COALESCE(( SELECT SUM(MNA2.MASCULINO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('ALUNO_OF','ALUNO_PR')
+                  AND SS2.SUPERIOR_ID = 3
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS ALUNO_DEPA_MASCULINO ,
+
+        COALESCE(( SELECT SUM(MNA2.FEMININO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('ALUNO_OF','ALUNO_PR')
+                  AND SS2.SUPERIOR_ID = 3
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS ALUNO_DEPA_FEMININO ,
+
+        COALESCE(( SELECT SUM(MNA2.MASCULINO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('OFICIAL')
+                  AND SS2.SUPERIOR_ID = 3
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS INSTRUTORES_DEPA_MASCULINO ,
+
+        COALESCE(( SELECT SUM(MNA2.FEMININO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('OFICIAL')
+                  AND SS2.SUPERIOR_ID = 3
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS INSTRUTORES_DEPA_FEMININO ,
+
+          COALESCE(( SELECT SUM(MNA2.MASCULINO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('PRACA')
+                  AND SS2.SUPERIOR_ID = 3
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS MONITOR_DEPA_MASCULINO ,
+
+        COALESCE(( SELECT SUM(MNA2.FEMININO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('PRACA')
+                  AND SS2.SUPERIOR_ID = 3
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS MONITOR_DEPA_FEMININO
+
+
+
+        FROM MILITARESNACOESAMIGAS MNA
+        INNER JOIN  SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = MNA.ORGANIZACAO_ID
+
+        WHERE  MNA.PERIODO_ID = $P{id_periodo}
+
+) TABELA
+
+UNION
+
+
+ SELECT  4 AS INDICE,
+	'CCFEX' AS TIPO,
+        COALESCE(SUM(ALUNO_CCFEX_MASCULINO),0) AS ALUNO_CCFEX_MASCULINO ,
+        COALESCE(SUM(ALUNO_CCFEX_FEMININO),0) AS ALUNO_CCFEX_FEMININO,
+        COALESCE(SUM(INSTRUTORES_CCFEX_MASCULINO),0) AS INSTRUTORES_CCFEX_MASCULINO,
+        COALESCE(SUM(INSTRUTORES_CCFEX_FEMININO),0) AS INSTRUTORES_CCFEX_FEMININO,
+        COALESCE(SUM(MONITOR_CCFEX_MASCULINO),0) AS MONITOR_CCFEX_MASCULINO,
+        COALESCE(SUM(MONITOR_CCFEX_FEMININO),0) AS MONITOR_CCFEX_FEMININO,
+		COALESCE(SUM(ALUNO_CCFEX_MASCULINO) + SUM(ALUNO_CCFEX_FEMININO) + SUM(INSTRUTORES_CCFEX_MASCULINO)
+				+ SUM(INSTRUTORES_CCFEX_FEMININO) + SUM(MONITOR_CCFEX_MASCULINO) + SUM(MONITOR_CCFEX_FEMININO), 0) AS TOTAL_CCFEX
+
+
+ FROM (
+
+
+ SELECT   DISTINCT
+       COALESCE(( SELECT SUM(MNA2.MASCULINO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('ALUNO_OF','ALUNO_PR')
+                  AND SS2.SUPERIOR_ID = 6
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS ALUNO_CCFEX_MASCULINO ,
+
+        COALESCE(( SELECT SUM(MNA2.FEMININO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('ALUNO_OF','ALUNO_PR')
+                  AND SS2.SUPERIOR_ID = 6
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS ALUNO_CCFEX_FEMININO ,
+
+        COALESCE(( SELECT SUM(MNA2.MASCULINO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('OFICIAL')
+                  AND SS2.SUPERIOR_ID = 6
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS INSTRUTORES_CCFEX_MASCULINO ,
+
+        COALESCE(( SELECT SUM(MNA2.FEMININO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('OFICIAL')
+                  AND SS2.SUPERIOR_ID = 6
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS INSTRUTORES_CCFEX_FEMININO ,
+
+          COALESCE(( SELECT SUM(MNA2.MASCULINO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('PRACA')
+                  AND SS2.SUPERIOR_ID = 6
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS MONITOR_CCFEX_MASCULINO ,
+
+        COALESCE(( SELECT SUM(MNA2.FEMININO)
+                  FROM MILITARESNACOESAMIGAS MNA2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = MNA2.ORGANIZACAO_ID
+                  AND MNA2.TIPOMILITARNACOESAMIGAS IN ('PRACA')
+                  AND SS2.SUPERIOR_ID = 6
+                  AND MNA2.PERIODO_ID = MNA.PERIODO_ID
+
+        ),0) AS MONITOR_CCFEX_FEMININO
+
+
+
+        FROM MILITARESNACOESAMIGAS MNA
+        INNER JOIN  SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = MNA.ORGANIZACAO_ID
+
+        WHERE  MNA.PERIODO_ID = $P{id_periodo}
+
+) TABELA
+ORDER BY 1]]>
+	</queryString>
+	<field name="ALUNO_DESMIL_MASCULINO" class="java.lang.Integer"/>
+	<field name="ALUNO_DESMIL_FEMININO" class="java.lang.Integer"/>
+	<field name="INSTRUTORES_DESMIL_MASCULINO" class="java.lang.Integer"/>
+	<field name="INSTRUTORES_DESMIL_FEMININO" class="java.lang.Integer"/>
+	<field name="MONITOR_DESMIL_MASCULINO" class="java.lang.Integer"/>
+	<field name="MONITOR_DESMIL_FEMININO" class="java.lang.Integer"/>
+	<field name="TIPO" class="java.lang.String"/>
+	<field name="TOTAL_DESMIL" class="java.lang.Integer"/>
+	<variable name="ALUNO_DESMIL_MASCULINO_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{ALUNO_DESMIL_MASCULINO}]]></variableExpression>
+	</variable>
+	<variable name="ALUNO_DESMIL_MASCULINO_2" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{ALUNO_DESMIL_MASCULINO}]]></variableExpression>
+	</variable>
+	<variable name="ALUNO_DESMIL_FEMININO_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{ALUNO_DESMIL_FEMININO}]]></variableExpression>
+	</variable>
+	<variable name="ALUNO_DESMIL_FEMININO_2" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{ALUNO_DESMIL_FEMININO}]]></variableExpression>
+	</variable>
+	<variable name="INSTRUTORES_DESMIL_MASCULINO_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{INSTRUTORES_DESMIL_MASCULINO}]]></variableExpression>
+	</variable>
+	<variable name="INSTRUTORES_DESMIL_FEMININO_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{INSTRUTORES_DESMIL_FEMININO}]]></variableExpression>
+	</variable>
+	<variable name="MONITOR_DESMIL_MASCULINO_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{MONITOR_DESMIL_MASCULINO}]]></variableExpression>
+	</variable>
+	<variable name="MONITOR_DESMIL_FEMININO_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{MONITOR_DESMIL_FEMININO}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_DESMIL_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL_DESMIL}]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="120" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="192" y="75" width="112" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Instrutor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="192" y="105" width="56" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Masc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="248" y="105" width="56" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="80" y="75" width="112" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Alunos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="75" width="80" height="45" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="8" isBold="true" isUnderline="false" isStrikeThrough="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Diretorias / Centro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="192" y="90" width="112" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="360" y="105" width="56" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="304" y="105" width="56" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Masc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="304" y="90" width="112" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="304" y="75" width="112" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monitor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="80" y="105" width="56" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Masc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="136" y="105" width="56" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="80" y="90" width="112" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="35" width="472" height="20" forecolor="#FFFFFF" backcolor="#006699"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Militares de Nações Amigas]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="55" width="472" height="20"/>
+				<subreportParameter name="id_om"/>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioMilitaresNacoesAmigasDepartamento/periodo.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement mode="Opaque" x="416" y="75" width="56" height="45" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15">
+			<textField>
+				<reportElement mode="Opaque" x="80" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUNO_DESMIL_MASCULINO}==0?'-':$F{ALUNO_DESMIL_MASCULINO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="136" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUNO_DESMIL_FEMININO}==0?'-':$F{ALUNO_DESMIL_FEMININO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="192" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{INSTRUTORES_DESMIL_MASCULINO}==0?'-':$F{INSTRUTORES_DESMIL_MASCULINO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="248" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{INSTRUTORES_DESMIL_FEMININO}==0?'-':$F{INSTRUTORES_DESMIL_FEMININO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="304" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MONITOR_DESMIL_MASCULINO}==0?'-':$F{MONITOR_DESMIL_MASCULINO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="360" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MONITOR_DESMIL_FEMININO}==0?'-':$F{MONITOR_DESMIL_FEMININO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="80" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TIPO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="416" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TOTAL_DESMIL}==0?'-':$F{TOTAL_DESMIL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="80" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box rightPadding="5">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="80" y="0" width="56" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{ALUNO_DESMIL_MASCULINO_2}==0?'-':$V{ALUNO_DESMIL_MASCULINO_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="136" y="0" width="56" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{ALUNO_DESMIL_FEMININO_2}==0?'-':$V{ALUNO_DESMIL_FEMININO_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="192" y="0" width="56" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{INSTRUTORES_DESMIL_MASCULINO_1}==0?'-':$V{INSTRUTORES_DESMIL_MASCULINO_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="248" y="0" width="56" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{INSTRUTORES_DESMIL_FEMININO_1}==0?'-':$V{INSTRUTORES_DESMIL_FEMININO_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="304" y="0" width="56" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{MONITOR_DESMIL_MASCULINO_1}==0?'-':$V{MONITOR_DESMIL_MASCULINO_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="360" y="0" width="56" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{MONITOR_DESMIL_FEMININO_1}==0?'-':$V{MONITOR_DESMIL_FEMININO_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="416" y="0" width="56" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL_DESMIL_1}==0?'-':$V{TOTAL_DESMIL_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

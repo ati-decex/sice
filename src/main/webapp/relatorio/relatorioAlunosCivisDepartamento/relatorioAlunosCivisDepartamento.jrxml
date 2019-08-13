@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sice" language="groovy" pageWidth="372" pageHeight="700" whenNoDataType="AllSectionsNoDetail" columnWidth="292" leftMargin="40" rightMargin="40" topMargin="0" bottomMargin="0" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="3.7565740045078884"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/amparo/projetos/SICE/workspace/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT DISTINCT
+
+	om.sigla as sigla,
+	COALESCE(p.masculino, 0) as pos_masc,
+	COALESCE(p.feminino, 0) as pos_fem,
+	COALESCE(m.masculino, 0) as mestrado_masc,
+	COALESCE(m.feminino, 0) as mestrado_fem,
+	COALESCE(d.masculino, 0) as doutorado_masc,
+	COALESCE(d.feminino, 0) as doutorado_fem,
+	COALESCE(pd.masculino, 0) as posdoutorado_masc,
+	COALESCE(pd.feminino, 0) as posdoutorado_fem,
+
+	COALESCE(p.masculino, 0) +
+	COALESCE(p.feminino, 0) +
+	COALESCE(m.masculino, 0) +
+	COALESCE(m.feminino, 0) +
+	COALESCE(d.masculino, 0) +
+	COALESCE(d.feminino, 0) +
+	COALESCE(pd.masculino, 0) +
+	COALESCE(pd.feminino, 0)
+	 as total_alunos
+
+
+
+
+FROM organizacaomilitar om
+INNER JOIN superiores_subordinados ss ON ss.superior_subordinado_id = om.id
+INNER JOIN configuracao_tela ct ON ct.tela_id = 12 and ct.organizacao_id = om.id
+
+LEFT JOIN alunoscivis m ON m.organizacao_id = om.id AND m.periodo_id = $P{id_periodo} AND m.tipoescolaridade='MESTRE'
+
+LEFT JOIN alunoscivis d ON d.organizacao_id = om.id  AND d.periodo_id = $P{id_periodo} AND d.tipoescolaridade='DOUTORADO'
+
+LEFT JOIN alunoscivis pd ON pd.organizacao_id = om.id  AND pd.periodo_id = $P{id_periodo} AND pd.tipoescolaridade='POSDOUTORADO'
+
+LEFT JOIN alunoscivis p ON p.organizacao_id = om.id AND p.periodo_id = $P{id_periodo} AND p.tipoescolaridade='POSGRADUACAO'
+
+ORDER BY 1]]>
+	</queryString>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="pos_masc" class="java.lang.Integer"/>
+	<field name="pos_fem" class="java.lang.Integer"/>
+	<field name="mestrado_masc" class="java.lang.Integer"/>
+	<field name="mestrado_fem" class="java.lang.Integer"/>
+	<field name="doutorado_masc" class="java.lang.Integer"/>
+	<field name="doutorado_fem" class="java.lang.Integer"/>
+	<field name="posdoutorado_masc" class="java.lang.Integer"/>
+	<field name="posdoutorado_fem" class="java.lang.Integer"/>
+	<field name="total_alunos" class="java.lang.Integer"/>
+	<variable name="total_masc" class="java.lang.String">
+		<variableExpression><![CDATA[]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{pos_masc}+$F{mestrado_masc}+$F{doutorado_masc}+$F{posdoutorado_masc}]]></initialValueExpression>
+	</variable>
+	<variable name="total_fem" class="java.lang.String">
+		<initialValueExpression><![CDATA[$F{pos_fem}+$F{mestrado_fem}+$F{doutorado_fem}+$F{posdoutorado_fem}]]></initialValueExpression>
+	</variable>
+	<variable name="pos_masc_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{pos_masc}]]></variableExpression>
+	</variable>
+	<variable name="pos_fem_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{pos_fem}]]></variableExpression>
+	</variable>
+	<variable name="mestrado_masc_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{mestrado_masc}]]></variableExpression>
+	</variable>
+	<variable name="mestrado_fem_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{mestrado_fem}]]></variableExpression>
+	</variable>
+	<variable name="doutorado_masc_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{doutorado_masc}]]></variableExpression>
+	</variable>
+	<variable name="doutorado_fem_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{doutorado_fem}]]></variableExpression>
+	</variable>
+	<variable name="posdoutorado_masc_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{posdoutorado_masc}]]></variableExpression>
+	</variable>
+	<variable name="posdoutorado_fem_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{posdoutorado_fem}]]></variableExpression>
+	</variable>
+	<variable name="total_alunos_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_alunos}]]></variableExpression>
+	</variable>
+	<group name="Relatorio">
+		<groupExpression><![CDATA[$F{sigla}]]></groupExpression>
+	</group>
+	<group name="Cabecalho">
+		<groupExpression><![CDATA[$F{sigla}]]></groupExpression>
+	</group>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="31" width="292" height="20" forecolor="#FFFFFF" backcolor="#006699"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Alunos de Civis]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="70" width="42" height="30" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="167" y="85" width="25" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="142" y="85" width="25" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Masc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="42" y="70" width="50" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pós-graduação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="92" y="70" width="50" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mestrado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="67" y="85" width="25" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="42" y="85" width="25" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Masc]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="51" width="292" height="19"/>
+				<subreportParameter name="id_om">
+					<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioAlunosCivis/periodo.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement mode="Opaque" x="142" y="70" width="50" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Doutorado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="92" y="85" width="25" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Masc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="117" y="85" width="25" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="192" y="70" width="50" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pós-doutorado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="217" y="85" width="25" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="192" y="85" width="25" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Masc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="242" y="70" width="50" height="30" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16">
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="-1" width="42" height="16" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sigla}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="42" y="-1" width="25" height="16" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pos_masc}
+==null?'-':
+$F{pos_masc}
+==0?'-':
+$F{pos_masc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="67" y="-1" width="25" height="16" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pos_fem}
+==null?'-':
+$F{pos_fem}
+==0?'-':
+$F{pos_fem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="92" y="-1" width="25" height="16" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mestrado_masc}
+
+==null?'-':
+$F{mestrado_masc}
+==0?'-':
+$F{mestrado_masc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="117" y="-1" width="25" height="16" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mestrado_fem}
+
+==null?'-':
+$F{mestrado_fem}
+==0?'-':
+$F{mestrado_fem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="142" y="-1" width="25" height="16" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{doutorado_masc}
+==null?'-':
+$F{doutorado_masc}
+==0?'-':
+$F{doutorado_masc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="167" y="-1" width="25" height="16" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{doutorado_fem}
+==null?'-':
+$F{doutorado_fem}
+==0?'-':
+$F{doutorado_fem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="192" y="-1" width="25" height="16" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{posdoutorado_masc}
+==null?'-':
+$F{posdoutorado_masc}
+==0?'-':
+$F{posdoutorado_masc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="217" y="-1" width="25" height="16" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{posdoutorado_fem}
+==null?'-':
+$F{posdoutorado_fem}
+==0?'-':
+$F{posdoutorado_fem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="242" y="-1" width="50" height="16" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_alunos}
+==null?'-':
+$F{total_alunos}
+==0?'-':
+$F{total_alunos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="50">
+			<textField>
+				<reportElement mode="Opaque" x="42" y="-1" width="25" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{pos_masc_1}
+==null?'-':
+$V{pos_masc_1}
+==0?'-':
+$V{pos_masc_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="67" y="-1" width="25" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{pos_fem_1}
+==null?'-':
+$V{pos_fem_1}
+==0?'-':
+$V{pos_fem_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="92" y="-1" width="25" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{mestrado_masc_1}
+==null?'-':
+$V{mestrado_masc_1}
+==0?'-':
+$V{mestrado_masc_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="117" y="-1" width="25" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{mestrado_fem_1}
+==null?'-':
+$V{mestrado_fem_1}
+==0?'-':
+$V{mestrado_fem_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="142" y="-1" width="25" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{doutorado_masc_1}
+==null?'-':
+$V{doutorado_masc_1}
+==0?'-':
+$V{doutorado_masc_1}
+
+
+]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="167" y="-1" width="25" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{doutorado_fem_1}
+==null?'-':
+$V{doutorado_fem_1}
+==0?'-':
+$V{doutorado_fem_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="192" y="-1" width="25" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{posdoutorado_masc_1}
+==null?'-':
+$V{posdoutorado_masc_1}
+==0?'-':
+$V{posdoutorado_masc_1}
+]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="242" y="-1" width="50" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_alunos_1}
+==null?'-':
+$V{total_alunos_1}
+==0?'-':
+$V{total_alunos_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="217" y="-1" width="25" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{posdoutorado_fem_1}
+==null?'-':
+$V{posdoutorado_fem_1}
+==0?'-':
+$V{posdoutorado_fem_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="-1" width="42" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

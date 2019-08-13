@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
+				
+	<ui:define name="conteudo">
+	
+		<h:form id="form">
+		
+			<p:growl id="mensagem" showDetail="true" sticky="true"/>
+			
+			<p:panel style="background-color:#8B8989 !important; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight:bolder; color:white  !important; " value="#{msgs.tela_militaresNacoesAmigas}:" />
+			</p:panel>
+			<p:panel style="text-align: center; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight: bold;" value="#{msgs.cadastro_militares_nacao_amiga}"/>
+			</p:panel>
+		
+			<p:panel style="margin-bottom: 10px;">
+				<p:panelGrid style="width: 100%;">
+					<p:row>
+						<p:column>
+							<p:outputLabel for="om" value="#{msgs.om}:" />
+						</p:column>
+						<p:column colspan="5">
+							<p:selectOneMenu value="#{nacoesAmigas.organizacaoMilitar}" id="om" converter="organizacaoConverter" required="true" requiredMessage="#{msgs.requerido_organizacao_militar}">
+								<f:selectItem itemLabel="#{msgs.selecione}" />
+								<p:ajax listener="#{nacoesAmigas.carregarRegistro}" update="@form, botaoProsseguir" />
+								<f:selectItems value="#{nacoesAmigas.organizacoesMilitares}" var="organizacoes" itemLabel="#{organizacoes.sigla}" itemValue="#{organizacoes}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column colspan="6">
+							<p:outputLabel value="#{msgs.oficiais_instrutores}" style="color: #0f4098; font-weight: bold;" />
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel for="masculino_instrutor" value="#{msgs.masculino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="masculino_instrutor" value="#{nacoesAmigas.MNAInstrutor.masculino}" minValue="0" maxValue="99999" required="true" requiredMessage="#{msgs.requerido_masculino}">
+								<p:ajax  listener="#{nacoesAmigas.calcularFemininoMasculino(nacoesAmigas.MNAInstrutor)}" />
+							</p:inputNumber>
+						</p:column>
+						<p:column>
+							<p:outputLabel for="feminino_instrutor" value="#{msgs.feminino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="feminino_instrutor" value="#{nacoesAmigas.MNAInstrutor.feminino}" minValue="0" maxValue="99999" required="true" requiredMessage="#{msgs.requerido_feminino}">
+								<p:ajax  listener="#{nacoesAmigas.calcularFemininoMasculino(nacoesAmigas.MNAInstrutor)}" />
+							</p:inputNumber>
+						</p:column>						
+					</p:row>
+					<p:row>
+						<p:column colspan="6">
+							<p:outputLabel value="#{msgs.oficiais_alunos}" style="color: #0f4098; font-weight: bold;" />
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel for="masculino_inst" value="#{msgs.masculino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="masculino_inst" value="#{nacoesAmigas.MNAInstrutorAluno.masculino}" minValue="0" maxValue="99999" required="true" requiredMessage="#{msgs.requerido_masculino}">
+								<p:ajax  listener="#{nacoesAmigas.calcularFemininoMasculino(nacoesAmigas.MNAInstrutorAluno)}"  />
+							</p:inputNumber>
+						</p:column>
+						<p:column>
+							<p:outputLabel for="feminino_inst" value="#{msgs.feminino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="feminino_inst" value="#{nacoesAmigas.MNAInstrutorAluno.feminino}" minValue="0" maxValue="99999" required="true" requiredMessage="#{msgs.requerido_feminino}">
+								<p:ajax  listener="#{nacoesAmigas.calcularFemininoMasculino(nacoesAmigas.MNAInstrutorAluno)}"  />
+							</p:inputNumber>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column colspan="6">
+							<p:outputLabel value="#{msgs.pracas_monitores}" style="color: #0f4098; font-weight: bold;" />
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel for="masculino_monitor" value="#{msgs.masculino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="masculino_monitor" value="#{nacoesAmigas.MNAMonitor.masculino}" minValue="0" maxValue="99999" required="true" requiredMessage="#{msgs.requerido_masculino}">
+								<p:ajax listener="#{nacoesAmigas.calcularFemininoMasculino(nacoesAmigas.MNAMonitor)}"  />
+							</p:inputNumber>
+						</p:column>
+						<p:column>
+							<p:outputLabel for="feminino_monitor" value="#{msgs.feminino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="feminino_monitor" value="#{nacoesAmigas.MNAMonitor.feminino}" minValue="0" maxValue="99999" required="true" requiredMessage="#{msgs.requerido_feminino}">
+								<p:ajax  listener="#{nacoesAmigas.calcularFemininoMasculino(nacoesAmigas.MNAMonitor)}"  />
+							</p:inputNumber>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="6">
+							<p:outputLabel value="#{msgs.pracas_alunos}" style="color: #0f4098; font-weight: bold;" />
+						</p:column>
+					</p:row>
+										
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel for="masculino_mon" value="#{msgs.masculino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="masculino_mon" value="#{nacoesAmigas.MNAMonitorAluno.masculino}" minValue="0" maxValue="99999" required="true" requiredMessage="#{msgs.requerido_masculino}">
+								<p:ajax  listener="#{nacoesAmigas.calcularFemininoMasculino(nacoesAmigas.MNAMonitorAluno)}"  />
+							</p:inputNumber>
+						</p:column>
+						<p:column>
+							<p:outputLabel for="feminino_mon" value="#{msgs.feminino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber id="feminino_mon" value="#{nacoesAmigas.MNAMonitorAluno.feminino}" minValue="0" maxValue="99999" required="true" requiredMessage="#{msgs.requerido_feminino}">
+								<p:ajax listener="#{nacoesAmigas.calcularFemininoMasculino(nacoesAmigas.MNAMonitorAluno)}"  />
+							</p:inputNumber>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+			
+			<p:panel style="text-align: center; margin-bottom: 10px; height: 34px;">
+				<p:commandButton id="botaoProsseguir" icon="ui-icon-arrowthick-1-e" title="#{msgs.prosseguir_tela}" disabled="#{nacoesAmigas.habilitaBotao}" action="#{telas.avancarTela}" rendered="#{telas.exibirBotaoProximo}" immediate="true" style="float: right; top: -3px;" />
+				<p:commandButton icon="ui-icon-arrowthick-1-w" title="#{msgs.voltar_tela}" action="#{telas.voltarTela}" rendered="#{telas.exibirBotaoAnterior}" immediate="true" style="float: right; top: -3px; right: 5px;" />
+				<p:commandButton icon="ui-icon-disk" title="#{msgs.gravar}" actionListener="#{nacoesAmigas.prepararDados}" update="@form, :formListaNA" style="float: right; top: -3px; right: 10px;"/>
+			</p:panel>
+		</h:form>
+		
+		<h:form id="formListaNA">
+			<p:dataTable id="listaEfetivoExistente" editable="true" rows="10" var="listaNA" value="#{nacoesAmigas.nacoesAmigas}" paginator="true" emptyMessage="Nenhum registro encontrado!"
+				rowsPerPageTemplate="10,25,50,100" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+			
+				<p:ajax event="rowEdit" listener="#{nacoesAmigas.editar(listaNA)}" update=":form:mensagem" />
+
+				<f:facet name="header">
+		            	<h:outputLabel value="#{msgs.efetivo_existente_cadastrado}" />
+		        </f:facet>
+		        	
+	        	<p:column id="listaOm" headerText="#{msgs.om}">
+	        		<h:outputText value="#{listaNA.organizacaoMilitar}" />
+	        	</p:column>
+
+	        	<p:column id="listaTipo" headerText="#{msgs.tipo}">
+	        		<h:outputText value="#{listaNA.tipoMilitarNacoesAmigas.value}" />
+	        	</p:column>
+	        		        		
+	        	<p:column id="listaMasculino" headerText="#{msgs.masculino}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{listaNA.masculino}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{listaNA.masculino}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="listaFeminino" headerText="#{msgs.feminino}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{listaNA.feminino}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{listaNA.feminino}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:32px">
+	        	   <p:rowEditor editTitle="#{msgs.editar_efetivo_existente}" />
+				</p:column>
+
+				<p:column style="width:39px">
+					<p:commandButton icon="ui-icon-trash" update=":formListaNA" action="#{nacoesAmigas.excluir(listaNA)}" title="#{msgs.excluir_efetivo_existente}" />
+				</p:column>
+			
+			</p:dataTable>
+		</h:form>		
+	</ui:define>
+</ui:composition>

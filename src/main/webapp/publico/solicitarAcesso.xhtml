@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
+				
+	<ui:define name="conteudo">
+			
+		<h:form id="frmAcesso">
+		
+			<p:growl id="mensagem" showDetail="true" sticky="true"/>
+					
+			<p:panel style="background-color:#8B8989 !important; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight:bolder; color:white  !important; " value="#{msgs.usuario_solicitar_acesso}"/>
+			</p:panel>
+			
+			<p:panel style="text-align: right; margin-bottom: 10px;" >
+				<p:commandButton  icon="ui-icon-disk" title="#{msgs.gravar}" update="mensagem, :frmAcesso" action="#{acesso.salvar}"  />
+			</p:panel>
+			
+			<p:panel style="margin-bottom: 10px;">
+				<p:panelGrid columns="2" style="width: 100%; margin-bottom:8px;">
+					
+					<p:outputLabel id="label_identidade" value="#{msgs.identidade}: *"/>
+					<p:inputMask mask="?9999999999" id="identidade" value="#{acesso.usuario.identidade}" required="true" requiredMessage="#{msgs.requerido_identidade}"/>
+						
+					<h:outputLabel id="label_nome" value="#{msgs.nome}: *"/>
+					<p:inputText id="nome" value="#{acesso.usuario.nome}" maxlength="100" size="70" required="true" requiredMessage="#{msgs.requerido_nome}"/>				
+				
+					<p:outputLabel id="label_nome_guerra" value="#{msgs.nome_guerra}: *"/>
+					<p:inputText id="nomeGuerra" value="#{acesso.usuario.nomeGuerra}" maxlength="80" size="30" required="true" requiredMessage="#{msgs.requerido_nome_guerra}"/>				
+									
+					<p:outputLabel id="label_posto_graduacao" value="#{msgs.posto_graduacao}: *"/>
+					<p:selectOneMenu value="#{acesso.usuario.postoGraduacao}" style="width:264px;" required="true" requiredMessage="#{msgs.requerido_posto_graduacao}">
+						<f:selectItem/>
+						<f:selectItems value="#{acesso.postosGraduacoes}" var="postograduacao" itemLabel="#{postograduacao.value}" itemValue="#{postograduacao}"/>
+					</p:selectOneMenu>				
+				
+					<p:outputLabel id="label_subordinacao" value="#{msgs.subordinacao}: *" />				
+					<p:selectOneMenu value="#{acesso.superiorSelected}" style="width:264px;" converter="organizacaoConverter" required="true" requiredMessage="#{msgs.requerido_organizacao_militar}">
+						<p:ajax listener="#{acesso.listarSubordinados}" update="organizacoes" />					
+						<f:selectItem/>								
+						<f:selectItems value="#{acesso.superiores}" var="superior" itemLabel="#{superior.sigla}" itemValue="#{superior}"/>
+					</p:selectOneMenu>				
+				
+					<p:outputLabel id="label_assessoria" value="#{msgs.organizacao_militar}: *" />				
+					<p:selectOneMenu id="organizacoes" value="#{acesso.usuario.organizacaoMilitar}" style="width:264px;" converter="organizacaoConverter" required="true" requiredMessage="#{msgs.requerido_organizacao_militar}">
+						<f:selectItem/>								
+						<f:selectItems value="#{acesso.organizacoesMilitares}" var="organizacaoMilitar" itemLabel="#{organizacaoMilitar.sigla}" itemValue="#{organizacaoMilitar}"/>
+					</p:selectOneMenu>				
+					
+					<p:outputLabel id="label_telefone_funcional" value="#{msgs.telefone_funcional}: *"/>
+					<p:inputMask  mask="(99) 9999-9999" id="telefonefuncional" value="#{acesso.usuario.tel_funcional}" maxlength="100" size="30" required="true" requiredMessage="#{msgs.requerido_telefone_funcional}"/>				
+					
+					<p:outputLabel id="label_ritex" value="#{msgs.ritex}: "/>
+					<p:inputMask mask="?999-9999" id="ritex" value="#{acesso.usuario.ritex}" maxlength="100" size="30"  requiredMessage="#{msgs.requerido_ritex}"/>				
+					
+					
+					<p:outputLabel id="label_email" value="#{msgs.email}: *"/>
+					<p:inputText id="email" value="#{acesso.usuario.email}" maxlength="100" size="30" required="true" requiredMessage="#{msgs.requerido_email}"/>				
+				
+					<p:outputLabel />
+					<p:outputLabel value="#{msgs.preenchimento_obrigatorio}"/>				
+				</p:panelGrid>
+			</p:panel>			
+
+		</h:form>
+		
+	</ui:define>
+		
+</ui:composition>

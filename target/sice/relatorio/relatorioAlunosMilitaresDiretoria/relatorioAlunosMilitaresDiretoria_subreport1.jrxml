@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioAlunosMilitaresDiretoria_subreport1" language="groovy" pageWidth="340" pageHeight="15" columnWidth="340" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.1384283767210035"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select COALESCE(SUM(ALUNO_EXERCITO_OFICIAL_FEMININO),0) AS ALUNO_EXERCITO_OFICIAL_FEMININO,
+        COALESCE(SUM(ALUNO_EXERCITO_OFICIAL_MASCULINO),0) AS ALUNO_EXERCITO_OFICIAL_MASCULINO,
+        COALESCE(SUM(ALUNO_EXERCITO_PRACA_FEMININO),0) AS ALUNO_EXERCITO_PRACA_FEMININO,
+        COALESCE(SUM(ALUNO_EXERCITO_PRACA_MASCULINO),0) AS ALUNO_EXERCITO_PRACA_MASCULINO,
+        COALESCE(SUM(TABELA.ALUNO_MARINHA_OFICIAL_FEMININO),0) AS ALUNO_MARINHA_OFICIAL_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_MARINHA_OFICIAL_MASCULINO),0) AS ALUNO_MARINHA_OFICIAL_MASCULINO,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAEREA_OFICIAL_FEMININO),0) AS ALUNO_FORCAAEREA_OFICIAL_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAEREA_OFICIAL_MASCULINO),0) AS ALUNO_FORCAAEREA_OFICIAL_MASCULINO,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAUXILIAR_OFICIAL_FEMININO),0) AS ALUNO_FORCAAUXILIAR_OFICIAL_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAUXILIAR_OFICIAL_MASCULINO),0) AS ALUNO_FORCAAUXILIAR_OFICIAL_MASCULINO ,
+        COALESCE(SUM(TABELA.ALUNO_BOMBEIRO_OFICIAL_FEMININO),0) AS ALUNO_BOMBEIRO_OFICIAL_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_BOMBEIRO_OFICIAL_MASCULINO),0) AS ALUNO_BOMBEIRO_OFICIAL_MASCULINO,
+
+        COALESCE(SUM(TABELA.ALUNO_MARINHA_PRACA_FEMININO),0) AS ALUNO_MARINHA_PRACA_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_MARINHA_PRACA_MASCULINO),0) AS ALUNO_MARINHA_PRACA_MASCULINO,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAEREA_PRACA_FEMININO),0) AS ALUNO_FORCAAEREA_PRACA_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAEREA_PRACA_MASCULINO),0) AS ALUNO_FORCAAEREA_PRACA_MASCULINO,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAUXILIAR_PRACA_FEMININO),0) AS ALUNO_FORCAAUXILIAR_PRACA_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAUXILIAR_PRACA_MASCULINO),0) AS ALUNO_FORCAAUXILIAR_PRACA_MASCULINO ,
+        COALESCE(SUM(TABELA.ALUNO_BOMBEIRO_PRACA_FEMININO),0) AS ALUNO_BOMBEIRO_PRACA_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_BOMBEIRO_PRACA_MASCULINO),0) AS ALUNO_BOMBEIRO_PRACA_MASCULINO ,
+
+        COALESCE(SUM(TABELA.TOTAL_OFICIAL_MASCULINO),0) AS TOTAL_OFICIAL_MASCULINO ,
+        COALESCE(SUM(TABELA.TOTAL_OFICIAL_FEMININO),0) AS TOTAL_OFICIAL_FEMININO ,
+        COALESCE(SUM(TABELA.TOTAL_PRACA_MASCULINO),0) AS TOTAL_PRACA_MASCULINO ,
+        COALESCE(SUM(TABELA.TOTAL_PRACA_FEMININO),0) AS TOTAL_PRACA_FEMININO ,
+
+        COALESCE(SUM(TABELA.TOTAL_MARINHA),0) AS TOTAL_MARINHA ,
+        COALESCE(SUM(TABELA.TOTAL_FORCAAEREA),0) AS TOTAL_FORCAAEREA ,
+        COALESCE(SUM(TABELA.TOTAL_FORCA_AUXILIAR),0) AS TOTAL_FORCA_AUXILIAR,
+        COALESCE(SUM(TABELA.TOTAL_BOMBEIRO),0) AS TOTAL_BOMBEIRO ,
+
+        ( COALESCE(SUM(TABELA.TOTAL_MARINHA),0)
+          +   COALESCE(SUM(TABELA.TOTAL_FORCAAEREA),0)
+          +   COALESCE(SUM(TABELA.TOTAL_FORCA_AUXILIAR),0)
+          +    COALESCE(SUM(TABELA.TOTAL_BOMBEIRO),0)
+          ) AS TOTAL_OUTRAS_FORCAS
+
+from (
+
+SELECT 0 as ALUNO_EXERCITO_OFICIAL_FEMININO,
+        0 as ALUNO_EXERCITO_OFICIAL_MASCULINO,
+        0 as ALUNO_EXERCITO_PRACA_FEMININO,
+        0 as ALUNO_EXERCITO_PRACA_MASCULINO,
+        COALESCE(SUM(TABELA.ALUNO_MARINHA_OFICIAL_FEMININO),0) AS ALUNO_MARINHA_OFICIAL_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_MARINHA_OFICIAL_MASCULINO),0) AS ALUNO_MARINHA_OFICIAL_MASCULINO,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAEREA_OFICIAL_FEMININO),0) AS ALUNO_FORCAAEREA_OFICIAL_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAEREA_OFICIAL_MASCULINO),0) AS ALUNO_FORCAAEREA_OFICIAL_MASCULINO,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAUXILIAR_OFICIAL_FEMININO),0) AS ALUNO_FORCAAUXILIAR_OFICIAL_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAUXILIAR_OFICIAL_MASCULINO),0) AS ALUNO_FORCAAUXILIAR_OFICIAL_MASCULINO ,
+        COALESCE(SUM(TABELA.ALUNO_BOMBEIRO_OFICIAL_FEMININO),0) AS ALUNO_BOMBEIRO_OFICIAL_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_BOMBEIRO_OFICIAL_MASCULINO),0) AS ALUNO_BOMBEIRO_OFICIAL_MASCULINO,
+
+        COALESCE(SUM(TABELA.ALUNO_MARINHA_PRACA_FEMININO),0) AS ALUNO_MARINHA_PRACA_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_MARINHA_PRACA_MASCULINO),0) AS ALUNO_MARINHA_PRACA_MASCULINO,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAEREA_PRACA_FEMININO),0) AS ALUNO_FORCAAEREA_PRACA_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAEREA_PRACA_MASCULINO),0) AS ALUNO_FORCAAEREA_PRACA_MASCULINO,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAUXILIAR_PRACA_FEMININO),0) AS ALUNO_FORCAAUXILIAR_PRACA_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_FORCAAUXILIAR_PRACA_MASCULINO),0) AS ALUNO_FORCAAUXILIAR_PRACA_MASCULINO ,
+        COALESCE(SUM(TABELA.ALUNO_BOMBEIRO_PRACA_FEMININO),0) AS ALUNO_BOMBEIRO_PRACA_FEMININO ,
+        COALESCE(SUM(TABELA.ALUNO_BOMBEIRO_PRACA_MASCULINO),0) AS ALUNO_BOMBEIRO_PRACA_MASCULINO ,
+
+        COALESCE(SUM(TABELA.TOTAL_OFICIAL_MASCULINO),0) AS TOTAL_OFICIAL_MASCULINO ,
+        COALESCE(SUM(TABELA.TOTAL_OFICIAL_FEMININO),0) AS TOTAL_OFICIAL_FEMININO ,
+        COALESCE(SUM(TABELA.TOTAL_PRACA_MASCULINO),0) AS TOTAL_PRACA_MASCULINO ,
+        COALESCE(SUM(TABELA.TOTAL_PRACA_FEMININO),0) AS TOTAL_PRACA_FEMININO ,
+
+        COALESCE(SUM(TABELA.TOTAL_MARINHA),0) AS TOTAL_MARINHA ,
+        COALESCE(SUM(TABELA.TOTAL_FORCAAEREA),0) AS TOTAL_FORCAAEREA ,
+        COALESCE(SUM(TABELA.TOTAL_FORCA_AUXILIAR),0) AS TOTAL_FORCA_AUXILIAR,
+        COALESCE(SUM(TABELA.TOTAL_BOMBEIRO),0) AS TOTAL_BOMBEIRO ,
+
+        ( COALESCE(SUM(TABELA.TOTAL_MARINHA),0)
+          +   COALESCE(SUM(TABELA.TOTAL_FORCAAEREA),0)
+          +   COALESCE(SUM(TABELA.TOTAL_FORCA_AUXILIAR),0)
+          +    COALESCE(SUM(TABELA.TOTAL_BOMBEIRO),0)
+          ) AS TOTAL_OUTRAS_FORCAS
+
+ FROM (
+
+ SELECT COALESCE(SUM(T.ALUNO_MARINHA_OFICIAL_FEMININO),0) AS ALUNO_MARINHA_OFICIAL_FEMININO ,
+        COALESCE(SUM(T.ALUNO_MARINHA_OFICIAL_MASCULINO),0) AS ALUNO_MARINHA_OFICIAL_MASCULINO,
+        COALESCE(SUM(T.ALUNO_FORCAAEREA_OFICIAL_FEMININO),0) AS ALUNO_FORCAAEREA_OFICIAL_FEMININO ,
+        COALESCE(SUM(T.ALUNO_FORCAAEREA_OFICIAL_MASCULINO),0) AS ALUNO_FORCAAEREA_OFICIAL_MASCULINO,
+        COALESCE(SUM(T.ALUNO_FORCAAUXILIAR_OFICIAL_FEMININO),0) AS ALUNO_FORCAAUXILIAR_OFICIAL_FEMININO ,
+        COALESCE(SUM(T.ALUNO_FORCAAUXILIAR_OFICIAL_MASCULINO),0) AS ALUNO_FORCAAUXILIAR_OFICIAL_MASCULINO ,
+        COALESCE(SUM(T.ALUNO_BOMBEIRO_OFICIAL_FEMININO),0) AS ALUNO_BOMBEIRO_OFICIAL_FEMININO ,
+        COALESCE(SUM(T.ALUNO_BOMBEIRO_OFICIAL_MASCULINO),0) AS ALUNO_BOMBEIRO_OFICIAL_MASCULINO,
+
+        COALESCE(SUM(T.ALUNO_MARINHA_PRACA_FEMININO),0) AS ALUNO_MARINHA_PRACA_FEMININO ,
+        COALESCE(SUM(T.ALUNO_MARINHA_PRACA_MASCULINO),0) AS ALUNO_MARINHA_PRACA_MASCULINO,
+        COALESCE(SUM(T.ALUNO_FORCAAEREA_PRACA_FEMININO),0) AS ALUNO_FORCAAEREA_PRACA_FEMININO ,
+        COALESCE(SUM(T.ALUNO_FORCAAEREA_PRACA_MASCULINO),0) AS ALUNO_FORCAAEREA_PRACA_MASCULINO,
+        COALESCE(SUM(T.ALUNO_FORCAAUXILIAR_PRACA_FEMININO),0) AS ALUNO_FORCAAUXILIAR_PRACA_FEMININO ,
+        COALESCE(SUM(T.ALUNO_FORCAAUXILIAR_PRACA_MASCULINO),0) AS ALUNO_FORCAAUXILIAR_PRACA_MASCULINO ,
+        COALESCE(SUM(T.ALUNO_BOMBEIRO_PRACA_FEMININO),0) AS ALUNO_BOMBEIRO_PRACA_FEMININO ,
+        COALESCE(SUM(T.ALUNO_BOMBEIRO_PRACA_MASCULINO),0) AS ALUNO_BOMBEIRO_PRACA_MASCULINO ,
+
+        ( COALESCE(SUM(T.ALUNO_MARINHA_OFICIAL_MASCULINO),0) +
+          COALESCE(SUM(T.ALUNO_FORCAAEREA_OFICIAL_MASCULINO),0) +
+          COALESCE(SUM(T.ALUNO_FORCAAUXILIAR_OFICIAL_MASCULINO),0) +
+          COALESCE(SUM(T.ALUNO_BOMBEIRO_OFICIAL_MASCULINO),0)
+         ) AS TOTAL_OFICIAL_MASCULINO,
+
+        ( COALESCE(SUM(T.ALUNO_MARINHA_OFICIAL_FEMININO),0)
+          +   COALESCE(SUM(T.ALUNO_FORCAAEREA_OFICIAL_FEMININO),0)
+          +   COALESCE(SUM(T.ALUNO_FORCAAUXILIAR_OFICIAL_FEMININO),0)
+          +    COALESCE(SUM(T.ALUNO_BOMBEIRO_OFICIAL_FEMININO),0)
+          ) AS TOTAL_OFICIAL_FEMININO,
+
+         ( COALESCE(SUM(T.ALUNO_MARINHA_PRACA_MASCULINO),0)
+          +   COALESCE(SUM(T.ALUNO_FORCAAEREA_PRACA_MASCULINO),0)
+          +   COALESCE(SUM(T.ALUNO_FORCAAUXILIAR_PRACA_MASCULINO),0)
+          +    COALESCE(SUM(T.ALUNO_BOMBEIRO_PRACA_MASCULINO),0)
+          ) AS TOTAL_PRACA_MASCULINO,
+
+         ( COALESCE(SUM(T.ALUNO_MARINHA_PRACA_FEMININO),0)
+          +   COALESCE(SUM(T.ALUNO_FORCAAEREA_PRACA_FEMININO),0)
+          +   COALESCE(SUM(T.ALUNO_FORCAAUXILIAR_PRACA_FEMININO),0)
+          +    COALESCE(SUM(T.ALUNO_BOMBEIRO_PRACA_FEMININO),0)
+          ) AS TOTAL_PRACA_FEMININO ,
+
+         ( COALESCE(SUM(T.ALUNO_MARINHA_PRACA_FEMININO),0)
+          +   COALESCE(SUM(T.ALUNO_MARINHA_PRACA_MASCULINO),0)
+          +   COALESCE(SUM(T.ALUNO_MARINHA_OFICIAL_FEMININO),0)
+          +    COALESCE(SUM(T.ALUNO_MARINHA_OFICIAL_MASCULINO),0)
+          ) AS TOTAL_MARINHA ,
+
+         ( COALESCE(SUM(T.ALUNO_FORCAAEREA_PRACA_FEMININO),0)
+          +   COALESCE(SUM(T.ALUNO_FORCAAEREA_PRACA_MASCULINO),0)
+          +   COALESCE(SUM(T.ALUNO_FORCAAEREA_OFICIAL_FEMININO),0)
+          +    COALESCE(SUM(T.ALUNO_FORCAAEREA_OFICIAL_MASCULINO),0)
+         ) AS TOTAL_FORCAAEREA  ,
+
+
+         ( COALESCE(SUM(T.ALUNO_FORCAAUXILIAR_PRACA_FEMININO),0)
+          +   COALESCE(SUM(T.ALUNO_FORCAAUXILIAR_PRACA_MASCULINO),0)
+          +   COALESCE(SUM(T.ALUNO_FORCAAUXILIAR_OFICIAL_FEMININO),0)
+          +    COALESCE(SUM(T.ALUNO_FORCAAUXILIAR_OFICIAL_MASCULINO),0)
+          ) AS TOTAL_FORCA_AUXILIAR ,
+
+         ( COALESCE(SUM(T.ALUNO_BOMBEIRO_PRACA_FEMININO),0)
+          +   COALESCE(SUM(T.ALUNO_BOMBEIRO_PRACA_MASCULINO),0)
+          +   COALESCE(SUM(T.ALUNO_BOMBEIRO_OFICIAL_FEMININO),0)
+          +    COALESCE(SUM(T.ALUNO_BOMBEIRO_OFICIAL_MASCULINO),0)
+          ) AS TOTAL_BOMBEIRO
+
+FROM (
+
+SELECT DISTINCT
+       ( SELECT SUM(AMOF2.FEMININO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'MARINHA'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_MARINHA_OFICIAL_FEMININO ,
+
+        ( SELECT SUM(AMOF2.MASCULINO) AS TOTAL
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'MARINHA'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_MARINHA_OFICIAL_MASCULINO  ,
+
+        ( SELECT SUM(AMOF2.FEMININO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'FORCAAEREA'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_FORCAAEREA_OFICIAL_FEMININO ,
+
+        ( SELECT SUM(AMOF2.MASCULINO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'FORCAAEREA'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_FORCAAEREA_OFICIAL_MASCULINO ,
+
+       ( SELECT SUM(AMOF2.FEMININO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'FORCAAUXILIAR'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_FORCAAUXILIAR_OFICIAL_FEMININO ,
+
+        ( SELECT SUM(AMOF2.MASCULINO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'FORCAAUXILIAR'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_FORCAAUXILIAR_OFICIAL_MASCULINO ,
+
+         ( SELECT SUM(AMOF2.FEMININO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'BOMBEIROS'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_BOMBEIRO_OFICIAL_FEMININO ,
+
+        ( SELECT SUM(AMOF2.MASCULINO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'BOMBEIROS'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_BOMBEIRO_OFICIAL_MASCULINO ,
+
+         ( SELECT SUM(AMOF2.FEMININO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'MARINHA'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_MARINHA_PRACA_FEMININO ,
+
+        ( SELECT SUM(AMOF2.MASCULINO)
+                FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'MARINHA'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_MARINHA_PRACA_MASCULINO ,
+
+        ( SELECT SUM(AMOF2.FEMININO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'FORCAAEREA'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_FORCAAEREA_PRACA_FEMININO ,
+
+        ( SELECT SUM(AMOF2.MASCULINO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'FORCAAEREA'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_FORCAAEREA_PRACA_MASCULINO ,
+
+       ( SELECT SUM(AMOF2.FEMININO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'FORCAAUXILIAR'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_FORCAAUXILIAR_PRACA_FEMININO ,
+
+        ( SELECT SUM(AMOF2.MASCULINO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'FORCAAUXILIAR'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_FORCAAUXILIAR_PRACA_MASCULINO ,
+
+         ( SELECT SUM(AMOF2.FEMININO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'BOMBEIROS'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_BOMBEIRO_PRACA_FEMININO ,
+
+        ( SELECT SUM(AMOF2.MASCULINO)
+                  FROM ALUNOSMILITAROUTRASFORCAS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  WHERE AMOF2.FORCA = 'BOMBEIROS'
+                  AND AMOF2.TIPOALUNOSMILITAROUTRASFORCAS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ) AS ALUNO_BOMBEIRO_PRACA_MASCULINO
+
+
+     FROM ALUNOSMILITAROUTRASFORCAS AMOF
+        INNER JOIN  ORGANIZACAOMILITAR OM ON OM.ID = AMOF.ORGANIZACAO_ID
+        INNER JOIN  SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = OM.ID
+        INNER JOIN  ORGANIZACAOMILITAR OMSUB ON OMSUB.ID = SS.SUPERIOR_SUBORDINADO_ID
+
+        WHERE SS.SUPERIOR_ID = $P{id_om}
+        AND  AMOF.PERIODO_ID = $P{id_periodo}
+
+) T
+
+) TABELA
+
+ UNION
+
+SELECT DISTINCT
+       COALESCE(( SELECT SUM(AMOF2.FEMININO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_OFICIAL_FEMININO ,
+
+        COALESCE(( SELECT SUM(AMOF2.MASCULINO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'OFICIAL'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_OFICIAL_MASCULINO  ,
+
+        COALESCE(( SELECT SUM(AMOF2.FEMININO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_PRACA_FEMININO,
+
+       COALESCE(( SELECT SUM(AMOF2.MASCULINO)
+                  FROM MILITARESOMDS AMOF2
+                  INNER JOIN  SUPERIORES_SUBORDINADOS SS2 ON SS2.SUPERIOR_SUBORDINADO_ID = AMOF2.ORGANIZACAO_ID
+                  AND AMOF2.TIPOALUNOSMILITARESOMDS = 'PRACA'
+                  AND SS2.SUPERIOR_ID = SS.SUPERIOR_ID
+                  AND AMOF2.PERIODO_ID = AMOF.PERIODO_ID
+
+        ),0) AS ALUNO_EXERCITO_PRACA_MASCULINO,
+        0 as ALUNO_MARINHA_OFICIAL_FEMININO ,
+        0 as  ALUNO_MARINHA_OFICIAL_MASCULINO,
+        0 as  ALUNO_FORCAAEREA_OFICIAL_FEMININO ,
+        0 as  ALUNO_FORCAAEREA_OFICIAL_MASCULINO,
+        0 as  ALUNO_FORCAAUXILIAR_OFICIAL_FEMININO ,
+        0 as  ALUNO_FORCAAUXILIAR_OFICIAL_MASCULINO ,
+        0 as  ALUNO_BOMBEIRO_OFICIAL_FEMININO ,
+        0 as  ALUNO_BOMBEIRO_OFICIAL_MASCULINO,
+
+        0 as  ALUNO_MARINHA_PRACA_FEMININO ,
+        0 as  ALUNO_MARINHA_PRACA_MASCULINO,
+        0 as  ALUNO_FORCAAEREA_PRACA_FEMININO ,
+        0 as  ALUNO_FORCAAEREA_PRACA_MASCULINO,
+        0 as  ALUNO_FORCAAUXILIAR_PRACA_FEMININO ,
+        0 as  ALUNO_FORCAAUXILIAR_PRACA_MASCULINO ,
+        0 as  ALUNO_BOMBEIRO_PRACA_FEMININO ,
+        0 as  ALUNO_BOMBEIRO_PRACA_MASCULINO ,
+
+        0 as  TOTAL_OFICIAL_MASCULINO ,
+        0 as  TOTAL_OFICIAL_FEMININO ,
+        0 as  TOTAL_PRACA_MASCULINO ,
+        0 as  TOTAL_PRACA_FEMININO ,
+
+        0 as  TOTAL_MARINHA ,
+        0 as  TOTAL_FORCAAEREA ,
+        0 as  TOTAL_FORCA_AUXILIAR,
+        0 as  TOTAL_BOMBEIRO ,
+        0 as  TOTAL_OUTRAS_FORCAS
+
+        FROM MILITARESOMDS AMOF
+        INNER JOIN  ORGANIZACAOMILITAR OM ON OM.ID = AMOF.ORGANIZACAO_ID
+        INNER JOIN  SUPERIORES_SUBORDINADOS SS ON SS.SUPERIOR_SUBORDINADO_ID = OM.ID
+        INNER JOIN  ORGANIZACAOMILITAR OMSUB ON OMSUB.ID = SS.SUPERIOR_SUBORDINADO_ID
+
+        WHERE SS.SUPERIOR_ID = $P{id_om}
+        AND  AMOF.PERIODO_ID = $P{id_periodo}
+
+ ) TABELA]]>
+	</queryString>
+	<field name="aluno_exercito_oficial_feminino" class="java.math.BigDecimal"/>
+	<field name="aluno_exercito_oficial_masculino" class="java.math.BigDecimal"/>
+	<field name="aluno_exercito_praca_feminino" class="java.math.BigDecimal"/>
+	<field name="aluno_exercito_praca_masculino" class="java.math.BigDecimal"/>
+	<field name="aluno_marinha_oficial_feminino" class="java.math.BigDecimal"/>
+	<field name="aluno_marinha_oficial_masculino" class="java.math.BigDecimal"/>
+	<field name="aluno_forcaaerea_oficial_feminino" class="java.math.BigDecimal"/>
+	<field name="aluno_forcaaerea_oficial_masculino" class="java.math.BigDecimal"/>
+	<field name="aluno_forcaauxiliar_oficial_feminino" class="java.math.BigDecimal"/>
+	<field name="aluno_forcaauxiliar_oficial_masculino" class="java.math.BigDecimal"/>
+	<field name="aluno_bombeiro_oficial_feminino" class="java.math.BigDecimal"/>
+	<field name="aluno_bombeiro_oficial_masculino" class="java.math.BigDecimal"/>
+	<field name="aluno_marinha_praca_feminino" class="java.math.BigDecimal"/>
+	<field name="aluno_marinha_praca_masculino" class="java.math.BigDecimal"/>
+	<field name="aluno_forcaaerea_praca_feminino" class="java.math.BigDecimal"/>
+	<field name="aluno_forcaaerea_praca_masculino" class="java.math.BigDecimal"/>
+	<field name="aluno_forcaauxiliar_praca_feminino" class="java.math.BigDecimal"/>
+	<field name="aluno_forcaauxiliar_praca_masculino" class="java.math.BigDecimal"/>
+	<field name="aluno_bombeiro_praca_feminino" class="java.math.BigDecimal"/>
+	<field name="aluno_bombeiro_praca_masculino" class="java.math.BigDecimal"/>
+	<field name="total_oficial_masculino" class="java.math.BigDecimal"/>
+	<field name="total_oficial_feminino" class="java.math.BigDecimal"/>
+	<field name="total_praca_masculino" class="java.math.BigDecimal"/>
+	<field name="total_praca_feminino" class="java.math.BigDecimal"/>
+	<field name="total_marinha" class="java.math.BigDecimal"/>
+	<field name="total_forcaaerea" class="java.math.BigDecimal"/>
+	<field name="total_forca_auxiliar" class="java.math.BigDecimal"/>
+	<field name="total_bombeiro" class="java.math.BigDecimal"/>
+	<field name="total_outras_forcas" class="java.math.BigDecimal"/>
+	<variable name="of_masc" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$F{aluno_exercito_oficial_masculino}+
+$F{aluno_marinha_oficial_masculino}+
+$F{aluno_forcaaerea_oficial_masculino}+
+$F{aluno_forcaauxiliar_oficial_masculino}+
+$F{aluno_bombeiro_oficial_masculino}]]></variableExpression>
+	</variable>
+	<variable name="of_fem" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$F{aluno_exercito_oficial_feminino}+
+$F{aluno_marinha_oficial_feminino}+
+$F{aluno_forcaaerea_oficial_feminino}+
+$F{aluno_forcaauxiliar_oficial_feminino}+
+$F{aluno_bombeiro_oficial_feminino}]]></variableExpression>
+	</variable>
+	<variable name="pr_masc" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$F{aluno_exercito_praca_masculino}+
+$F{aluno_marinha_praca_masculino}+
+$F{aluno_forcaaerea_praca_masculino}+
+$F{aluno_forcaauxiliar_praca_masculino}+
+$F{aluno_bombeiro_praca_masculino}]]></variableExpression>
+	</variable>
+	<variable name="pr_fem" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$F{aluno_marinha_praca_feminino}+
+$F{aluno_forcaaerea_praca_feminino}+
+$F{aluno_forcaauxiliar_praca_feminino}+
+$F{aluno_bombeiro_praca_feminino}+
+$F{aluno_exercito_praca_feminino}]]></variableExpression>
+	</variable>
+	<variable name="tot" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$V{of_masc}+$V{of_fem}+$V{pr_masc}+$V{pr_fem}]]></variableExpression>
+	</variable>
+	<summary>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="132" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="268" y="0" width="72" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{tot} == 0 ? '-' : $V{tot}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="132" y="0" width="34" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{of_masc} == 0 ? '-' : $V{of_masc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="166" y="0" width="34" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{of_fem} == 0 ? '-' : $V{of_fem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="200" y="0" width="34" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{pr_masc} == 0 ? '-' : $V{pr_masc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="234" y="0" width="34" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{pr_fem} == 0 ? '-' : $V{pr_fem}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

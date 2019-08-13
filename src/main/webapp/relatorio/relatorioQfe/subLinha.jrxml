@@ -1,0 +1,864 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subLinha" language="groovy" pageWidth="712" pageHeight="600" columnWidth="712" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="470"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="linhaespecialidade" class="java.lang.String"/>
+	<parameter name="orderby" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{linhaespecialidade}=="COMPL"?"ORDER BY e.nomeespecialidade":"ORDER BY e.id"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+e.id,
+e.nomeespecialidade,
+/***PREVISTO***/
+COALESCE(ep_1ten.quantidade,0) as ep_1_ten,
+COALESCE(ep_2ten.quantidade,0) as ep_2_ten,
+(COALESCE(ep_1ten.quantidade,0) +  COALESCE(ep_2ten.quantidade,0)) total_previsto,
+/***DE CARREIRA***/
+COALESCE(er_1ten.masculino,0) as er_1_ten_mas,
+COALESCE(er_1ten.feminino,0) as er_1_ten_fem,
+COALESCE(er_2ten.masculino,0) as er_2_ten_mas,
+COALESCE(er_2ten.feminino,0) as er_2_ten_fem,
+COALESCE(er_asp.masculino,0) as er_asp_mas,
+COALESCE(er_asp.feminino,0) as er_asp_fem,
+COALESCE(er_1ten.masculino,0)+
+COALESCE(er_2ten.masculino,0)+
+COALESCE(er_asp.masculino,0)  as total_existente_carreira_mas,
+COALESCE(er_1ten.feminino,0) +
+COALESCE(er_2ten.feminino,0) +
+COALESCE(er_asp.feminino,0) as total_existente_carreira_fem,
+
+COALESCE(er_1ten.masculino,0)+COALESCE(er_1ten.feminino,0) +
+COALESCE(er_2ten.masculino,0)+COALESCE(er_2ten.feminino,0) +
+COALESCE(er_asp.masculino,0) +COALESCE(er_asp.feminino,0) as total_existente_carreira,
+/***TEMPORARIO***/
+COALESCE(er_1ten_tmp.masculino,0) as er_1_ten_mas_tmp,
+COALESCE(er_1ten_tmp.feminino,0) as er_1_ten_fem_tmp,
+COALESCE(er_2ten_tmp.masculino,0) as er_2_ten_mas_tmp,
+COALESCE(er_2ten_tmp.feminino,0) as er_2_ten_fem_tmp,
+COALESCE(er_asp_tmp.masculino,0) as er_asp_mas_tmp,
+COALESCE(er_asp_tmp.feminino,0) as er_asp_fem_tmp,
+COALESCE(er_1ten_tmp.masculino,0)+
+COALESCE(er_2ten_tmp.masculino,0)+
+COALESCE(er_asp_tmp.masculino,0)  as total_existente_temporario_mas,
+COALESCE(er_1ten_tmp.feminino,0) +
+COALESCE(er_2ten_tmp.feminino,0) +
+COALESCE(er_asp_tmp.feminino,0) as total_existente_temporario_fem,
+
+COALESCE(er_1ten_tmp.masculino,0)+COALESCE(er_1ten_tmp.feminino,0) +
+COALESCE(er_2ten_tmp.masculino,0)+COALESCE(er_2ten_tmp.feminino,0) +
+COALESCE(er_asp_tmp.masculino,0) +COALESCE(er_asp_tmp.feminino,0) as total_existente_temporario,
+
+
+
+COALESCE(er_1ten.masculino,0)+COALESCE(er_1ten.feminino,0) +
+COALESCE(er_2ten.masculino,0)+COALESCE(er_2ten.feminino,0) +
+COALESCE(er_asp.masculino,0) +COALESCE(er_asp.feminino,0) +
+COALESCE(er_1ten_tmp.masculino,0)+COALESCE(er_1ten_tmp.feminino,0) +
+COALESCE(er_2ten_tmp.masculino,0)+COALESCE(er_2ten_tmp.feminino,0) +
+COALESCE(er_asp_tmp.masculino,0) +COALESCE(er_asp_tmp.feminino,0) as total_geral
+
+
+
+from especialidade e
+
+left join efetivoprevisto ep_1ten on
+ep_1ten.especialidade_id = e.id and ep_1ten.organizacao_id = $P{id_om} and ep_1ten.qcp_id = (select id from qcp where organizacaomilitar_id = $P{id_om} and ativo = TRUE)
+and ep_1ten.linhaconfiguracao_id in (select id from linhaconfiguracao where postograduacao = 'PRI_TEN' AND tipo != 'TMPR' )
+
+
+left join efetivoprevisto ep_2ten on
+ep_2ten.especialidade_id = e.id and ep_2ten.organizacao_id = $P{id_om} and ep_2ten.qcp_id = (select id from qcp where organizacaomilitar_id = $P{id_om} and ativo = TRUE)
+and ep_2ten.linhaconfiguracao_id in (select id from linhaconfiguracao where postograduacao = 'SEG_TEN' AND tipo != 'TMPR' )
+
+/********/
+
+left join efetivorealizado er_1ten on
+er_1ten.especialidade_id = e.id and er_1ten.organizacao_id = $P{id_om} and er_1ten.periodo_id = $P{id_periodo}
+and er_1ten.linhaconfiguracao_id in (select id from linhaconfiguracao where postograduacao = 'PRI_TEN' AND tipo != 'TMPR' )
+
+
+left join efetivorealizado er_2ten on
+er_2ten.especialidade_id = e.id and er_2ten.organizacao_id = $P{id_om} and er_2ten.periodo_id = $P{id_periodo}
+and er_2ten.linhaconfiguracao_id in (select id from linhaconfiguracao where postograduacao = 'SEG_TEN' AND tipo != 'TMPR' )
+
+left join efetivorealizado er_asp on
+er_asp.especialidade_id = e.id and er_asp.organizacao_id = $P{id_om} and er_asp.periodo_id = $P{id_periodo}
+and er_asp.linhaconfiguracao_id in (select id from linhaconfiguracao where postograduacao = 'ASP' AND tipo != 'TMPR' )
+
+/*****/
+
+
+
+left join efetivorealizado er_1ten_tmp on
+er_1ten_tmp.especialidade_id = e.id and er_1ten_tmp.organizacao_id = $P{id_om} and er_1ten_tmp.periodo_id = $P{id_periodo}
+and er_1ten_tmp.linhaconfiguracao_id in (select id from linhaconfiguracao where postograduacao = 'PRI_TEN' AND tipo = 'TMPR' )
+
+
+left join efetivorealizado er_2ten_tmp on
+er_2ten_tmp.especialidade_id = e.id and er_2ten_tmp.organizacao_id = $P{id_om} and er_2ten_tmp.periodo_id = $P{id_periodo}
+and er_2ten_tmp.linhaconfiguracao_id in (select id from linhaconfiguracao where postograduacao = 'SEG_TEN' AND tipo = 'TMPR' )
+
+left join efetivorealizado er_asp_tmp on
+er_asp_tmp.especialidade_id = e.id and er_asp_tmp.organizacao_id = $P{id_om} and er_asp_tmp.periodo_id = $P{id_periodo}
+and er_asp_tmp.linhaconfiguracao_id in (select id from linhaconfiguracao where postograduacao = 'ASP' AND tipo = 'TMPR' )
+
+where postograduacaoespecialidade = 'OFI' and linhaespecialidade = $P{linhaespecialidade}
+ORDER BY e.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="nomeespecialidade" class="java.lang.String"/>
+	<field name="ep_1_ten" class="java.lang.Integer"/>
+	<field name="ep_2_ten" class="java.lang.Integer"/>
+	<field name="total_previsto" class="java.lang.Integer"/>
+	<field name="er_1_ten_mas" class="java.lang.Integer"/>
+	<field name="er_1_ten_fem" class="java.lang.Integer"/>
+	<field name="er_2_ten_mas" class="java.lang.Integer"/>
+	<field name="er_2_ten_fem" class="java.lang.Integer"/>
+	<field name="er_asp_mas" class="java.lang.Integer"/>
+	<field name="er_asp_fem" class="java.lang.Integer"/>
+	<field name="total_existente_carreira_mas" class="java.lang.Integer"/>
+	<field name="total_existente_carreira_fem" class="java.lang.Integer"/>
+	<field name="total_existente_carreira" class="java.lang.Integer"/>
+	<field name="er_1_ten_mas_tmp" class="java.lang.Integer"/>
+	<field name="er_1_ten_fem_tmp" class="java.lang.Integer"/>
+	<field name="er_2_ten_mas_tmp" class="java.lang.Integer"/>
+	<field name="er_2_ten_fem_tmp" class="java.lang.Integer"/>
+	<field name="er_asp_mas_tmp" class="java.lang.Integer"/>
+	<field name="er_asp_fem_tmp" class="java.lang.Integer"/>
+	<field name="total_existente_temporario_mas" class="java.lang.Integer"/>
+	<field name="total_existente_temporario_fem" class="java.lang.Integer"/>
+	<field name="total_existente_temporario" class="java.lang.Integer"/>
+	<field name="total_geral" class="java.lang.Integer"/>
+	<variable name="ep_1_ten_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{ep_1_ten}]]></variableExpression>
+	</variable>
+	<variable name="ep_2_ten_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{ep_2_ten}]]></variableExpression>
+	</variable>
+	<variable name="total_previsto_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_previsto}]]></variableExpression>
+	</variable>
+	<variable name="er_1_ten_mas_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{er_1_ten_mas}]]></variableExpression>
+	</variable>
+	<variable name="er_1_ten_fem_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{er_1_ten_fem}]]></variableExpression>
+	</variable>
+	<variable name="er_2_ten_mas_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{er_2_ten_mas}]]></variableExpression>
+	</variable>
+	<variable name="er_2_ten_fem_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{er_2_ten_fem}]]></variableExpression>
+	</variable>
+	<variable name="er_asp_mas_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{er_asp_mas}]]></variableExpression>
+	</variable>
+	<variable name="er_asp_fem_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{er_asp_fem}]]></variableExpression>
+	</variable>
+	<variable name="total_existente_carreira_mas_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_existente_carreira_mas}]]></variableExpression>
+	</variable>
+	<variable name="total_existente_carreira_fem_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_existente_carreira_fem}]]></variableExpression>
+	</variable>
+	<variable name="er_1_ten_mas_tmp_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{er_1_ten_mas_tmp}]]></variableExpression>
+	</variable>
+	<variable name="er_1_ten_mas_tmp_2" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{er_1_ten_mas_tmp}]]></variableExpression>
+	</variable>
+	<variable name="er_1_ten_fem_tmp_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{er_1_ten_fem_tmp}]]></variableExpression>
+	</variable>
+	<variable name="er_2_ten_mas_tmp_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{er_2_ten_mas_tmp}]]></variableExpression>
+	</variable>
+	<variable name="er_2_ten_fem_tmp_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{er_2_ten_fem_tmp}]]></variableExpression>
+	</variable>
+	<variable name="er_asp_mas_tmp_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{er_asp_mas_tmp}]]></variableExpression>
+	</variable>
+	<variable name="er_asp_fem_tmp_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{er_asp_fem_tmp}]]></variableExpression>
+	</variable>
+	<variable name="total_existente_temporario_mas_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_existente_temporario_mas}]]></variableExpression>
+	</variable>
+	<variable name="total_existente_temporario_fem_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_existente_temporario_fem}]]></variableExpression>
+	</variable>
+	<variable name="total_geral_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_geral}]]></variableExpression>
+	</variable>
+	<variable name="total_existente_carreira_mas_2" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_existente_carreira_mas}+$F{total_existente_temporario_mas}]]></variableExpression>
+	</variable>
+	<variable name="total_existente_carreira_fem_2" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_existente_carreira_fem}+$F{total_existente_temporario_fem}]]></variableExpression>
+	</variable>
+	<variable name="orderby" class="java.lang.String">
+		<variableExpression><![CDATA[$P{linhaespecialidade}=="COMPL"?"e.nomeespecialidade":"e.id"]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="15" splitType="Prevent">
+			<textField>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="0" y="0" width="192" height="15" backcolor="#FFFFCC"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nomeespecialidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="192" y="0" width="40" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ep_1_ten}==0?"-":$F{ep_1_ten}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="232" y="0" width="40" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ep_2_ten}==0?"-":$F{ep_2_ten}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="272" y="0" width="40" height="15" forecolor="#FF3333" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_previsto}==0?"-":$F{total_previsto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="312" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_1_ten_mas}==0?"-":$F{er_1_ten_mas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="332" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_1_ten_fem}==0?"-":$F{er_1_ten_fem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="352" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_2_ten_mas}==0?"-":$F{er_2_ten_mas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="372" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_2_ten_fem}==0?"-":$F{er_2_ten_fem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="392" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_asp_mas}==0?"-":$F{er_asp_mas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="412" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_asp_fem}==0?"-":$F{er_asp_fem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="432" y="0" width="20" height="15" backcolor="#FFCC66"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_existente_carreira_mas}==0?"-":$F{total_existente_carreira_mas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="452" y="0" width="20" height="15" backcolor="#FFCC66"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_existente_carreira_fem}==0?"-":$F{total_existente_carreira_fem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="472" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_1_ten_mas_tmp}==0?"-":$F{er_1_ten_mas_tmp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="492" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_1_ten_fem_tmp}==0?"-":$F{er_1_ten_fem_tmp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="512" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_2_ten_mas_tmp}==0?"-":$F{er_2_ten_mas_tmp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="532" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_2_ten_fem_tmp}==0?"-":$F{er_2_ten_fem_tmp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="552" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_asp_mas_tmp}==0?"-":$F{er_asp_mas_tmp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="572" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_asp_fem_tmp}==0?"-":$F{er_asp_fem_tmp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="592" y="0" width="20" height="15" backcolor="#FFCC66"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_existente_temporario_mas}==0?"-":$F{total_existente_temporario_mas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="612" y="0" width="20" height="15" backcolor="#FFCC66"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_existente_temporario_fem}==0?"-":$F{total_existente_temporario_fem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="672" y="0" width="40" height="15" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_existente_temporario}+$F{total_existente_carreira}==0?"-":$F{total_existente_temporario} + $F{total_existente_carreira}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="632" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_existente_carreira_mas}+$F{total_existente_temporario_mas}==0?"-":$F{total_existente_carreira_mas}+$F{total_existente_temporario_mas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="652" y="0" width="20" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{total_existente_carreira_fem}+$F{total_existente_temporario_fem})==0?"-":($F{total_existente_carreira_fem}+$F{total_existente_temporario_fem})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="192" y="0" width="40" height="15" forecolor="#FF3333" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{ep_1_ten_1}==0?"-":$V{ep_1_ten_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="232" y="0" width="40" height="15" forecolor="#FF3333" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{ep_2_ten_1}==0?"-":$V{ep_2_ten_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="272" y="0" width="40" height="15" forecolor="#FF3333" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_previsto_1}==0?"-":$V{total_previsto_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="312" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{er_1_ten_mas_1}==0?"-":$V{er_1_ten_mas_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="332" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{er_1_ten_fem_1}==0?"-":$V{er_1_ten_fem_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="352" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{er_2_ten_mas_1}==0?"-":$V{er_2_ten_mas_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="372" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{er_2_ten_fem_1}==0?"-":$V{er_2_ten_fem_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="392" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{er_asp_mas_1}==0?"-":$V{er_asp_mas_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="412" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{er_asp_fem_1}==0?"-":$V{er_asp_fem_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="432" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_existente_carreira_mas_1}==0?"-":$V{total_existente_carreira_mas_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="452" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_existente_carreira_fem_1}==0?"-":$V{total_existente_carreira_fem_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="472" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{er_1_ten_mas_tmp_2}==0?"-":$V{er_1_ten_mas_tmp_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="492" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{er_1_ten_fem_tmp_1}==0?"-":$V{er_1_ten_fem_tmp_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="512" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{er_2_ten_mas_tmp_1}==0?"-":$V{er_2_ten_mas_tmp_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="532" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{er_2_ten_fem_tmp_1}==0?"-":$V{er_2_ten_fem_tmp_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="552" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{er_asp_mas_tmp_1}==0?"-":$V{er_asp_mas_tmp_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="572" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{er_asp_fem_tmp_1}==0?"-":$V{er_asp_fem_tmp_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="592" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_existente_temporario_mas_1}==0?"-":$V{total_existente_temporario_mas_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="612" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_existente_temporario_fem_1}==0?"-":$V{total_existente_temporario_fem_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="672" y="0" width="40" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_geral_1}==0?"-":$V{total_geral_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="652" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_existente_carreira_fem_2}==0?"-":$V{total_existente_carreira_fem_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="632" y="0" width="20" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_existente_carreira_mas_2}==0?"-":$V{total_existente_carreira_mas_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="0" y="0" width="192" height="15" backcolor="#99CCFF"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{linhaespecialidade}=="BEL"?"Total da L. Bélica":
+$P{linhaespecialidade}=="COMPL"?"Total da L. Compl":
+$P{linhaespecialidade}=="SAUDE"?"Total da L. Saúde":
+$P{linhaespecialidade}=="LCeT"?"Total da L. C&T":
+$P{linhaespecialidade}=="QCM"?"Total do QCM":""]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

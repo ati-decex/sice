@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sice" language="groovy" pageWidth="598" pageHeight="700" whenNoDataType="AllSectionsNoDetail" columnWidth="518" leftMargin="40" rightMargin="40" topMargin="0" bottomMargin="0" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/amapro/projetos/SICE/workspace/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT 1 AS INDICE,
+        'EXERCITO' AS EXERCITO,
+        COALESCE(SUM(MONITOR_DESMIL),0) AS MONITOR_DESMIL,
+        COALESCE(SUM(INSTRUTOR_DESMIL),0) AS INSTRUTOR_DESMIL,
+        COALESCE(SUM(INSTRUTOR_DETMIL),0) AS INSTRUTOR_DETMIL,
+        COALESCE(SUM(MONITOR_DETMIL),0) AS MONITOR_DETMIL,
+        COALESCE(SUM(INSTRUTOR_DEPA),0) AS INSTRUTOR_DEPA,
+        COALESCE(SUM(MONITOR_DEPA),0) AS MONITOR_DEPA,
+        COALESCE(SUM(INSTRUTOR_CCFEX),0) AS INSTRUTOR_CCFEX,
+        COALESCE(SUM(MONITOR_CCFEX),0) AS MONITOR_CCFEX,
+        COALESCE(SUM(EXERCITO_INSTRUTOR_FEMININO),0) AS EXERCITO_INSTRUTOR_FEMININO,
+        COALESCE(SUM(EXERCITO_INSTRUTOR_MASCULINO),0) AS EXERCITO_INSTRUTOR_MASCULINO,
+        COALESCE(SUM(EXERCITO_MONITOR_FEMININO),0) AS EXERCITO_MONITOR_FEMININO,
+        COALESCE(SUM(EXERCITO_MONITOR_MASCULINO),0) AS EXERCITO_MONITOR_MASCULINO,
+
+        COALESCE(SUM(INSTRUTOR_DESMIL) + SUM(MONITOR_DESMIL),0) AS TOTAL_DESMIL,
+        COALESCE(SUM(INSTRUTOR_DETMIL) + SUM(MONITOR_DETMIL),0) AS TOTAL_DETMIL,
+        COALESCE(SUM(INSTRUTOR_DEPA)  + SUM(MONITOR_DEPA),0) AS TOTAL_DEPA,
+        COALESCE(SUM(INSTRUTOR_CCFEX) + SUM(MONITOR_CCFEX),0) AS TOTAL_CCFEX,
+        COALESCE(SUM(EXERCITO_INSTRUTOR_MASCULINO) + SUM(EXERCITO_MONITOR_MASCULINO),0) AS TOTAL_MASCULINO,
+        COALESCE(SUM(EXERCITO_INSTRUTOR_FEMININO) + SUM(EXERCITO_MONITOR_FEMININO),0) AS TOTAL_FEMININO,
+
+	COALESCE(SUM(EXERCITO_INSTRUTOR_MASCULINO) + SUM(EXERCITO_MONITOR_MASCULINO)
+	+ SUM(EXERCITO_INSTRUTOR_FEMININO) + SUM(EXERCITO_MONITOR_FEMININO),0) AS TOTAL_EX,
+
+        COALESCE(SUM(EXERCITO_INSTRUTOR_MASCULINO) + SUM(EXERCITO_INSTRUTOR_FEMININO),0) AS TOTAL_INSTRUTOR,
+        COALESCE(SUM(EXERCITO_MONITOR_MASCULINO) + SUM(EXERCITO_MONITOR_FEMININO),0) AS TOTAL_MONITOR
+
+
+ FROM (
+
+
+ SELECT DISTINCT
+       COALESCE(( SELECT COALESCE(SUM(IM2.FEMININO)+SUM(IM2.MASCULINO),0)
+                  FROM INSTRUTORMONITOR IM2
+                  WHERE IM2.TIPOINSTRUTOREMONITOR = 'INSTRUTOR'
+                  AND IM2.FORCAINSTRUTORES = 'EXERCITO'
+                  AND IM2.ORGANIZACAO_SUPERIOR_ID = 2
+                  AND IM2.PERIODO_ID = IM.PERIODO_ID
+
+
+        ),0) AS INSTRUTOR_DESMIL,
+
+         COALESCE(( SELECT COALESCE(SUM(IM2.FEMININO)+SUM(IM2.MASCULINO),0)
+                  FROM INSTRUTORMONITOR IM2
+                  WHERE IM2.TIPOINSTRUTOREMONITOR = 'MONITOR'
+                  AND IM2.FORCAINSTRUTORES = 'EXERCITO'
+                  AND IM2.ORGANIZACAO_SUPERIOR_ID = 2
+                  AND IM2.PERIODO_ID = IM.PERIODO_ID
+
+        ),0) AS MONITOR_DESMIL ,
+
+         COALESCE(( SELECT COALESCE(SUM(IM2.FEMININO)+SUM(IM2.MASCULINO),0)
+                  FROM INSTRUTORMONITOR IM2
+                   WHERE IM2.TIPOINSTRUTOREMONITOR = 'INSTRUTOR'
+                  AND IM2.FORCAINSTRUTORES = 'EXERCITO'
+                  AND IM2.ORGANIZACAO_SUPERIOR_ID = 4
+                  AND IM2.PERIODO_ID = IM.PERIODO_ID
+
+        ),0) AS INSTRUTOR_DETMIL ,
+
+         COALESCE(( SELECT COALESCE(SUM(IM2.FEMININO)+SUM(IM2.MASCULINO),0)
+                  FROM INSTRUTORMONITOR IM2
+                  WHERE IM2.TIPOINSTRUTOREMONITOR = 'MONITOR'
+                  AND IM2.FORCAINSTRUTORES = 'EXERCITO'
+                  AND IM2.ORGANIZACAO_SUPERIOR_ID = 4
+                  AND IM2.PERIODO_ID = IM.PERIODO_ID
+
+        ),0) AS MONITOR_DETMIL ,
+
+         COALESCE(( SELECT COALESCE(SUM(IM2.FEMININO)+SUM(IM2.MASCULINO),0)
+                  FROM INSTRUTORMONITOR IM2
+                  WHERE IM2.TIPOINSTRUTOREMONITOR = 'INSTRUTOR'
+                  AND IM2.FORCAINSTRUTORES = 'EXERCITO'
+                  AND IM2.ORGANIZACAO_SUPERIOR_ID = 3
+                  AND IM2.PERIODO_ID = IM.PERIODO_ID
+
+        ),0) AS INSTRUTOR_DEPA ,
+
+         COALESCE(( SELECT COALESCE(SUM(IM2.FEMININO)+SUM(IM2.MASCULINO),0)
+                  FROM INSTRUTORMONITOR IM2
+                  WHERE IM2.TIPOINSTRUTOREMONITOR = 'MONITOR'
+                  AND IM2.FORCAINSTRUTORES = 'EXERCITO'
+                  AND IM2.ORGANIZACAO_SUPERIOR_ID = 3
+                  AND IM2.PERIODO_ID = IM.PERIODO_ID
+
+        ),0) AS MONITOR_DEPA ,
+
+         COALESCE(( SELECT COALESCE(SUM(IM2.FEMININO)+SUM(IM2.MASCULINO),0)
+                  FROM INSTRUTORMONITOR IM2
+                  WHERE IM2.TIPOINSTRUTOREMONITOR = 'INSTRUTOR'
+                  AND IM2.FORCAINSTRUTORES = 'EXERCITO'
+                  AND IM2.ORGANIZACAO_SUPERIOR_ID = 6
+                  AND IM2.PERIODO_ID = IM.PERIODO_ID
+
+        ),0) AS INSTRUTOR_CCFEX ,
+
+         COALESCE(( SELECT COALESCE(SUM(IM2.FEMININO)+SUM(IM2.MASCULINO),0)
+                  FROM INSTRUTORMONITOR IM2
+                  WHERE IM2.TIPOINSTRUTOREMONITOR = 'MONITOR'
+                  AND IM2.FORCAINSTRUTORES = 'EXERCITO'
+                  AND IM2.ORGANIZACAO_SUPERIOR_ID = 6
+                  AND IM2.PERIODO_ID = IM.PERIODO_ID
+
+        ),0) AS MONITOR_CCFEX ,
+
+
+       COALESCE(( SELECT SUM(IM2.FEMININO)
+                  FROM INSTRUTORMONITOR IM2
+                  WHERE IM2.TIPOINSTRUTOREMONITOR = 'INSTRUTOR'
+                  AND IM2.FORCAINSTRUTORES = 'EXERCITO'
+                  AND IM2.PERIODO_ID = IM.PERIODO_ID
+
+        ),0) AS EXERCITO_INSTRUTOR_FEMININO ,
+
+        COALESCE(( SELECT SUM(IM2.MASCULINO) AS TOTAL
+                  FROM INSTRUTORMONITOR IM2
+                  WHERE IM2.TIPOINSTRUTOREMONITOR = 'INSTRUTOR'
+                  AND IM2.FORCAINSTRUTORES = 'EXERCITO'
+                  AND IM2.PERIODO_ID = IM.PERIODO_ID
+
+        ),0) AS EXERCITO_INSTRUTOR_MASCULINO ,
+
+        COALESCE(( SELECT SUM(IM2.FEMININO)
+                  FROM INSTRUTORMONITOR IM2
+                  WHERE IM2.TIPOINSTRUTOREMONITOR = 'MONITOR'
+                  AND IM2.FORCAINSTRUTORES = 'EXERCITO'
+                  AND IM2.PERIODO_ID = IM.PERIODO_ID
+
+        ),0) AS EXERCITO_MONITOR_FEMININO,
+
+       COALESCE(( SELECT SUM(IM2.MASCULINO)
+                  FROM INSTRUTORMONITOR IM2
+                  WHERE IM2.TIPOINSTRUTOREMONITOR = 'MONITOR'
+                  AND IM2.FORCAINSTRUTORES = 'EXERCITO'
+                  AND IM2.PERIODO_ID = IM.PERIODO_ID
+
+        ),0) AS EXERCITO_MONITOR_MASCULINO
+
+        FROM INSTRUTORMONITOR IM
+        WHERE  IM.FORCAINSTRUTORES = 'EXERCITO'
+        AND IM.PERIODO_ID = $P{id_periodo}
+) TABELA
+
+
+order by 1]]>
+	</queryString>
+	<field name="exercito" class="java.lang.String"/>
+	<field name="monitor_desmil" class="java.lang.Integer"/>
+	<field name="instrutor_desmil" class="java.lang.Integer"/>
+	<field name="instrutor_detmil" class="java.lang.Integer"/>
+	<field name="monitor_detmil" class="java.lang.Integer"/>
+	<field name="instrutor_depa" class="java.lang.Integer"/>
+	<field name="monitor_depa" class="java.lang.Integer"/>
+	<field name="instrutor_ccfex" class="java.lang.Integer"/>
+	<field name="monitor_ccfex" class="java.lang.Integer"/>
+	<field name="exercito_instrutor_feminino" class="java.lang.Integer"/>
+	<field name="exercito_instrutor_masculino" class="java.lang.Integer"/>
+	<field name="exercito_monitor_feminino" class="java.lang.Integer"/>
+	<field name="exercito_monitor_masculino" class="java.lang.Integer"/>
+	<field name="total_desmil" class="java.lang.Integer"/>
+	<field name="total_detmil" class="java.lang.Integer"/>
+	<field name="total_depa" class="java.lang.Integer"/>
+	<field name="total_ccfex" class="java.lang.Integer"/>
+	<field name="total_masculino" class="java.lang.Integer"/>
+	<field name="total_feminino" class="java.lang.Integer"/>
+	<field name="total_ex" class="java.lang.Integer"/>
+	<field name="total_instrutor" class="java.lang.Integer"/>
+	<field name="total_monitor" class="java.lang.Integer"/>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="150" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="202" y="65" width="176" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diretorias / Centro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="378" y="80" width="44" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[M]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="422" y="80" width="44" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="466" y="65" width="52" height="30" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="65" width="120" height="30" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Força]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="120" y="65" width="82" height="30" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="202" y="80" width="44" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESMIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="246" y="80" width="44" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DETMIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="290" y="80" width="44" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEPA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="334" y="80" width="44" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CCFEX]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="378" y="65" width="88" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="120" y="110" width="82" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Monitor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="125" width="202" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total do Exército]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="120" y="95" width="82" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Instrutor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="95" width="50" height="30" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="140" width="518" height="10" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="50" y="95" width="70" height="30" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{exercito}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="202" y="95" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{instrutor_desmil}==0?'-':$F{instrutor_desmil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="202" y="110" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{monitor_desmil}==0?'-':$F{monitor_desmil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="246" y="95" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{instrutor_detmil}==0?'-':$F{instrutor_detmil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="246" y="110" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{monitor_detmil}==0?'-':$F{monitor_detmil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="290" y="95" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{instrutor_depa}==0?'-':$F{instrutor_depa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="290" y="110" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{monitor_depa}==0?'-':$F{monitor_depa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="334" y="95" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{instrutor_ccfex}==0?'-':$F{instrutor_ccfex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="334" y="110" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{monitor_ccfex}==0?'-':$F{monitor_ccfex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="378" y="95" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{exercito_instrutor_masculino}==0?'-':$F{exercito_instrutor_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="422" y="95" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{exercito_instrutor_feminino}==0?'-':$F{exercito_instrutor_feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="378" y="110" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{exercito_monitor_masculino}==0?'-':$F{exercito_monitor_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="422" y="110" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{exercito_monitor_feminino}==0?'-':$F{exercito_monitor_feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="466" y="95" width="52" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_instrutor}==0?'-':$F{total_instrutor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="466" y="110" width="52" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_monitor}==0?'-':$F{total_monitor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="202" y="125" width="44" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_desmil}==0?'-':$F{total_desmil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="246" y="125" width="44" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_detmil}==0?'-':$F{total_detmil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="290" y="125" width="44" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_depa}==0?'-':$F{total_depa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="334" y="125" width="44" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_ccfex}==0?'-':$F{total_ccfex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="378" y="125" width="44" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_masculino}==0?'-':$F{total_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="422" y="125" width="44" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_feminino}==0?'-':$F{total_feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="466" y="125" width="52" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_ex}==0?'-':$F{total_ex}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="25" width="518" height="20" forecolor="#FFFFFF" backcolor="#006699"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Instrutores e Monitores]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="45" width="518" height="20"/>
+				<subreportParameter name="id_om"/>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioInstrutorMonitorDepartamento/periodo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="41">
+			<subreport>
+				<reportElement x="0" y="0" width="518" height="41"/>
+				<subreportParameter name="SUBREPORT_DIR"/>
+				<subreportParameter name="id_om"/>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_om_enquadrante"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioInstrutorMonitorDepartamento/SubRelatorioInstrutorMonitor.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="25">
+			<subreport>
+				<reportElement x="0" y="0" width="518" height="25"/>
+				<subreportParameter name="SUBREPORT_DIR"/>
+				<subreportParameter name="id_om"/>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_om_enquadrante"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioInstrutorMonitorDepartamento/footerSubRelatorioInstrutorMonitor.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

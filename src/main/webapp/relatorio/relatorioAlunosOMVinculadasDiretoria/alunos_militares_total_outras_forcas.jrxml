@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ins_mon_exercito" language="groovy" pageWidth="208" pageHeight="15" columnWidth="208" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT sum(ofi_mas) as ofi_mas,
+            sum(ofi_fem) as ofi_fem,
+            sum(pra_mas) as pra_mas,
+            sum(pra_mas) as pra_fem,
+            sum(total) as total FROM
+
+(
+
+SELECT
+	ofi.masculino AS ofi_mas,
+	ofi.feminino AS ofi_fem,
+	pra.masculino AS pra_mas,
+	pra.feminino AS pra_fem,
+	(pra.masculino+pra.feminino+ofi.masculino+ofi.feminino) AS total
+
+
+FROM alunosmilitaroutrasforcas pra
+INNER JOIN alunosmilitaroutrasforcas ofi on
+ofi.organizacao_id = $P{id_om} and ofi.periodo_id = $P{id_periodo}
+AND ofi.forca='MARINHA' AND ofi.tipoalunosmilitaroutrasforcas='OFICIAL'
+WHERE
+pra.organizacao_id = $P{id_om} and pra.periodo_id = $P{id_periodo}
+AND pra.forca='MARINHA' AND pra.tipoalunosmilitaroutrasforcas='PRACA'
+
+UNION
+
+SELECT
+	ofi.masculino AS ofi_mas,
+	ofi.feminino AS ofi_fem,
+	pra.masculino AS pra_mas,
+	pra.feminino AS pra_fem,
+	(pra.masculino+pra.feminino+ofi.masculino+ofi.feminino) AS total
+
+
+FROM alunosmilitaroutrasforcas pra
+INNER JOIN alunosmilitaroutrasforcas ofi on
+ofi.organizacao_id = $P{id_om} and ofi.periodo_id = $P{id_periodo}
+AND ofi.forca='FORCAAEREA' AND ofi.tipoalunosmilitaroutrasforcas='OFICIAL'
+WHERE
+pra.organizacao_id = $P{id_om} and pra.periodo_id = $P{id_periodo}
+AND pra.forca='FORCAAEREA' AND pra.tipoalunosmilitaroutrasforcas='PRACA'
+
+UNION
+
+SELECT
+	ofi.masculino AS ofi_mas,
+	ofi.feminino AS ofi_fem,
+	pra.masculino AS pra_mas,
+	pra.feminino AS pra_fem,
+	(pra.masculino+pra.feminino+ofi.masculino+ofi.feminino) AS total
+
+
+FROM alunosmilitaroutrasforcas pra
+INNER JOIN alunosmilitaroutrasforcas ofi on
+ofi.organizacao_id = $P{id_om} and ofi.periodo_id = $P{id_periodo}
+AND ofi.forca='FORCAAUXILIAR' AND ofi.tipoalunosmilitaroutrasforcas='OFICIAL'
+WHERE
+pra.organizacao_id = $P{id_om} and pra.periodo_id = $P{id_periodo}
+AND pra.forca='FORCAAUXILIAR' AND pra.tipoalunosmilitaroutrasforcas='PRACA'
+
+UNION
+
+SELECT
+	ofi.masculino AS ofi_mas,
+	ofi.feminino AS ofi_fem,
+	pra.masculino AS pra_mas,
+	pra.feminino AS pra_fem,
+	(pra.masculino+pra.feminino+ofi.masculino+ofi.feminino) AS total
+
+
+FROM alunosmilitaroutrasforcas pra
+INNER JOIN alunosmilitaroutrasforcas ofi on
+ofi.organizacao_id = $P{id_om} and ofi.periodo_id = $P{id_periodo}
+AND ofi.forca='BOMBEIROS' AND ofi.tipoalunosmilitaroutrasforcas='OFICIAL'
+WHERE
+pra.organizacao_id = $P{id_om} and pra.periodo_id = $P{id_periodo}
+AND pra.forca='BOMBEIROS' AND pra.tipoalunosmilitaroutrasforcas='PRACA') alunosmilitares]]>
+	</queryString>
+	<field name="ofi_mas" class="java.lang.String"/>
+	<field name="ofi_fem" class="java.lang.String"/>
+	<field name="pra_mas" class="java.lang.String"/>
+	<field name="pra_fem" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="34" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ofi_mas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="34" y="0" width="34" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ofi_fem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="68" y="0" width="34" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pra_mas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="102" y="0" width="34" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pra_fem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="136" y="0" width="72" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

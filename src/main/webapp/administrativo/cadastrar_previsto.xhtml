@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+
+
+		<h:form id="frmEfetivo">
+			<h:outputScript>
+				function remover(param){
+				    $(param).parent().parent().hide();
+				 }
+			</h:outputScript>
+
+			<p:growl id="mensagem" showDetail="false" sticky="false" life="1000" />
+			<p:panel style="background-color:#8B8989 !important; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight:bolder; color:white  !important; " value="#{msgs.administrador_informacoes_cadastro}" />
+			</p:panel>
+
+			<p:panel style="text-align: center; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight: bold;" value="#{msgs.cadastro_efetivo_previsto}" />
+				<p:commandButton icon="ui-icon-disk" title="#{msgs.gravar_efetivo_previsto}" update=":frmListaEfetivoPrevisto, :frmEfetivo"
+					action="#{previsto.salvar(previsto.efetivo)}" style="float: right; top: -3px;" />
+			</p:panel>
+
+
+			<p:panel style="margin-bottom: 10px;">
+				<p:panelGrid columns="2" style="width: 100%;" columnClasses="classe1,classe2">
+
+
+					<p:outputLabel id="key" value="" for="acSimple" />
+					<p:row>
+						<p:column>
+							<p:autoComplete id="acSimple" value="#{previsto.siglaOM}" completeMethod="#{previsto.completeText}" forceSelection="true"
+								placeholder="Digite a sigla da OM." style="font-size:20px;">
+								<p:ajax event="itemSelect" listener="#{previsto.buscarOM}"
+									update="om , organizacoes , documento , frmListaEfetivoPrevisto:listaEfetivoPrevisto" />
+								<p:ajax event="blur" listener="#{previsto.resetarEscolhaPorPalavraChave}"
+									update="om , organizacoes , documento , frmListaEfetivoPrevisto:listaEfetivoPrevisto" />
+								<p:ajax event="keyup" listener="#{previsto.resetarEscolhaPorPalavraChave}"
+									update="om , organizacoes , documento , frmListaEfetivoPrevisto:listaEfetivoPrevisto" />
+
+							</p:autoComplete>
+						</p:column>
+					</p:row>
+
+
+
+					<p:outputLabel id="label_subordinacao" value="#{msgs.subordinacao}:" for="om" />
+					<p:selectOneMenu id="om" value="#{previsto.superiorSelected}" styleClass="classeSelectMenuPrincipal"
+						converter="organizacaoConverter" required="true" requiredMessage="#{msgs.requerido_organizacao_militar}">
+						<p:ajax listener="#{previsto.listarSubordinados}"
+							update="organizacoes, documento, postograduacao, linha, tipo, especialidade, documento, previsto" />
+						<f:selectItem itemLabel="#{msgs.selecione}" />
+						<f:selectItems value="#{previsto.superiores}" var="superior" itemLabel="#{superior.sigla}" itemValue="#{superior}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="#{msgs.organizacao_militar}:" id="lblOrganizacoes" for="organizacoes" />
+					<p:selectOneMenu id="organizacoes" value="#{previsto.efetivo.organizacaoMilitar}" styleClass="classeSelectMenuPrincipal"
+						converter="organizacaoConverter" required="true" requiredMessage="#{msgs.requerido_organizacao_militar}">
+						<p:ajax listener="#{previsto.carregarQCPCarregarEfetivosPrevistosAtual(previsto.efetivo.organizacaoMilitar)}"
+							update="documento, postograduacao, linha, tipo, especialidade, documento, previsto , frmListaEfetivoPrevisto:listaEfetivoPrevisto , acSimple" />
+						<f:selectItem itemLabel="#{msgs.selecione}" />
+						<f:selectItems value="#{previsto.organizacoesMilitares}" var="organizacao" itemLabel="#{organizacao.sigla}"
+							itemValue="#{organizacao}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="#{msgs.posto_graduacao}:" for="postograduacao" />
+					<p:selectOneMenu id="postograduacao" value="#{previsto.efetivo.linhaConfiguracao.postoGraduacao}"
+						styleClass="classeSelectMenuPrincipal" required="true" requiredMessage="#{msgs.requerido_posto_graduacao}">
+						<p:ajax listener="#{previsto.carregarLinhaMilitar}" update="linha , tipo, especialidade, documento, previsto" />
+						<f:selectItem itemLabel="Selecione" />
+						<f:selectItems value="#{previsto.postosGraduacoes}" var="pg" itemLabel="#{pg.value}" itemValue="#{pg}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="#{msgs.linha}:" for="linha" />
+					<p:selectOneMenu id="linha" value="#{previsto.efetivo.linhaConfiguracao.linha}" styleClass="classeSelectMenuPrincipal"
+						required="true" requiredMessage="#{msgs.requerido_linha}">
+						<f:selectItem itemLabel="#{msgs.selecione}" itemValue="" noSelectionOption="true" />
+						<p:ajax listener="#{previsto.carregarTipoMilitar}" update="tipo, especialidade, previsto" event="change"
+							disabled="#{empty previsto.efetivo.linhaConfiguracao.postoGraduacao.value}" />
+						<f:selectItems value="#{previsto.linhas}" var="linha" itemLabel="#{linha.value}" itemValue="#{linha}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="#{msgs.tipo}:" for="tipo" />
+					<p:selectOneMenu id="tipo" value="#{previsto.efetivo.linhaConfiguracao.tipo}" styleClass="classeSelectMenuPrincipal"
+						required="true" requiredMessage="#{msgs.requerido_tipo}">
+						<p:ajax listener="#{previsto.preparaCarregarEfetivoPrevisto}" update="especialidade, previsto" />
+						<f:selectItem itemLabel="#{msgs.selecione}" itemValue="" noSelectionOption="true" />
+						<f:selectItems value="#{previsto.tipos}" var="tipo" itemLabel="#{tipo.value}" itemValue="#{tipo}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="#{msgs.especialidade}" for="especialidade" />
+					<p:selectOneMenu id="especialidade" value="#{previsto.efetivo.especialidade}" styleClass="classeSelectMenuPrincipal"
+						converter="especialidadeConverter" disabled="#{previsto.desabilitarEspecialidade}" required="true"
+						requiredMessage="#{msgs.requerido_especialidade}">
+						<f:selectItem itemLabel="#{msgs.selecione}" itemValue="" noSelectionOption="true" />
+						<f:selectItems value="#{previsto.especialidades}" var="especialidade" itemLabel="#{especialidade.nomeEspecialidade}"
+							itemValue="#{especialidade}" />
+						<p:ajax listener="#{previsto.carregarEfetivoPrevisto}" update="previsto" />
+					</p:selectOneMenu>
+
+
+					<p:outputLabel value="#{msgs.qcp}:" for="documento" />
+
+					<p:columnGroup>
+						<p:selectOneMenu id="documento" value="#{previsto.efetivo.qcp}" styleClass="classeSelectMenuPrincipal" converter="qcpConverter"
+							disabled="#{previsto.desabilitarQCP}" required="true" requiredMessage="#{msgs.requerido_qcp}">
+							<f:selectItem itemLabel="#{msgs.selecione}" />
+							<f:selectItems value="#{previsto.documentos}" var="documento"
+								itemLabel="#{msgs.qcpAprovadoEm} #{previsto.formatarData(documento.dataAlteracao)}" itemValue="#{documento}" />
+							<p:ajax listener="#{previsto.carregarEfetivoPrevisto}" update="previsto" />
+						</p:selectOneMenu>
+						<p:commandButton icon="ui-icon-document" title="#{msgs.novo_qcp}" style="margin-left: 8px; top: -8px;" immediate="true"
+							onclick="PF('dlgDocumento').show() " />
+					</p:columnGroup>
+
+					<p:outputLabel value="#{msgs.previsto}:" for="previsto" />
+					<p:inputNumber id="previsto" value="#{previsto.efetivo.quantidade}" styleClass="classeSelectMenuPrincipal" required="true"
+						requiredMessage="#{msgs.requerido_efetivo_previsto}" minValue="0" maxValue="999" />
+
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+
+		<h:form id="frmListaEfetivoPrevisto" prependId="true">
+			<p:dataTable id="listaEfetivoPrevisto" editable="true" var="efetivo" value="#{previsto.listaEfetivoPrevisto}" paginator="false"
+				emptyMessage="Nenhum registro encontrado!">
+
+				<p:ajax event="rowEdit" listener="#{previsto.editar(efetivo)}"
+					update="frmEfetivo:mensagem , :frmListaEfetivoPrevisto:listaEfetivoPrevisto" />
+
+				<f:facet name="header">
+					<h:outputLabel value="#{msgs.efetivo_previsto_cadastrado}" />
+				</f:facet>
+
+				<p:column id="listaPostoGraduacao" headerText="#{msgs.posto_graduacao}" style="width:45px">
+					<h:outputText value="#{efetivo.linhaConfiguracao.postoGraduacao.value}" />
+				</p:column>
+
+				<p:column id="listaLinha" headerText="#{msgs.linha}" style="width:45px">
+					<h:outputText value="#{efetivo.linhaConfiguracao.linha.value}" />
+				</p:column>
+
+				<p:column id="listaTipo" headerText="#{msgs.tipo}" style="width:45px">
+					<h:outputText value="#{efetivo.linhaConfiguracao.tipo.value}" />
+				</p:column>
+
+				<p:column id="especialidade" headerText="#{msgs.especialidade}" style="width:140px">
+					<h:outputText value="#{efetivo.especialidade.nomeEspecialidade}" rendered="#{not empty efetivo.especialidade.id}" />
+					<h:outputText value="- - -" rendered="#{empty efetivo.especialidade.id}" />
+				</p:column>
+
+				<p:column id="listaMasculino" headerText="#{msgs.quantidade}" style="width:30px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{efetivo.quantidade}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputNumber minValue="0" maxValue="99999" value="#{efetivo.quantidade}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column style="width:75px" headerText="Ações">
+
+					<p:rowEditor editTitle="#{msgs.editar_efetivo_previsto}" style="float:left;" />
+					<p:commandButton icon="ui-icon-trash" value="Remover" style="margin-left:25px;" onclick="remover(this)"
+						action="#{previsto.excluir(efetivo)}" update="frmEfetivo:mensagem , :frmListaEfetivoPrevisto:listaEfetivoPrevisto " />
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+
+
+
+
+
+		<h:form id="formDocumento" onsubmit="return false;">
+
+			<p:dialog id="dDocumento" header="${msgs.qcp_cadastro}" widgetVar="dlgDocumento" resizable="false" appendToBody="true" modal="true">
+				<p:growl id="growlDocumento" />
+				<h:panelGrid columns="2">
+					<h:outputText for="data" value="#{msgs.data_aprovacao}" />
+					<p:calendar id="data" size="30" value="#{previsto.dataNovoQCP}" required="true" requiredMessage="#{msgs.requerido_data_alteracao}"
+						pattern="dd/MM/yyyy" />
+
+					<h:outputText />
+					<p:commandButton icon="ui-icon-disk" title="#{msgs.gravar_novo_documento}"
+						update=":frmEfetivo:documento, :formDocumento, :frmListaEfetivoPrevisto" action="#{previsto.salvarDocumento()}" />
+
+
+
+				</h:panelGrid>
+			</p:dialog>
+
+			<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+				<p:panelGrid id="display" columns="2" columnClasses="label,value">
+					<h:outputText value="data:" />
+					<h:outputText value="#{previsto.dataNovoQCP}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:panelGrid>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

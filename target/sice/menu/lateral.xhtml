@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>IGNORED</title>
+</h:head>
+
+<h:body>
+	<ui:composition id="compositionLateral" prependId="false">
+		<h:form>
+
+			<p:menu
+				style="margin-left: 2%; width: 95%; margin-top: 20px; padding: .2em !important;"
+				stateful="true">
+
+				<p:menuitem value="#{msgs.solicitar_acesso}"
+					action="/publico/solicitarAcesso.xhtml?faces-redirect=false"
+					icon="ui-icon-document"
+					rendered="#{usuarioCorrente.usuarioLogado eq null}" />
+
+				<p:submenu label="#{msgs.login}">
+
+					<p:menuitem value="#{msgs.entrar}"
+						action="/restrito/inicio.xhtml?faces-redirect=true"
+						icon="ui-icon-key"
+						rendered="#{usuarioCorrente.usuarioLogado eq null}" />
+
+					<p:menuitem value="#{msgs.trocar_senha}"
+						action="/restrito/trocarSenha.xhtml?faces-redirect=true"
+						icon="ui-icon-refresh"
+						rendered="#{usuarioCorrente.usuarioLogado ne null}" />
+
+					<p:menuitem value="#{msgs.logout}" action="#{logout.efetuarLogout}"
+						icon="ui-icon-power"
+						rendered="#{usuarioCorrente.usuarioLogado ne null}" />
+
+					<p:separator rendered="#{usuarioCorrente.usuarioLogado ne null}" />
+
+					<p:menuitem value="#{usuarioCorrente.nomeQualificado}"
+						icon="ui-icon-person" url="#"
+						rendered="#{usuarioCorrente.usuarioLogado ne null}" />
+				</p:submenu>
+
+				<p:submenu label="#{msgs.efetivos}" url="#"
+					rendered="#{usuarioCorrente.exibirCadastroExistente}">
+
+					<p:menuitem value="#{msgs.previsto}"
+						action="/administrativo/cadastrar_previsto.xhtml?faces-redirect=true"
+						icon="ui-icon-carat-1-e"
+						rendered="#{usuarioCorrente.administrador == true}" />
+
+					<p:menuitem value="#{msgs.existente}"
+						action="/restrito/cadastrar_existente.xhtml?faces-redirect=true"
+						icon="ui-icon-carat-1-e"
+						disabled="#{usuarioCorrente.administrador == false and periodoCtrl.dentroDoPeriodoDeLancamento == false}" />
+
+				</p:submenu>
+
+				<p:submenu label="#{msgs.periodo}" url="#"
+					rendered="#{usuarioCorrente.administrador}">
+					<p:menuitem value="#{msgs.periodo_trabalho}"
+						action="/administrativo/periodotrabalho.xhtml?faces-redirect=true"
+						icon="ui-icon-calendar" />
+				</p:submenu>
+
+				<p:submenu label="#{msgs.relatorio}" url="#"
+					rendered="#{usuarioCorrente.usuarioLogado ne null}">
+					<p:menuitem value="#{msgs.filtro_de_relatorio}"
+						action="/restrito/relatorios/relatorio_geral.xhtml?faces-redirect=true"
+						icon="ui-icon-document" />
+
+					<p:menuitem value="#{msgs.registro_acesso_diretoria}"
+						rendered="#{usuarioCorrente.diretoria}"
+						action="/restrito/registroAcesso.xhtml?faces-redirect=true"
+						icon="ui-icon-document" />
+
+					<p:menuitem rendered="#{usuarioCorrente.diretoria}"
+						value="#{msgs.relatorio_auditoria_diretoria}" ajax="false"
+						icon="ui-icon-document"
+						disabled="#{periodoCtrl.dentroDoPeriodoDeLancamento == false}">
+						<p:fileDownload
+							value="#{relatorioGeral.arquivoRetornoAuditoriaDiretoria}" />
+					</p:menuitem>
+					
+					<p:menuitem value="Visualização Anual"
+						action="/restrito/visualizacao_anual.xhtml?faces-redirect=true"
+						icon="ui-icon-document" disabled="false" />
+
+
+				</p:submenu>
+
+				<p:submenu label="#{msgs.administrador}"
+					rendered="#{usuarioCorrente.administrador}">
+					
+				
+
+					<p:menuitem value="#{msgs.liberar_acesso}"
+						action="/administrativo/liberarAcesso.xhtml?faces-redirect=true"
+						icon="ui-icon-unlocked" />
+
+					<p:menuitem value="#{msgs.editar_usuario}"
+						action="/administrativo/administrarUsuario.xhtml?faces-redirect=true"
+						icon="ui-icon-document" />
+
+					<p:menuitem value="#{msgs.configurar_wizard}"
+						action="/administrativo/configurarWizard.xhtml?faces-redirect=true"
+						icon="ui-icon-gear" />
+
+					<p:menuitem value="#{msgs.consulta_efetivo_existente}"
+						action="/restrito/consulta_existente.xhtml?faces-redirect=true"
+						icon="ui-icon-document" />
+
+					<p:menuitem value="#{msgs.registro_acesso}"
+						action="/restrito/registroAcesso.xhtml?faces-redirect=true"
+						icon="ui-icon-document" />
+
+					<p:menuitem value="Clonagem de Dados"
+						action="/restrito/clonagem.xhtml?faces-redirect=true"
+						icon="ui-icon-document" disabled="true" />
+
+
+
+					<p:menuitem value="#{msgs.relatorio_auditoria}" ajax="false"
+						icon="ui-icon-document">
+						<p:fileDownload value="#{relatorioGeral.arquivoRetornoAuditoria}" />
+					</p:menuitem>
+
+				</p:submenu>
+
+			</p:menu>
+
+		</h:form>
+	</ui:composition>
+</h:body>
+
+</html>

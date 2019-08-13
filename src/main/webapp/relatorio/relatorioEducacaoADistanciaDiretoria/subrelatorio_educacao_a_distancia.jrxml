@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subrelatorio_educacao_a_distancia" language="groovy" pageWidth="420" pageHeight="15" whenNoDataType="AllSectionsNoDetail" columnWidth="420" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+ DIRETORIA,
+SUPERIOR_ID,
+SIGLA,
+COALESCE(ALUNOOF,0) AS ALUNOOF,
+COALESCE( ALUNOPR,0)  AS ALUNOPR,
+COALESCE(ALUNOCM,0) AS ALUNOCM,
+TOTAL AS TOTAL
+
+FROM (
+
+
+
+SELECT DISTINCT 'DESMIL' AS DIRETORIA,
+SS.SUPERIOR_ID,
+CASE WHEN OM.SIGLA='CPOR-BH/CMBH' THEN 'CMBH'
+	   WHEN OM.SIGLA='EsFCEx/CMS' THEN 'EsFCEx'
+	   ELSE OM.SIGLA END AS SIGLA,
+COALESCE(ALUNOOF,0) AS ALUNOOF,
+COALESCE( ALUNOPR,0)  AS ALUNOPR,
+COALESCE(ALUNOCM,0) AS ALUNOCM,
+(COALESCE(ALUNOOF,0) + COALESCE( ALUNOPR,0) + COALESCE(ALUNOCM,0)) AS TOTAL
+
+FROM
+SUPERIORES_SUBORDINADOS SS
+INNER JOIN COMBOTELA CT ON CT.TELA_ID = 2 AND ORGANIZACAO_VINCULADA_PARA_TELA_ID = SS.SUPERIOR_SUBORDINADO_ID
+LEFT JOIN ORGANIZACAOMILITAR OM ON OM.ID = SS.SUPERIOR_SUBORDINADO_ID
+LEFT JOIN ENSINOADISTANCIA EAD ON EAD.ORGANIZACAO_ID = OM.ID  AND PERIODO_ID = $P{id_periodo}
+
+WHERE SS.SUPERIOR_ID = 2
+AND EAD.ID = ( SELECT MAX (ID) FROM ENSINOADISTANCIA EAD2
+WHERE EAD.ORGANIZACAO_ID = EAD2.ORGANIZACAO_ID AND EAD.PERIODO_ID = EAD2.PERIODO_ID )
+
+
+
+
+UNION
+
+
+SELECT DIRETORIA,
+       SUPERIOR_ID,
+       SIGLA,
+       ALUNOOF,
+       ALUNOPR,
+       ALUNOCM,
+       TOTAL
+
+from (
+
+
+SELECT DISTINCT 'DETMIL' AS DIRETORIA,
+4 as SUPERIOR_ID,
+OM.SIGLA AS SIGLA,
+COALESCE(ALUNOOF,0) AS ALUNOOF,
+COALESCE( ALUNOPR,0)  AS ALUNOPR,
+COALESCE(ALUNOCM,0) AS ALUNOCM,
+(COALESCE(ALUNOOF,0) + COALESCE( ALUNOPR,0) + COALESCE(ALUNOCM,0)) AS TOTAL
+
+FROM
+SUPERIORES_SUBORDINADOS SS
+INNER JOIN COMBOTELA CT ON CT.TELA_ID = 2 AND ORGANIZACAO_VINCULADA_PARA_TELA_ID = SS.SUPERIOR_SUBORDINADO_ID
+LEFT JOIN ORGANIZACAOMILITAR OM ON OM.ID = SS.SUPERIOR_SUBORDINADO_ID
+LEFT JOIN ENSINOADISTANCIA EAD ON EAD.ORGANIZACAO_ID = OM.ID  AND PERIODO_ID = 19
+WHERE SS.SUPERIOR_ID = 4
+AND EAD.ID = ( SELECT MAX (ID) FROM ENSINOADISTANCIA EAD2
+WHERE EAD.ORGANIZACAO_ID = EAD2.ORGANIZACAO_ID AND EAD.PERIODO_ID = EAD2.PERIODO_ID )
+
+UNION
+
+SELECT DISTINCT 'DETMIL' AS DIRETORIA,
+4 as SUPERIOR_ID ,
+OM.SIGLA AS SIGLA,
+COALESCE(ALUNOOF,0) AS ALUNOOF,
+COALESCE( ALUNOPR,0)  AS ALUNOPR,
+COALESCE(ALUNOCM,0) AS ALUNOCM,
+(COALESCE(ALUNOOF,0) + COALESCE( ALUNOPR,0) + COALESCE(ALUNOCM,0)) AS TOTAL
+
+FROM
+SUPERIORES_SUBORDINADOS SS
+INNER JOIN COMBOTELA CT ON CT.TELA_ID = 2 AND ORGANIZACAO_VINCULADA_PARA_TELA_ID = SS.SUPERIOR_SUBORDINADO_ID
+LEFT JOIN ORGANIZACAOMILITAR OM ON OM.ID = SS.SUPERIOR_SUBORDINADO_ID
+LEFT JOIN ENSINOADISTANCIA EAD ON EAD.ORGANIZACAO_ID = OM.ID  AND PERIODO_ID = 19
+WHERE SS.SUPERIOR_ID = 146
+AND EAD.ID = ( SELECT MAX (ID) FROM ENSINOADISTANCIA EAD2
+WHERE EAD.ORGANIZACAO_ID = EAD2.ORGANIZACAO_ID AND EAD.PERIODO_ID = EAD2.PERIODO_ID )
+
+)T
+
+
+UNION
+
+SELECT DISTINCT 'DEPA' AS DIRETORIA,
+SS.SUPERIOR_ID,
+ CASE WHEN OM.SIGLA='CPOR-BH/CMBH' THEN 'CMBH'
+	   WHEN OM.SIGLA='EsFCEx/CMS' THEN 'CMS'
+	   ELSE OM.SIGLA END AS SIGLA,
+COALESCE(ALUNOOF,0) AS ALUNOOF,
+COALESCE( ALUNOPR,0)  AS ALUNOPR,
+COALESCE(ALUNOCM,0) AS ALUNOCM,
+(COALESCE(ALUNOOF,0) + COALESCE( ALUNOPR,0) + COALESCE(ALUNOCM,0)) AS TOTAL
+
+FROM
+SUPERIORES_SUBORDINADOS SS
+INNER JOIN COMBOTELA CT ON CT.TELA_ID = 2 AND ORGANIZACAO_VINCULADA_PARA_TELA_ID = SS.SUPERIOR_SUBORDINADO_ID
+LEFT JOIN ORGANIZACAOMILITAR OM ON OM.ID = SS.SUPERIOR_SUBORDINADO_ID
+LEFT JOIN ENSINOADISTANCIA EAD ON EAD.ORGANIZACAO_ID = OM.ID  AND PERIODO_ID = $P{id_periodo}
+WHERE SS.SUPERIOR_ID = 3
+
+AND SS.SUPERIOR_SUBORDINADO_ID NOT IN (12)
+AND EAD.ID = ( SELECT MAX (ID) FROM ENSINOADISTANCIA EAD2
+WHERE EAD.ORGANIZACAO_ID = EAD2.ORGANIZACAO_ID AND EAD.PERIODO_ID = EAD2.PERIODO_ID )
+
+
+
+UNION
+
+SELECT DISTINCT 'CCFEX' AS DIRETORIA,
+SS.SUPERIOR_ID,
+OM.SIGLA,
+COALESCE(ALUNOOF,0) AS ALUNOOF,
+COALESCE( ALUNOPR,0)  AS ALUNOPR,
+COALESCE(ALUNOCM,0) AS ALUNOCM,
+(COALESCE(ALUNOOF,0) + COALESCE( ALUNOPR,0) + COALESCE(ALUNOCM,0)) AS TOTAL
+
+FROM
+SUPERIORES_SUBORDINADOS SS
+INNER JOIN COMBOTELA CT ON CT.TELA_ID = 2 AND ORGANIZACAO_VINCULADA_PARA_TELA_ID = SS.SUPERIOR_SUBORDINADO_ID
+LEFT JOIN ORGANIZACAOMILITAR OM ON OM.ID = SS.SUPERIOR_SUBORDINADO_ID
+LEFT JOIN ENSINOADISTANCIA EAD ON EAD.ORGANIZACAO_ID = OM.ID  AND PERIODO_ID = $P{id_periodo}
+WHERE SS.SUPERIOR_ID = 6
+AND EAD.ID = ( SELECT MAX (ID) FROM ENSINOADISTANCIA EAD2
+WHERE EAD.ORGANIZACAO_ID = EAD2.ORGANIZACAO_ID AND EAD.PERIODO_ID = EAD2.PERIODO_ID )
+
+)TABELAO
+
+WHERE TABELAO.SUPERIOR_ID =$P{id_om}
+
+
+ORDER BY 3]]>
+	</queryString>
+	<field name="diretoria" class="java.lang.String"/>
+	<field name="superior_id" class="java.lang.Long"/>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="alunoof" class="java.lang.Integer"/>
+	<field name="alunopr" class="java.lang.Integer"/>
+	<field name="alunocm" class="java.lang.Integer"/>
+	<field name="total" class="java.lang.Integer"/>
+	<variable name="alunoof_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{alunoof}]]></variableExpression>
+	</variable>
+	<variable name="alunopr_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{alunopr}]]></variableExpression>
+	</variable>
+	<variable name="alunocm_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{alunocm}]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="15">
+			<textField>
+				<reportElement mode="Opaque" x="336" y="0" width="84" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total}==null?"-":$F{total}==0?"-":$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="252" y="0" width="84" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{alunocm}==null?"-":$F{alunocm}==0?"-":$F{alunocm}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="168" y="0" width="84" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{alunopr}==null?"-":$F{alunopr}==0?"-":$F{alunopr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="84" y="0" width="84" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{alunoof}==null?"-":$F{alunoof}==0?"-":$F{alunoof}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="84" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sigla}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="84" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="84" y="0" width="84" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{alunoof_1}==0 ?'-':$V{alunoof_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="168" y="0" width="84" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{alunopr_1}==0 ?'-':$V{alunopr_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="252" y="0" width="84" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{alunocm_1}==0 ?'-':$V{alunocm_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="336" y="0" width="84" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_1}==0 ?'-':$V{total_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

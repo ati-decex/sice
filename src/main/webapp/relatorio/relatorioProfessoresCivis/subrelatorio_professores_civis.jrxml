@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subrelatorio_professores_civis" language="groovy" pageWidth="425" pageHeight="30" columnWidth="425" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="carreira" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT ID,
+        initcap (DISCIPLINA) AS DISCIPLINA,
+        SUM(TOTAL_DOUTOR) AS TOTAL_DOUTOR,
+        SUM(TOTAL_MESTRE) AS TOTAL_MESTRE ,
+        SUM(TOTAL_POSGRADUACAO) AS TOTAL_POSGRADUACAO,
+        SUM(TOTAL_GRADUACAO) AS TOTAL_GRADUACAO,
+        SUM(TOTAL_40HCOMDEDICACAOEXCLUSIVA) AS TOTAL_40HCOMDEDICACAOEXCLUSIVA,
+        SUM(TOTAL_40HSEMDEDICACAOEXCLUSIVA) AS TOTAL_40HSEMDEDICACAOEXCLUSIVA,
+        SUM(TOTAL_20H) AS TOTAL_20H,
+        SUM(TOTAL_MASCULINO) AS TOTAL_MASCULINO,
+        SUM(TOTAL_FEMININO)  AS TOTAL_FEMININO,
+	SUM(TOTAL_FEMININO + TOTAL_MASCULINO)  AS TOTAL
+
+
+FROM (
+
+
+SELECT DISTINCT D.ID,O.SIGLA, D.NOME AS DISCIPLINA ,
+
+  (SELECT SUM(PC1.FEMININO + PC1.MASCULINO) AS TOTAL_DOUTOR
+   FROM DISCIPLINA D1
+   INNER JOIN PROFESSORCIVIL PC1 ON D1.ID = PC1.DISCIPLINA_ID AND PC1.CARREIRA = PC.CARREIRA
+   INNER JOIN ORGANIZACAOMILITAR O1 ON PC1.ORGANIZACAO_ID = O1.ID
+   WHERE D1.ID = D.ID
+   AND PC1.ESCOLARIDADE = 'DOUTOR'
+   AND PC.ORGANIZACAO_ID = PC1.ORGANIZACAO_ID
+   AND PC1.PERIODO_ID = PC.PERIODO_ID
+
+    ) AS TOTAL_DOUTOR  ,
+
+   ( SELECT SUM(PC1.FEMININO + PC1.MASCULINO) AS TOTAL_MESTRE
+   FROM DISCIPLINA D1
+   INNER JOIN PROFESSORCIVIL PC1 ON D1.ID = PC1.DISCIPLINA_ID AND PC1.CARREIRA = PC.CARREIRA
+   INNER JOIN ORGANIZACAOMILITAR O1 ON PC1.ORGANIZACAO_ID = O1.ID
+   WHERE D1.ID = D.ID
+   AND PC1.ESCOLARIDADE = 'MESTRE'
+   AND PC.ORGANIZACAO_ID = PC1.ORGANIZACAO_ID
+   AND PC1.PERIODO_ID = PC.PERIODO_ID
+
+    ) AS TOTAL_MESTRE ,
+
+    (SELECT SUM(PC1.FEMININO + PC1.MASCULINO) AS TOTAL_POSGRADUACAO
+   FROM DISCIPLINA D1
+   INNER JOIN PROFESSORCIVIL PC1 ON D1.ID = PC1.DISCIPLINA_ID AND PC1.CARREIRA = PC.CARREIRA
+   INNER JOIN ORGANIZACAOMILITAR O1 ON PC1.ORGANIZACAO_ID = O1.ID
+   WHERE D1.ID = D.ID
+   AND PC1.ESCOLARIDADE = 'POSGRADUACAO'
+   AND PC.ORGANIZACAO_ID = PC1.ORGANIZACAO_ID
+   AND PC1.PERIODO_ID = PC.PERIODO_ID
+
+    ) AS TOTAL_POSGRADUACAO ,
+
+   (SELECT SUM(PC1.FEMININO + PC1.MASCULINO) AS TOTAL_GRADUACAO
+   FROM DISCIPLINA D1
+   INNER JOIN PROFESSORCIVIL PC1 ON D1.ID = PC1.DISCIPLINA_ID AND PC1.CARREIRA = PC.CARREIRA
+   INNER JOIN ORGANIZACAOMILITAR O1 ON PC1.ORGANIZACAO_ID = O1.ID
+   WHERE D1.ID = D.ID
+   AND PC1.ESCOLARIDADE = 'GRADUACAO'
+   AND PC.ORGANIZACAO_ID = PC1.ORGANIZACAO_ID
+   AND PC1.PERIODO_ID = PC.PERIODO_ID
+
+    ) AS TOTAL_GRADUACAO ,
+
+   (SELECT SUM(PC1.FEMININO + PC1.MASCULINO) AS TOTAL
+   FROM DISCIPLINA D1
+   INNER JOIN PROFESSORCIVIL PC1 ON D1.ID = PC1.DISCIPLINA_ID AND PC1.CARREIRA = PC.CARREIRA
+   INNER JOIN ORGANIZACAOMILITAR O1 ON PC1.ORGANIZACAO_ID = O1.ID
+   WHERE D1.ID = D.ID
+   AND PC1.REGIMEDETRABALHO = 'QUARENTAHCOMDEDICACAOEXCLUSIVA'
+   AND PC.ORGANIZACAO_ID = PC1.ORGANIZACAO_ID
+   AND PC1.PERIODO_ID = PC.PERIODO_ID
+
+    ) AS TOTAL_40HCOMDEDICACAOEXCLUSIVA ,
+
+   (SELECT SUM(PC1.FEMININO + PC1.MASCULINO) AS TOTAL
+   FROM DISCIPLINA D1
+   INNER JOIN PROFESSORCIVIL PC1 ON D1.ID = PC1.DISCIPLINA_ID AND PC1.CARREIRA = PC.CARREIRA
+   INNER JOIN ORGANIZACAOMILITAR O1 ON PC1.ORGANIZACAO_ID = O1.ID
+   WHERE D1.ID = D.ID
+   AND PC1.REGIMEDETRABALHO = 'QUARENTAHSEMDEDICACAOEXCLUSIVA'
+   AND PC.ORGANIZACAO_ID = PC1.ORGANIZACAO_ID
+   AND PC1.PERIODO_ID = PC.PERIODO_ID
+
+    ) AS TOTAL_40HSEMDEDICACAOEXCLUSIVA ,
+
+    (SELECT SUM(PC1.FEMININO + PC1.MASCULINO) AS TOTAL
+   FROM DISCIPLINA D1
+   INNER JOIN PROFESSORCIVIL PC1 ON D1.ID = PC1.DISCIPLINA_ID AND PC1.CARREIRA = PC.CARREIRA
+   INNER JOIN ORGANIZACAOMILITAR O1 ON PC1.ORGANIZACAO_ID = O1.ID
+   WHERE D1.ID = D.ID
+   AND PC1.REGIMEDETRABALHO = 'VINTEH'
+   AND PC.ORGANIZACAO_ID = PC1.ORGANIZACAO_ID
+   AND PC1.PERIODO_ID = PC.PERIODO_ID
+
+    ) AS TOTAL_20H,
+
+    (SELECT SUM(PC1.MASCULINO) AS TOTAL_MASCULINO
+   FROM DISCIPLINA D1
+   INNER JOIN PROFESSORCIVIL PC1 ON D1.ID = PC1.DISCIPLINA_ID AND PC1.CARREIRA = PC.CARREIRA
+   INNER JOIN ORGANIZACAOMILITAR O1 ON PC1.ORGANIZACAO_ID = O1.ID
+   WHERE D1.ID = D.ID
+   AND PC.ORGANIZACAO_ID = PC1.ORGANIZACAO_ID
+   AND PC1.PERIODO_ID = PC.PERIODO_ID
+
+    ) AS TOTAL_MASCULINO ,
+
+   (SELECT SUM(PC1.FEMININO) AS TOTAL_FEMININO
+   FROM DISCIPLINA D1
+   INNER JOIN PROFESSORCIVIL PC1 ON D1.ID = PC1.DISCIPLINA_ID AND PC1.CARREIRA = PC.CARREIRA
+   INNER JOIN ORGANIZACAOMILITAR O1 ON PC1.ORGANIZACAO_ID = O1.ID
+   WHERE D1.ID = D.ID
+   AND PC.ORGANIZACAO_ID = PC1.ORGANIZACAO_ID
+   AND PC1.PERIODO_ID = PC.PERIODO_ID
+
+    ) AS TOTAL_FEMININO,
+
+    (SELECT SUM(PC1.MASCULINO+PC1.FEMININO) AS TOTAL
+   FROM DISCIPLINA D1
+   INNER JOIN PROFESSORCIVIL PC1 ON D1.ID = PC1.DISCIPLINA_ID AND PC1.CARREIRA = PC.CARREIRA
+   INNER JOIN ORGANIZACAOMILITAR O1 ON PC1.ORGANIZACAO_ID = O1.ID
+   WHERE D1.ID = D.ID
+   AND PC.ORGANIZACAO_ID = PC1.ORGANIZACAO_ID
+   AND PC1.PERIODO_ID = PC.PERIODO_ID
+
+    ) AS TOTAL
+
+
+  FROM PROFESSORCIVIL PC
+   INNER JOIN ORGANIZACAOMILITAR O ON PC.ORGANIZACAO_ID = O.ID
+   INNER JOIN DISCIPLINA D ON D.ID = PC.DISCIPLINA_ID
+
+  WHERE O.ID = $P{id_om}
+  AND PC.PERIODO_ID =$P{id_periodo}
+  AND PC.CARREIRA = $P{carreira}
+
+ UNION
+
+
+
+SELECT  D.ID,
+        '' AS SIGLA,
+        D.NOME DISCIPLINA,
+        0 AS TOTAL_DOUTOR,
+        0 AS TOTAL_MESTRE,
+        0 AS TOTAL_POSGRADUACAO,
+        0 AS TOTAL_GRADUACAO,
+        0 AS TOTAL_40HCOMDEDICACAOEXCLUSIVA,
+        0 AS TOTAL_40HSEMDEDICACAOEXCLUSIVA,
+        0 AS TOTAL_20H,
+        0 AS TOTAL_MASCULINO,
+        0 AS TOTAL_FEMININO,
+	0 AS TOTAL
+FROM DISCIPLINA D
+ORDER BY 1
+
+) T
+ GROUP BY ID,DISCIPLINA
+
+ ORDER BY 1]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="disciplina" class="java.lang.String"/>
+	<field name="total_doutor" class="java.math.BigDecimal"/>
+	<field name="total_mestre" class="java.math.BigDecimal"/>
+	<field name="total_posgraduacao" class="java.math.BigDecimal"/>
+	<field name="total_graduacao" class="java.math.BigDecimal"/>
+	<field name="total_40hcomdedicacaoexclusiva" class="java.math.BigDecimal"/>
+	<field name="total_40hsemdedicacaoexclusiva" class="java.math.BigDecimal"/>
+	<field name="total_20h" class="java.math.BigDecimal"/>
+	<field name="total_masculino" class="java.math.BigDecimal"/>
+	<field name="total_feminino" class="java.math.BigDecimal"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<variable name="variable1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_masculino}+$F{total_feminino}]]></variableExpression>
+	</variable>
+	<variable name="total_doutor" class="java.lang.String"/>
+	<variable name="total_mestre" class="java.lang.String"/>
+	<variable name="total_posgra" class="java.lang.String"/>
+	<variable name="total_gradua" class="java.lang.String"/>
+	<variable name="total_40hcom" class="java.lang.String"/>
+	<variable name="total_40hsem" class="java.lang.String"/>
+	<variable name="total_20h" class="java.lang.String"/>
+	<variable name="total_masculino" class="java.lang.String"/>
+	<variable name="total_feminino" class="java.lang.String"/>
+	<variable name="total_doutor_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_doutor}]]></variableExpression>
+	</variable>
+	<variable name="total_mestre_1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_mestre}]]></variableExpression>
+	</variable>
+	<variable name="total_posgraduacao_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_posgraduacao}]]></variableExpression>
+	</variable>
+	<variable name="total_graduacao_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_graduacao}]]></variableExpression>
+	</variable>
+	<variable name="total_40hcomdedicacaoexclusiva_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_40hcomdedicacaoexclusiva}]]></variableExpression>
+	</variable>
+	<variable name="total_40hsemdedicacaoexclusiva_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_40hsemdedicacaoexclusiva}]]></variableExpression>
+	</variable>
+	<variable name="total_20h_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_20h}]]></variableExpression>
+	</variable>
+	<variable name="total_masculino_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_masculino}]]></variableExpression>
+	</variable>
+	<variable name="total_feminino_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_feminino}]]></variableExpression>
+	</variable>
+	<variable name="total_total" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{variable1}]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<variable name="total_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="131" height="15" backcolor="#FFFFCC"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{disciplina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="131" y="0" width="27" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_doutor} == 0 ? '-' : $F{total_doutor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="158" y="0" width="27" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_mestre} == 0 ? '-' : $F{total_mestre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="185" y="0" width="27" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_posgraduacao} == 0 ? '-' : $F{total_posgraduacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="212" y="0" width="27" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_graduacao} == 0 ? '-' : $F{total_graduacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="239" y="0" width="27" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_40hcomdedicacaoexclusiva} == 0 ? '-' : $F{total_40hcomdedicacaoexclusiva}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="266" y="0" width="27" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_40hsemdedicacaoexclusiva} == 0 ? '-' : $F{total_40hsemdedicacaoexclusiva}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="293" y="0" width="27" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_20h} == 0 ? '-' : $F{total_20h}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="320" y="0" width="27" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_masculino} == 0 ? '-' : $F{total_masculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="347" y="0" width="27" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_feminino} == 0 ? '-' : $F{total_feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="374" y="0" width="50" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total} == 0 ? '-' : $F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15">
+			<textField>
+				<reportElement mode="Opaque" x="131" y="0" width="27" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_doutor_1}  == 0 ? '-' : $V{total_doutor_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="158" y="0" width="27" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_mestre_1} == 0 ? '-' : $V{total_mestre_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="131" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="185" y="0" width="27" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_posgraduacao_1} == 0 ? '-' : $V{total_posgraduacao_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="212" y="0" width="27" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_graduacao_1} == 0 ? '-' :$V{total_graduacao_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="239" y="0" width="27" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_40hcomdedicacaoexclusiva_1} == 0 ? '-' : $V{total_40hcomdedicacaoexclusiva_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="266" y="0" width="27" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_40hsemdedicacaoexclusiva_1}== 0 ? '-' :$V{total_40hsemdedicacaoexclusiva_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="293" y="0" width="27" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_20h_1}== 0 ? '-' :$V{total_20h_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="320" y="0" width="27" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_masculino_1}== 0 ? '-' :$V{total_masculino_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="347" y="0" width="27" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_feminino_1}== 0 ? '-' :$V{total_feminino_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="374" y="0" width="50" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_2}== 0 ? '-' :$V{total_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

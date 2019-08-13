@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+
+		<h:form id="form">
+		
+			<p:growl id="mensagem" showDetail="true" sticky="true" />		
+		
+			<p:panel
+				style="background-color:#8B8989 !important; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight:bolder; color:white  !important; "
+					value="#{msgs.periodo_informacoes_prazo}:" />
+			</p:panel>
+
+			<p:panel>
+
+					<p:dataTable id="periodos" var="periodo" value="#{periodoTrabalho.periodos}" editable="true">
+					
+						<f:facet name="header">
+							<h:outputLabel value="#{msgs.ano}: #{periodoTrabalho.anoCorrente}" />
+						</f:facet>
+					
+						<p:ajax event="rowEdit" listener="#{periodoTrabalho.onSalvar}" update=":form:mensagem" />					
+					
+						<p:column headerText="#{msgs.mes}" id="colMes">
+							<h:outputLabel value="#{periodo.traduzirMes(periodo.mes.value)}"/>
+						</p:column>
+					
+						<p:column headerText="#{msgs.data_inicial}" id="coldataIni" style="text-align:center;">
+						
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputLabel value="#{periodo.dataInicial}">
+										<f:convertDateTime pattern="dd/MM/yyyy"/>							
+									</h:outputLabel>														
+								</f:facet>
+								<f:facet name="input">
+									<p:calendar id="dataInicial" value="#{periodo.dataInicial}" required="true" requiredMessage="#{msgs.requerido_data_inicial}"/>
+								</f:facet>
+							</p:cellEditor>
+						
+
+						</p:column>						
+					
+						<p:column headerText="#{msgs.data_final}" id="coldataFim" style="text-align:center;">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputLabel value="#{periodo.dataFinal}">
+										<f:convertDateTime pattern="dd/MM/yyyy"/>							
+									</h:outputLabel>														
+								</f:facet>
+								<f:facet name="input">
+									<p:calendar id="dataFinal" value="#{periodo.dataFinal}" required="true" requiredMessage="#{msgs.requerido_data_final}"/>
+								</f:facet>
+							</p:cellEditor>
+						</p:column>											
+					
+				        <p:column style="width:32px">
+				            <p:rowEditor />
+				        </p:column>					
+					
+					</p:dataTable>
+
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

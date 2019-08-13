@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioUsuario" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="OM_ID" class="java.lang.Integer"/>
+	<parameter name="PERIODO_ID" class="java.lang.Integer"/>
+	<parameter name="QCP_ID" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT * FROM organizacaomilitar WHERE id = $P{OM_ID};]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="ordem" class="java.lang.Integer"/>
+	<group name="teste">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="50"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#999999" backcolor="#666666"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="555" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sigla}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#999999" backcolor="#CCCCCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="20" width="555" height="20" forecolor="#999999" backcolor="#CCCCCC"/>
+			</rectangle>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="141" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="148" splitType="Stretch"/>
+	</summary>
+</jasperReport>

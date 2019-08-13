@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<h:head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>#{msgs.sistema_controle_efetivo}</title>
+		<h:outputStylesheet library="css" name="layout_principal.css"/>
+		
+		<style>
+			.ui-datepicker table {
+				width: 100% !important;
+			}
+			.ui-state-highlight .ui-icon {
+				background-image: url(/sice/javax.faces.resource/images/ui-icons_222222_256x240.png.xhtml?ln=primefaces-delta); !important;
+			}
+			
+			.ajuda {
+				margin-rigth: 5px;
+				text-decoration: none;
+				border-bottom: solid 1px transparent;
+				color: #FF0;
+				font-size: 12px;
+				font-weight: bold;
+				-webkit-transition: border-bottom-color 1s ease-out;
+				-ui-transition: border-bottom-color 1s ease-out;
+   				transition: border-bottom-color 1s ease-out;
+			}
+			
+			.ajuda:hover {
+				border-bottom: solid 1px #FF0;
+			}
+			
+			body {
+				background-color: #696969;
+				font-family: Arial,Helvetica,sans-serif;
+			}
+			
+			.logoDecex {
+				position: relative;
+			    float: left;
+			    top: 18px;
+			    left: 2%;
+			}
+		</style>
+			
+	</h:head>
+
+	<h:body>
+
+		<div id="menu" style="width: 30% !important;">
+			<div id="lbl_sice_up" style="width: 100%; height: 25px;  background-color: #0f4098; display: flex; align-items: center; border-radius: 5px  0;">
+				<h:outputLabel style="color: #FF0; font-weight: bold; text-align:center; font-size: 13px; margin-left: 2%; width: 100%;" 
+					value="#{msgs.sistema_controle_efetivo}"/>
+
+				
+			</div>
+			<div id="logo" style="width: 100%; height: 130px; background-color: #3e67b1;">
+				<h:graphicImage library="images" class="logoDecex" name="logo_decex_transparente.png" width="70px"/>
+				<div style="margin-left: 100px; top: 38px; color: #FFF;">
+					<h:outputLabel value="#{msgs.ministerioDaDefesa}" style="font-size: 12px;" /><br />
+					<h:outputLabel value="#{msgs.EB}" style="font-size: 12px;" /><br />
+					<h:outputLabel value="#{msgs.DECEx}" style=" font-size: 13px;" /><br />
+				</div>
+			</div>
+			<div id="lbl_sice_down" style="width: 100%; height: 25px; background-color: #0f4098; display: flex; align-items: center; border-radius: 0 0 5px 5px;">
+				<h:outputLabel style="color: #FF0;  font-size: 13px; margin-left: 2%; width: 100%;" 
+					value="#{msgs.ati}"/>
+					<a href="/sice/resources/pdf/Manual.Usuario.pdf" target="blank" class="ajuda" style="position: relative; float: left; right: 2%;">
+					#{msgs.ajuda}
+				</a>
+			</div>
+			<ui:include src="/menu/lateral.xhtml" />
+		</div>
+		
+		<div id="content">
+			<ui:insert name="conteudo">
+				<p:panel style="margin-bottom:5px;">
+					<div style="font-size: 16pt; font-family: sans-serif, Helvetiva, Arial; border: 2px dotted #999; padding: 5px;">
+						<center>
+							Seja bem-vindo ao novo <br/> Sistema de Controle de Efetivos – <b>SiCE</b>
+						</center>
+					</div>
+					
+				</p:panel> 
+				
+				<p:panel>
+
+					<div style="font-size: 15px; text-align: justify; margin: 20px; font-family: sans-serif, Helvetiva, Arial; border: 2px dotted #999; padding: 15px;">
+						O cadastro de efetivo existente encontra-se indisponível.<br /> <strong>Entre em contato com a ARH/DECEx pelos telefone: (21) 2519 5068 ou pelo RITEx 810 5058</strong>.					
+					</div>
+				
+				</p:panel>
+				
+			</ui:insert>
+		 		 
+		</div>
+
+	</h:body>
+	
+</html>

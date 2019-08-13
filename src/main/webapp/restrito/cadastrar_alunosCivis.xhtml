@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+
+		<h:form id="form" prependId="false">
+
+			<p:growl id="mensagem" showDetail="true" sticky="true" />
+
+			<p:panel
+				style="background-color:#8B8989 !important; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight:bolder; color:white  !important; "
+					value="#{msgs.tela_alunoCivis}:" />
+			</p:panel>
+
+			<p:panel style="text-align: center; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight: bold;"
+					value="#{msgs.cadastro_alunos_civis}" />
+			</p:panel>
+
+			<p:panel style="margin-bottom: 10px;">
+			
+				<p:panelGrid style="width: 100%;">
+					<p:row>
+						<p:column>
+							<p:outputLabel for="om" value="#{msgs.om}:" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu style="width: 40%" value="#{alunosCivisCM.alunoCivil.organizacaoMilitar}" id="om" converter="organizacaoConverter" required="true" 
+								requiredMessage="#{msgs.requerido_organizacao_militar}">
+								<f:selectItem itemLabel="#{msgs.selecione}" />
+								<p:ajax update="tipoEscolaridade" />
+								<f:selectItems value="#{alunosCivisCM.organizacoesMilitares}" var="organizacoes" itemLabel="#{organizacoes.sigla}" itemValue="#{organizacoes}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel for="tipoEscolaridade" value="#{msgs.tipoEscolaridade}:" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu style="width: 40%" value="#{alunosCivisCM.alunoCivil.tipoEscolaridade}" id="tipoEscolaridade" required="true" requiredMessage="#{msgs.requerido_serie_militar}">
+								<f:selectItem itemLabel="#{msgs.selecione}" />
+								<p:ajax update="masculino, feminino" listener="#{alunosCivisCM.verificarRegistro}" />
+								<f:selectItems value="#{alunosCivisCM.tipoEscolaridade}" var="tipoEscolaridade" itemLabel="#{tipoEscolaridade.value}" itemValue="#{tipoEscolaridade}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel for="masculino" value="#{msgs.masculino}:" />
+						</p:column>
+						<p:column>
+							<p:inputNumber value="#{alunosCivisCM.alunoCivil.masculino}" id="masculino"
+								required="true" requiredMessage="#{msgs.requerido_masculino}" minValue="0" maxValue="99999" />
+						</p:column>
+					</p:row>
+					
+					<p:row>						
+						<p:column>
+							<p:outputLabel for="feminino" value="#{msgs.feminino}:" />
+						</p:column>
+						<p:column>
+							<p:inputNumber value="#{alunosCivisCM.alunoCivil.feminino}" id="feminino"
+								required="true" requiredMessage="#{msgs.requerido_feminino}" minValue="0" maxValue="99999" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			
+			</p:panel>
+
+			<p:panel style="text-align: center; margin-bottom: 10px; height: 34px;">
+				<p:commandButton id="botaoProsseguir" icon="ui-icon-arrowthick-1-e" title="#{msgs.prosseguir_tela}" disabled="#{alunosCivisCM.habilitaBotao}"
+					action="#{telas.avancarTela}" rendered="#{telas.exibirBotaoProximo}" immediate="true" style="float: right; top: -3px;" />
+					
+				<p:commandButton icon="ui-icon-arrowthick-1-w" title="#{msgs.voltar_tela}" action="#{telas.voltarTela}"
+					rendered="#{telas.exibirBotaoAnterior}" immediate="true" style="float: right; top: -3px; right: 5px;" />
+					
+				<p:commandButton icon="ui-icon-disk" title="#{msgs.gravar}" actionListener="#{alunosCivisCM.salvar}" id="salvarTela"
+					update="@form, :formListaAlunosCivis" style="float: right; top: -3px; right: 10px;" />
+			</p:panel>
+		</h:form>
+		
+		<h:form id="formListaAlunosCivis">
+			<p:dataTable id="listaAlunosCivis" editable="true" rows="15" var="alunos" value="#{alunosCivisCM.alunosCivis}" paginator="true" emptyMessage="Nenhum registro encontrado!"
+				rowsPerPageTemplate="10,25,50,100" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+
+				<p:ajax event="rowEdit" listener="#{alunosCivisCM.editar(alunos)}" update=":form:mensagem" />
+
+				<f:facet name="header">
+					<h:outputLabel value="#{msgs.efetivo_existente_cadastrado}" />
+				</f:facet>
+
+				<p:column id="OM" headerText="#{msgs.om}">
+					<h:outputText value="#{alunos.organizacaoMilitar}" />
+				</p:column>
+				
+				<p:column id="tipoEscolaridade" headerText="#{msgs.tipoEscolaridade}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{alunos.tipoEscolaridade}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{alunos.tipoEscolaridade}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column id="masculino" headerText="#{msgs.masculino}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{alunos.masculino}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{alunos.masculino}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="feminino" headerText="#{msgs.feminino}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{alunos.feminino}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{alunos.feminino}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:32px">
+					<p:rowEditor editTitle="#{msgs.editar_efetivo_existente}" />
+				</p:column>
+				
+				<p:column style="width:39px">
+					<p:commandButton icon="ui-icon-trash" action="#{alunosCivisCM.excluir(alunos)}" update="formListaAlunosCivis" title="#{msgs.excluir_efetivo_existente}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

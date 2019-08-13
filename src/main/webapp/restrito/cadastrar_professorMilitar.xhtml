@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
+				
+	<ui:define name="conteudo">
+	
+		<h:form id="form">
+		
+			<p:growl id="mensagem" showDetail="true" sticky="true"/>
+			
+			<p:panel style="background-color:#8B8989 !important; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight:bolder; color:white  !important; " value="#{msgs.tela_professorMilitar}:" />
+			</p:panel>
+			<p:panel style="text-align: center; margin-bottom: 10px;">				
+				<p:outputLabel style="font-weight: bold;" value="#{msgs.cadastro_professor_militar}"/>
+			</p:panel>
+		
+			<p:panel style="margin-bottom: 10px;">
+				<p:panelGrid style="width: 100%;">
+					<p:row>
+						<p:column>
+							<p:outputLabel for="om" value="#{msgs.om}:" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu style="width: 36%" value="#{professorMilitar.professorMilitar.organizacaoMilitar}" id="om" converter="organizacaoConverter" required="true" requiredMessage="#{msgs.requerido_organizacao_militar}">
+								<f:selectItem itemLabel="#{msgs.selecione}" />
+								<p:ajax update="tipo" />
+								<f:selectItems value="#{professorMilitar.organizacoesMilitares}" var="organizacoes" itemLabel="#{organizacoes.sigla}" itemValue="#{organizacoes}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel for="tipo" value="#{msgs.tipo}" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu style="width: 36%" value="#{professorMilitar.professorMilitar.tipoProfessorMilitar}" id="tipo" required="true" requiredMessage="#{msgs.requerido_professor_militar}">
+								<f:selectItem itemLabel="#{msgs.selecione}" />
+								<p:ajax listener="#{professorMilitar.verificarRegistro}" update="masculino, feminino, botaoProsseguir" />
+								<f:selectItems value="#{professorMilitar.tipoProfessorMilitar}" var="professores" itemLabel="#{professores.value}" itemValue="#{professores}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column colspan="2">
+							<p:outputLabel value="#{msgs.total_professor}" style="color: #0f4098; font-weight: bold;" />
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel for="masculino" value="#{msgs.masculino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber value="#{professorMilitar.professorMilitar.masculino}" id="masculino" required="true" requiredMessage="#{msgs.requerido_masculino}" minValue="0" maxValue="99999" />
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel for="feminino" value="#{msgs.feminino}:" />
+						</p:column>					
+						<p:column>
+							<p:inputNumber value="#{professorMilitar.professorMilitar.feminino}" id="feminino" required="true" requiredMessage="#{msgs.requerido_feminino}" minValue="0" maxValue="99999" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+			
+			<p:panel style="text-align: center; margin-bottom: 10px; height: 34px;">
+				<p:commandButton id="botaoProsseguir" icon="ui-icon-arrowthick-1-e" title="#{msgs.prosseguir_tela}" disabled="#{professorMilitar.habilitaBotao}" action="#{telas.avancarTela}" rendered="#{telas.exibirBotaoProximo}" immediate="true" style="float: right; top: -3px;" />
+				<p:commandButton icon="ui-icon-arrowthick-1-w" title="#{msgs.voltar_tela}" action="#{telas.voltarTela}" rendered="#{telas.exibirBotaoAnterior}" immediate="true" style="float: right; top: -3px; right: 5px;" />
+				<p:commandButton icon="ui-icon-disk" title="#{msgs.gravar}" actionListener="#{professorMilitar.salvarOuAtualizar}" update=":form, :formListaExistente" style="float: right; top: -3px; right: 10px;"/>
+			</p:panel>
+		</h:form>
+		
+		<h:form id="formListaExistente">
+			<p:dataTable id="listaEfetivoExistente" editable="true" rows="10" var="listaExistente" value="#{professorMilitar.professores}" paginator="true" emptyMessage="Nenhum registro encontrado!"
+				rowsPerPageTemplate="10,25,50,100" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+			
+			<p:ajax event="rowEdit"
+					listener="#{professorMilitar.editar(listaExistente)}" update=":form:mensagem" />
+
+			 <f:facet name="header">
+	            	<h:outputLabel value="#{msgs.efetivo_existente_cadastrado}" />
+	        	</f:facet>
+	        	
+	        	<p:column id="Listatipo" headerText="#{msgs.tipo}">
+	        		<h:outputText value="#{listaExistente.tipoProfessorMilitar.value}" />
+	        	</p:column>
+	        	<p:column id="listaMasculino" headerText="#{msgs.masculino}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{listaExistente.masculino}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{listaExistente.masculino}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>	
+	        	<p:column id="listaFeminino" headerText="#{msgs.feminino}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{listaExistente.feminino}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{listaExistente.feminino}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>	
+				
+				<p:column style="width:32px">
+	        	   <p:rowEditor editTitle="#{msgs.editar_efetivo_existente}" />
+				</p:column>
+
+				<p:column style="width:39px">
+					<p:commandButton icon="ui-icon-trash" update=":formListaExistente, :form" action="#{professorMilitar.excluir(listaExistente)}" title="#{msgs.excluir_efetivo_existente}" />
+				</p:column>
+			
+			</p:dataTable>
+		</h:form>		
+	</ui:define>
+</ui:composition>

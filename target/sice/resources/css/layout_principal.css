@@ -1,0 +1,86 @@
+@CHARSET "UTF-8";
+
+html, body { 
+	margin: 0;
+	min-height: 101%;
+	font-size:12px;
+}
+
+div {
+	position: relative;
+}
+
+#menu {
+	width: 30%;
+	height: 100%;
+	float: left;
+	background-color: #696969;
+	font-size:11px;
+}
+
+#content {
+	width: 70%;
+	height: 100%;
+	float: right;
+	background-color: #ddd;
+	overflow-y: scroll;
+}
+
+#content #header {
+	width: 100%;
+	height: 80px;
+}
+
+.ui-widget {   
+	font-size: 1em !important;   
+}
+
+#gridLogin .ui-panelgrid-cell{
+	height:27px !important;
+}
+
+#periodoForm{
+	width:100% !important;
+	/*margin-left:31.99654% !important;
+	margin-top:-4.240em !important;*/
+}
+
+.coluna1{
+	width:30%;
+}
+.coluna2{
+	width:70%;
+}
+
+#j_username ,#j_password  {
+	width:360px !important;
+	margin-left:7.5px;
+}
+
+.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all{
+	width:40%;
+}
+
+.classeSelectMenu{
+	min-width:230px !important;
+}
+
+.classeSelectMenuProfessorCivil{
+	min-width:350px !important;
+}
+
+.classeSelectMenuPrincipal{
+	min-width: 40% !important;
+}
+
+.classeSelectMenuDocumento{
+	min-width: 90% !important;
+}
+
+.classe1{
+	width:250px !important;
+}
+
+.classe2{
+	color:black !important;
+}

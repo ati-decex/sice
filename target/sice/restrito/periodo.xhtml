@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+
+		<h:form>
+			<p:panel
+				style="background-color:#8B8989 !important; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight:bolder; color:white  !important; "
+					value="#{msgs.periodo_informacoes_selecao}:" />
+			</p:panel>
+
+			<p:panel style="text-align: right; margin-bottom: 10px;">
+				<p:commandButton value="#{msgs.prosseguir}"
+					title="#{msgs.prosseguir}" action="#{periodoCtrl.prosseguir}"
+					style="margin-right: 10px;" />
+			</p:panel>
+
+			<p:panel>
+				<p:panelGrid columns="2" style="width: 100%;">
+
+					<p:outputLabel value="#{msgs.periodo}:" />
+					<p:selectOneMenu id="periodo" value="#{periodoCtrl.periodo}"
+						style="width: 95%;" required="true"
+						requiredMessage="#{msgs.periodo_obrigatorio}"
+						converter="periodoConverter">
+						<f:selectItem itemLabel="#{msgs.selecione}" itemValue="" />
+						<f:selectItems value="#{periodoCtrl.periodos}" var="periodo"
+							itemLabel="#{periodo}" itemValue="#{periodo}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel />
+					<p:outputLabel value="#{msgs.preenchimento_obrigatorio}" />
+
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

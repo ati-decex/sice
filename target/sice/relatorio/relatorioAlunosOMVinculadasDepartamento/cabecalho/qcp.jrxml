@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="qcp" language="groovy" pageWidth="181" pageHeight="20" columnWidth="181" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="5.054470284992944"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select * from qcp where organizacaomilitar_id =  $P{id_om} and ativo = true;]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="ativo" class="java.lang.Boolean"/>
+	<field name="dataalteracao" class="java.sql.Date"/>
+	<field name="organizacaomilitar_id" class="java.lang.Long"/>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="181" height="20" forecolor="#FFFFFF" backcolor="#0099CC"/>
+				<box leftPadding="5" rightPadding="0">
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["QCP: " +new SimpleDateFormat("dd/MM/yyyy").format($F{dataalteracao})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

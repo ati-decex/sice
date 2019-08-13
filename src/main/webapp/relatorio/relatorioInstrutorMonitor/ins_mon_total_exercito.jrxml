@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ins_mon_exercito" language="groovy" pageWidth="140" pageHeight="15" whenNoDataType="AllSectionsNoDetail" columnWidth="140" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="5.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+	(ins.masculino+mon.masculino) AS total_masc_eb,
+	(ins.feminino+mon.feminino) AS total_fem_eb,
+	(ins.masculino+mon.masculino+ins.feminino+mon.feminino) AS total_eb
+
+
+FROM instrutormonitor ins
+INNER JOIN instrutormonitor mon on
+mon.organizacao_id = $P{id_om} and mon.organizacao_superior_id =  $P{id_om_enquadrante} and mon.periodo_id = $P{id_periodo}
+AND mon.forcainstrutores='EXERCITO' AND mon.tipoinstrutoremonitor='MONITOR'
+WHERE
+ins.organizacao_id = $P{id_om} and ins.organizacao_superior_id = $P{id_om_enquadrante}  and ins.periodo_id = $P{id_periodo}
+AND ins.forcainstrutores='EXERCITO' AND ins.tipoinstrutoremonitor='INSTRUTOR';]]>
+	</queryString>
+	<field name="total_masc_eb" class="java.lang.Integer"/>
+	<field name="total_fem_eb" class="java.lang.Integer"/>
+	<field name="total_eb" class="java.lang.Integer"/>
+	<columnHeader>
+		<band height="15">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="44" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_masc_eb}==null?'-':$F{total_masc_eb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="44" y="0" width="44" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_fem_eb}==null?'-':$F{total_fem_eb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="88" y="0" width="52" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total_eb}==null?'-':$F{total_eb}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>

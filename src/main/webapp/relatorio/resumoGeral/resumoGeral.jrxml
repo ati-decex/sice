@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sice" language="groovy" pageWidth="500" pageHeight="800" whenNoDataType="AllSectionsNoDetail" columnWidth="420" leftMargin="40" rightMargin="40" topMargin="0" bottomMargin="40" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/nunes/PROJETOS/SICE/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT id,nome FROM
+(
+
+SELECT t.id,t.nome
+FROM configuracao_tela ct
+INNER JOIN tela t on t.id = tela_id
+where ct.organizacao_id = $P{id_om} and $P{id_om} = 12 and $P{id_om_enquadrante} = 2
+AND t.id not in (2,3,5,7,9,11,13,14)
+
+UNION
+
+SELECT t.id,t.nome
+FROM configuracao_tela ct
+INNER JOIN tela t on t.id = tela_id
+where ct.organizacao_id = $P{id_om} and  $P{id_om} = 12 and  $P{id_om_enquadrante}  = 3
+AND t.id not in (2,3,7,8,11,13,14)
+
+UNION
+
+SELECT t.id,t.nome
+FROM configuracao_tela ct
+INNER JOIN tela t on t.id = tela_id
+where  ct.organizacao_id = $P{id_om} and   $P{id_om} = 17 and $P{id_om_enquadrante}  = 2
+AND t.id not in (2,3,5,7,9,11,13,14)
+
+UNION
+
+SELECT t.id,t.nome
+FROM configuracao_tela ct
+INNER JOIN tela t on t.id = tela_id
+where  ct.organizacao_id = $P{id_om} and  $P{id_om} = 17 and  $P{id_om_enquadrante}  = 3
+AND t.id not in (1,2,3,7,8,11,13,14)
+
+UNION
+
+SELECT t.id,t.nome
+FROM configuracao_tela ct
+INNER JOIN tela t on t.id = tela_id
+where (
+(ct.organizacao_id =  $P{id_om}) AND
+($P{id_om} NOT IN (12,17) ) AND
+(t.id not in (2,3,7,11,13,14)))
+
+UNION
+
+SELECT 0,'EFETIVO_EXISTENTE_X_PREVISTO'
+
+) AS TABELA ORDER BY 1]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="nome" class="java.lang.String"/>
+	<variable name="total" class="java.lang.Integer" calculation="Sum"/>
+	<variable name="lista" class="java.lang.String">
+		<variableExpression><![CDATA[$P{id_om}==12?$P{id_om_enquadrante}==2?"(0,5,9)":"(0,8)":
+$P{id_om}==17?$P{id_om_enquadrante}==2?"(0,5,9)":"(0,8)":
+"(2,3,7,11)"]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="92" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="51" width="420" height="19"/>
+				<subreportParameter name="id_om">
+					<subreportParameterExpression><![CDATA[$P{id_om}.intValue()]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "cabecalho/periodo.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement mode="Opaque" x="320" y="70" width="100" height="22" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="70" width="320" height="22" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resumo de Efetivos]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="32" width="420" height="19"/>
+				<subreportParameter name="id_om">
+					<subreportParameterExpression><![CDATA[$P{id_om}.intValue()]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_om_enquadrante">
+					<subreportParameterExpression><![CDATA[$P{id_om_enquadrante}.intValue()]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "resumoGeral/cabecalho.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19">
+			<subreport>
+				<reportElement x="0" y="-1" width="420" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="id_om">
+					<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="total" toVariable="total" calculation="Sum"/>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "resumoGeral/resumo" +
+   (
+       $F{id}==0?"EfetivoExistente":
+       $F{id}==1?"OMVinculadas":
+       $F{id}==2?"EAD":
+       $F{id}==3?"ProfMilitar":
+       $F{id}==4?"MilitaresNacoesAmigas":
+       $F{id}==5?"AlunosCM":
+       $F{id}==6?"AlunosMilitaresOutrasForcas":
+       $F{id}==7?"InstrutorMonitor":
+       $F{id}==8?"AlunosMilitares":
+       $F{id}==9?"ProfCivil":
+       $F{id}==10?"FundacaoOsorio":
+       $F{id}==15?"MilitarQFE":
+       $F{id}==12?"AlunosCivis":"EfetivoExistente")+".jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="22">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="320" height="22" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="320" y="0" width="100" height="22" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{total}==null?"-":$V{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

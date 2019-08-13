@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sice" language="groovy" pageWidth="500" pageHeight="700" whenNoDataType="AllSectionsNoDetail" columnWidth="420" leftMargin="40" rightMargin="40" topMargin="0" bottomMargin="0" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/nunes/workspace/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT id, sigla, tipo, ordem
+  FROM organizacaomilitar where id = $P{id_om};]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="ordem" class="java.lang.Integer"/>
+	<group name="Relatorio">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+		<groupHeader>
+			<band height="195">
+				<staticText>
+					<reportElement mode="Opaque" x="80" y="-1" width="113" height="30" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Exército]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="193" y="14" width="87" height="15" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Monitor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="193" y="59" width="87" height="15" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Monitor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="193" y="44" width="87" height="15" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Instrutor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="80" y="43" width="113" height="30" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Marinha]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="193" y="73" width="87" height="15" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Instrutor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="193" y="88" width="87" height="15" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Monitor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="80" y="73" width="113" height="30" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Força Aérea]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="80" y="103" width="113" height="30" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Força Auxiliar]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="193" y="103" width="87" height="15" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Instrutor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="193" y="118" width="87" height="15" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Monitor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="193" y="133" width="87" height="15" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Instrutor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="193" y="148" width="87" height="15" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Monitor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="80" y="133" width="113" height="30" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Bombeiros]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="80" y="29" width="200" height="15" backcolor="#99CCFF"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Total do Exército]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="80" y="163" width="200" height="15" backcolor="#99CCFF"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Total Outras Forças]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="80" y="178" width="200" height="15" backcolor="#99CCFF"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Total Geral]]></text>
+				</staticText>
+				<subreport>
+					<reportElement x="280" y="29" width="140" height="14"/>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om">
+						<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_periodo">
+						<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om_enquadrante">
+						<subreportParameterExpression><![CDATA[$P{id_om_enquadrante}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioInstrutorMonitor/ins_mon_total_exercito.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement x="280" y="44" width="140" height="29"/>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om">
+						<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_periodo">
+						<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om_enquadrante">
+						<subreportParameterExpression><![CDATA[$P{id_om_enquadrante}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioInstrutorMonitor/ins_mon_marinha.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement x="280" y="73" width="140" height="30"/>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om">
+						<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_periodo">
+						<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om_enquadrante">
+						<subreportParameterExpression><![CDATA[$P{id_om_enquadrante}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioInstrutorMonitor/ins_mon_fab.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement x="280" y="178" width="140" height="15"/>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om">
+						<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_periodo">
+						<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om_enquadrante">
+						<subreportParameterExpression><![CDATA[$P{id_om_enquadrante}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioInstrutorMonitor/ins_mon_total_geral.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement x="280" y="103" width="140" height="30"/>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om">
+						<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_periodo">
+						<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om_enquadrante">
+						<subreportParameterExpression><![CDATA[$P{id_om_enquadrante}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioInstrutorMonitor/ins_mon_faux.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement x="280" y="133" width="140" height="30"/>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om">
+						<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_periodo">
+						<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om_enquadrante">
+						<subreportParameterExpression><![CDATA[$P{id_om_enquadrante}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioInstrutorMonitor/ins_mon_bomb.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement x="280" y="163" width="140" height="15"/>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om">
+						<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_periodo">
+						<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om_enquadrante">
+						<subreportParameterExpression><![CDATA[$P{id_om_enquadrante}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioInstrutorMonitor/ins_mon_total_outras_forcas.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement x="280" y="-1" width="140" height="30"/>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om">
+						<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_periodo">
+						<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_om_enquadrante">
+						<subreportParameterExpression><![CDATA[$P{id_om_enquadrante}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioInstrutorMonitor/ins_mon_exercito.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement mode="Opaque" x="193" y="-1" width="87" height="15" backcolor="#FFFFCC"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Instrutor]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="0" y="-1" width="80" height="195" forecolor="#000000" backcolor="#99CCFF"/>
+					<box>
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{id_om_enquadrante}==2?($F{id}==12?'EsFCEx':($F{id}==17?'CPOR/BH':$F{sigla})):
+$P{id_om_enquadrante}==3?($F{id}==12?'CMS':($F{id}==17?'CMBH':$F{sigla})):$F{sigla}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Cabecalho">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+	</group>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="100" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="51" width="420" height="19"/>
+				<subreportParameter name="id_om">
+					<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "cabecalho/periodo.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement mode="Opaque" x="280" y="70" width="88" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="31" width="420" height="20" forecolor="#FFFFFF" backcolor="#006699"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Instrutores/Monitores]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="280" y="85" width="44" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[M]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="324" y="85" width="44" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="368" y="70" width="52" height="30" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="80" y="70" width="113" height="30" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Força]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="193" y="70" width="87" height="30" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="70" width="80" height="30" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OM]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

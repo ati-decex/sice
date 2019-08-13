@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/principal.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+
+		<h:form id="form">
+			<p:growl id="mensagem" showDetail="true" sticky="true" />
+
+			<p:panel style="background-color:#8B8989 !important; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight:bolder; color:white !important; " value="#{msgs.usuario_informacoes_cadastro_efetivo_existente}:" />
+			</p:panel>
+
+			<p:panel style="text-align: center; margin-bottom: 10px;">
+				<p:outputLabel style="font-weight: bold;" value="#{msgs.consulta_efetivo_existente}" />
+			</p:panel>
+			
+			<p:panel style="margin-bottom: 10px;">
+				<p:panelGrid style="width: 100%;">
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="#{msgs.tela}:" id="lblTelas" for="telas" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu id="telas" value="#{consulta.telaSelecionada}" required="true" requiredMessage="#{msgs.requerido_organizacao_militar}" style="width: 36%;">
+								<f:selectItem itemLabel="#{msgs.selecione}" itemValue="" />
+								<p:ajax listener="#{consulta.consultarOm}" update="organizacoes, periodo, :frmConsulta" />
+								<f:selectItems value="#{consulta.telas}" var="tela" itemLabel="#{tela.value}" itemValue="#{tela}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="#{msgs.organizacao_militar}:" id="lblOrganizacoes" for="organizacoes" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu id="organizacoes" value="#{consulta.omSelecionada}" converter="organizacaoConverter" required="true" requiredMessage="#{msgs.requerido_organizacao_militar}" style="width: 36%;">
+								<f:selectItem itemLabel="#{msgs.selecione}" itemValue="" />
+								<p:ajax listener="#{consulta.consultarPeriodo}" update="periodo, :frmConsulta" />
+								<f:selectItems value="#{consulta.oms}" var="organizacao" itemLabel="#{organizacao.sigla}" itemValue="#{organizacao}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel value="#{msgs.periodo}:" for="periodo" />
+						</p:column>
+						
+						<p:column>
+							<p:selectOneMenu id="periodo" value="#{consulta.periodoSelecionado}" styleClass="classeSelectMenu" converter="periodoConverter" required="true" requiredMessage="#{msgs.requerido_periodo}" style="width: 36%;">
+								<f:selectItem itemLabel="#{msgs.selecione}" />
+								<p:ajax listener="#{consulta.verificar}" update=":frmConsulta" process="@this"/>
+								<f:selectItems value="#{consulta.periodos}" var="periodo" itemLabel="#{periodo}" itemValue="#{periodo}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+			
+		</h:form>
+			
+		<h:form id="frmConsulta">
+			
+			<p:panel id="efetivoExistente" visible="#{consulta.visibleExistente}">
+				<p:dataTable id="listaEfetivoExistente" rows="10" var="listaExistente" value="#{consulta.efetivoExistentes}" paginator="true" emptyMessage="Nenhum registro encontrado!" 
+					rowsPerPageTemplate="10,25,50,100,200,200" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+					
+					<f:facet name="header">
+						<h:outputLabel value="#{msgs.efetivo_existente_cadastrado}" />
+					</f:facet>
+		
+					<p:column id="listaPostoGraduacao" headerText="#{msgs.posto_graduacao}">
+						<h:outputText value="#{listaExistente.linhaConfiguracao.postoGraduacao.value}" />
+					</p:column>
+		
+					<p:column id="listaLinha" headerText="#{msgs.linha}">
+						<h:outputText value="#{listaExistente.linhaConfiguracao.linha.value}" />
+					</p:column>
+		
+					<p:column id="listaTipo" headerText="#{msgs.tipo}">
+						<h:outputText value="#{listaExistente.linhaConfiguracao.tipo.value}" />
+					</p:column>
+		
+					<p:column id="listaMasculino" headerText="#{msgs.masculino}">
+						<h:outputText value="#{listaExistente.masculino}" />
+					</p:column>
+		
+					<p:column id="listaFeminino" headerText="#{msgs.feminino}">
+						<h:outputText value="#{listaExistente.feminino}" />
+					</p:column>
+					
+				</p:dataTable>
+			</p:panel>
+			
+			<p:panel id="colegioMilitar" visible="#{consulta.visibleColegioMilitar}">
+				<p:dataTable id="listaColegioMilitar" editable="true" rows="200" var="alunos" value="#{consulta.colegiosMilitares}" paginator="false" emptyMessage="Nenhum registro encontrado!"
+					rowsPerPageTemplate="10,25,50,100,200" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+
+					<f:facet name="header">
+						<h:outputLabel value="#{msgs.cadastro_alunos_colegio_militar}" />
+					</f:facet>
+	
+					<p:column id="serie" headerText="#{msgs.tipo}">
+						<h:outputText value="#{alunos.serie.value}" />
+					</p:column>
+					<p:column id="proc_sel" headerText="#{msgs.processo_seletivo}">
+						<h:outputText value="#{alunos.processoSeletivo}" />
+					</p:column>
+	
+					<p:column id="r69" headerText="#{msgs.r69}">
+						<h:outputText value="#{alunos.r69}" />
+					</p:column>
+					
+					<p:column id="masculino" headerText="#{msgs.masculino}">
+						<h:outputText value="#{alunos.masculino}" />
+					</p:column>
+					
+					<p:column id="feminino" headerText="#{msgs.feminino}">
+						<h:outputText value="#{alunos.feminino}" />
+					</p:column>
+					
+					<p:column id="civis" headerText="#{msgs.civis}">
+						<h:outputText value="#{alunos.civis}" />
+					</p:column>
+					
+					<p:column id="eb" headerText="#{msgs.mil_eb}">
+						<h:outputText value="#{alunos.eb}" />
+					</p:column>
+					
+					<p:column id="forcas" headerText="#{msgs.forca}">
+						<h:outputText value="#{alunos.forcas}" />
+					</p:column>
+					
+					<p:column id="forcasAuxiliares" headerText="#{msgs.forcaAuxiliar}">
+						<h:outputText value="#{alunos.forcasAuxiliares}" />
+					</p:column>
+					
+					<p:column id="neMasculino" headerText="#{msgs.neMasculino}">
+						<h:outputText value="#{alunos.NEMasculino}" />
+					</p:column>
+					
+					<p:column id="neFeminino" headerText="#{msgs.neFminino}">
+						<h:outputText value="#{alunos.NEFeminino}" />
+					</p:column>
+					
+					<p:column id="naMasculino" headerText="#{msgs.naMasculino}">
+						<h:outputText value="#{alunos.NAMasculino}" />
+					</p:column>
+					
+					<p:column id="naFeminino" headerText="#{msgs.naFeminino}">
+						<h:outputText value="#{alunos.NAFeminino}" />
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+			
+			<p:panel id="ensioADistancia" visible="#{consulta.visibleEnsinoADistancia}">
+				<p:dataTable id="listaEnsinoADistancia" editable="true" rows="200" var="alunos" value="#{consulta.ensinoADistancia}" paginator="false" emptyMessage="Nenhum registro encontrado!"
+					rowsPerPageTemplate="10,25,50,100,200" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+
+					<f:facet name="header">
+						<h:outputLabel value="#{msgs.cadastro_alunos_ead}" />
+					</f:facet>
+	
+					<p:column id="aluno_oficial" headerText="#{msgs.aluno_oficial}">
+						<h:outputText value="#{alunos.alunoOf}" />
+					</p:column>
+					
+					<p:column id="aluno_praca" headerText="#{msgs.alunos_praca}">
+						<h:outputText value="#{alunos.alunoPr}" />
+					</p:column>					
+					
+					<p:column id="alunos_de_cm" headerText="#{msgs.alunos_de_cm}">
+						<h:outputText value="#{alunos.alunoCM}" />
+					</p:column>				
+
+				</p:dataTable>
+			</p:panel>
+			
+			<p:panel id="professorCivil" visible="#{consulta.visibleProfessorCivil}">
+				<p:dataTable id="listaProfessorCivil" editable="true" rows="200" var="listaPc" value="#{consulta.professorCivil}" paginator="false" emptyMessage="Nenhum registro encontrado!"
+					rowsPerPageTemplate="10,25,50,100,200" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+
+					<f:facet name="header">
+						<h:outputLabel value="#{msgs.cadastrar_efetivo_professor_civil}" />
+					</f:facet>
+	
+	                    <p:column id="carreira" style="width: 12%" headerText="#{msgs.carreira}">
+				     	    <h:outputText value="#{listaPc.carreira}" />  
+				     	</p:column>	
+				     	
+				     	<p:column id="escolaridade" style="width: 12%" headerText="#{msgs.escolaridade}">
+				     	    <h:outputText value="#{listaPc.escolaridade}" />  
+				     	</p:column>	
+				     	
+				     	<p:column id="regimeDeTrabalho" style="width: 30%" headerText="#{msgs.regime_trabalho}">
+				     	    <h:outputText value="#{listaPc.regimeDeTrabalho}" />  
+				     	</p:column>
+				     	
+				     	<p:column id="disciplina" style="width: 15%" headerText="#{msgs.discipina}">
+				     	    <h:outputText value="#{listaPc.disciplina.nome}" />  
+				     	</p:column>
+				     				     				     				     	
+
+				     	<p:column id="listaMasculino" style="width: 08%" headerText="#{msgs.masculino}">
+				     		<h:outputText value="#{listaPc.masculino}" />
+				     	</p:column>
+				     	
+				     	<p:column id="listaFeminino" style="width: 08%" headerText="#{msgs.feminino}">
+				     	    <h:outputText value="#{listaPc.feminino}" />  
+				     	</p:column>				
+					
+				</p:dataTable>
+			</p:panel>
+			
+			
+			<p:panel id="efetivoInstrutorMonitor" visible="#{consulta.visibleEfetivoInstrutorMonitor}">
+				<p:dataTable id="listaInstrutorMonitor" editable="true" rows="200" var="listaMI" value="#{consulta.efetivoInstrutorMonitor}" paginator="false" emptyMessage="Nenhum registro encontrado!"
+					rowsPerPageTemplate="10,25,50,100,200" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+
+					<f:facet name="header">
+						<h:outputLabel value="#{msgs.cadastrar_efetivo_instrutor_monitor}" />
+					</f:facet>
+	
+					<p:column id="forca" headerText="#{msgs.forca}">
+						<h:outputText value="#{listaMI.forcaInstrutores}" />
+					</p:column>
+					
+					<p:column id="tipo" headerText="#{msgs.tipo}">
+						<h:outputText value="#{listaMI.tipoInstrutorEMonitor}" />
+					</p:column>					
+					
+					<p:column id="masculino" headerText="#{msgs.masculino}">
+						<h:outputText value="#{listaMI.masculino}" />
+					</p:column>		
+					
+					<p:column id="feminino" headerText="#{msgs.feminino}">
+						<h:outputText value="#{listaMI.feminino}" />
+					</p:column>	
+
+				</p:dataTable>
+			</p:panel>
+			
+			<p:panel id="professorMilitar" visible="#{consulta.visibleProfessorMilitar}">
+				<p:dataTable id="listaProfessorMilitar" editable="true" rows="200" var="listaPM" value="#{consulta.professorMilitar}" paginator="false" emptyMessage="Nenhum registro encontrado!"
+					rowsPerPageTemplate="10,25,50,100,200" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+
+					<f:facet name="header">
+						<h:outputLabel value="#{msgs.cadastro_professor_militar}" />
+					</f:facet>
+						
+					<p:column id="tipo" headerText="#{msgs.tipo}">
+						<h:outputText value="#{listaPM.tipoProfessorMilitar}" />
+					</p:column>					
+					
+					<p:column id="masculino" headerText="#{msgs.masculino}">
+						<h:outputText value="#{listaPM.masculino}" />
+					</p:column>		
+					
+					<p:column id="feminino" headerText="#{msgs.feminino}">
+						<h:outputText value="#{listaPM.feminino}" />
+					</p:column>	
+
+				</p:dataTable>
+			</p:panel>
+			
+			<p:panel id="alunoOmVinculada" visible="#{consulta.visibleAlunoOmVinculada}">
+				<p:dataTable id="listaAlunoOmVinculada" editable="true" rows="200" var="listaAOMV" value="#{consulta.alunoOmVinculada}" paginator="false" emptyMessage="Nenhum registro encontrado!"
+					rowsPerPageTemplate="10,25,50,100,200" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+
+					<f:facet name="header">
+						<h:outputLabel value="#{msgs.cadastro_om_vinculadas}" />
+					</f:facet>
+						
+					<p:column id="tipo" headerText="#{msgs.tipo}">
+						<h:outputText value="#{listaAOMV.tipoAlunoOmVinculada}" />
+					</p:column>					
+					
+					<p:column id="masculino" headerText="#{msgs.masculino}">
+						<h:outputText value="#{listaAOMV.masculino}" />
+					</p:column>		
+					
+					<p:column id="feminino" headerText="#{msgs.feminino}">
+						<h:outputText value="#{listaAOMV.feminino}" />
+					</p:column>	
+
+				</p:dataTable>
+			</p:panel>
+			
+			<p:panel id="militaresNacoesAmigas" visible="#{consulta.visibleMilitaresNacoesAmigas}">
+				<p:dataTable id="listaMilitaresNacoesAmigas" editable="true" rows="200" var="listaMNA" value="#{consulta.militaresNacoesAmigas}" paginator="false" emptyMessage="Nenhum registro encontrado!"
+					rowsPerPageTemplate="10,25,50,100,200" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+
+					<f:facet name="header">
+						<h:outputLabel value="#{msgs.cadastro_militares_nacao_amiga}" />
+					</f:facet>
+						
+					<p:column id="tipo" headerText="#{msgs.tipo}">
+						<h:outputText value="#{listaMNA.tipoMilitarNacoesAmigas}" />
+					</p:column>					
+					
+					<p:column id="masculino" headerText="#{msgs.masculino}">
+						<h:outputText value="#{listaMNA.masculino}" />
+					</p:column>		
+					
+					<p:column id="feminino" headerText="#{msgs.feminino}">
+						<h:outputText value="#{listaMNA.feminino}" />
+					</p:column>	
+
+				</p:dataTable>
+			</p:panel>
+			
+			<p:panel id="militaresOmds" visible="#{consulta.visibleMilitaresOmds}">
+				<p:dataTable id="listaMilitaresOmds" editable="true" rows="200" var="listaMOMDS" value="#{consulta.alunosMilitaresOMDS}" paginator="false" emptyMessage="Nenhum registro encontrado!"
+					rowsPerPageTemplate="10,25,50,100,200" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+
+					<f:facet name="header">
+						<h:outputLabel value="#{msgs.cadastro_alunos_militares_omds}" />
+					</f:facet>
+						
+					<p:column id="tipo" headerText="#{msgs.tipo}">
+						<h:outputText value="#{listaMOMDS.tipoAlunosMilitaresOMDS}" />
+					</p:column>				
+					
+					<p:column id="ano" headerText="#{msgs.ano}">
+						<h:outputText value="#{listaMOMDS.ano}" />
+					</p:column>		
+					
+					<p:column id="masculino" headerText="#{msgs.masculino}">
+						<h:outputText value="#{listaMOMDS.masculino}" />
+					</p:column>		
+					
+					<p:column id="feminino" headerText="#{msgs.feminino}">
+						<h:outputText value="#{listaMOMDS.feminino}" />
+					</p:column>	
+
+				</p:dataTable>
+			</p:panel>
+			
+			<p:panel id="alunosMilitarOutrasForcas" visible="#{consulta.visibleAlunosMilitarOutrasForcas}">
+				<p:dataTable id="listaAlunosMilitarOutrasForcas" editable="true" rows="200" var="listaAMOF" value="#{consulta.alunosMilitarOutrasForcas}" paginator="false" emptyMessage="Nenhum registro encontrado!"
+					rowsPerPageTemplate="10,25,50,100,200" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+
+					<f:facet name="header">
+						<h:outputLabel value="#{msgs.cadastro_alunos_militar_outras_forcas}" />
+					</f:facet>
+						
+					<p:column id="tipo" headerText="#{msgs.tipo}">
+						<h:outputText value="#{listaAMOF.tipoAlunosMilitarOutrasForcas}" />
+					</p:column>				
+					
+					<p:column id="ano" headerText="#{msgs.forca}">
+						<h:outputText value="#{listaAMOF.forca}" />
+					</p:column>		
+					
+					<p:column id="masculino" headerText="#{msgs.masculino}">
+						<h:outputText value="#{listaAMOF.masculino}" />
+					</p:column>		
+					
+					<p:column id="feminino" headerText="#{msgs.feminino}">
+						<h:outputText value="#{listaAMOF.feminino}" />
+					</p:column>	
+
+				</p:dataTable>
+			</p:panel>
+			
+				<p:panel id="fundacaoOsorio" visible="#{consulta.visibleFundacaoOsorio}">
+				<p:dataTable id="listafundacaoOsorio" editable="true" rows="200" var="listafo" value="#{consulta.fundacaoOsorio}" paginator="false" emptyMessage="Nenhum registro encontrado!"
+					rowsPerPageTemplate="10,25,50,100,200" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Exibindo de {startRecord} a {endRecord} de {totalRecords} linha(s) - Página: {currentPage}/{totalPages}">
+
+					<f:facet name="header">
+						<h:outputLabel value="#{msgs.cadastrar_efetivo_FundacaoOsorio}" />
+					</f:facet>
+						
+					<p:column id="tipo" headerText="#{msgs.serie}">
+						<h:outputText value="#{listafo.serieFundacao}" />
+					</p:column>				
+															
+					<p:column id="masculino" headerText="#{msgs.masculino}">
+						<h:outputText value="#{listaAfo.masculino}" />
+					</p:column>		
+					
+					<p:column id="feminino" headerText="#{msgs.feminino}">
+						<h:outputText value="#{listafo.feminino}" />
+					</p:column>	
+
+				</p:dataTable>
+			</p:panel>
+			
+		</h:form>
+
+	</ui:define>
+</ui:composition>

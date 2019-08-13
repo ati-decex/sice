@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subrelatorio_alunos_colegios_militares" language="groovy" pageWidth="378" pageHeight="15" whenNoDataType="AllSectionsNoDetail" columnWidth="378" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select SERIE,
+      sum(Total) as Total,
+      sum(NAFeminino) as NAFeminino,
+      sum(NAMasculino) as NAMasculino,
+      sum(NEFminino) as NEFminino,
+      sum(NEMasculino) as NEMasculino,
+      sum(Civil) as Civil,
+      sum(EB) as EB,
+      sum(SFeminino) as SFeminino,
+      sum(OutrasForcas) as OutrasForcas,
+      sum(ForcasAux) as ForcasAux,
+      sum(SMasculino) as SMasculino,
+      sum(ProcSel) as ProcSel,
+      sum(R69) as R69
+
+  from (
+
+ SELECT
+     SERIE,
+     '0' as Total,
+     '0' as NAFeminino,
+     '0' as NAMasculino,
+     '0' as NEFminino,
+     '0' as NEMasculino,
+     '0' as Civil,
+     '0' as EB,
+     '0' as SFeminino,
+     '0' as OutrasForcas,
+     '0' as ForcasAux,
+     '0' as SMasculino,
+     '0' as ProcSel,
+     '0' as R69
+
+  FROM (
+
+    SELECT '1ANO6EF' AS SERIE
+   UNION
+    SELECT '2ANO7EF' AS SERIE
+   UNION
+    SELECT '3ANO8EF' AS SERIE
+   UNION
+    SELECT '4ANO9EF' AS SERIE
+   UNION
+    SELECT '5ANO1EM' AS SERIE
+   UNION
+    SELECT '6ANO2EM' AS SERIE
+   UNION
+    SELECT '7ANO3EM' AS SERIE ) TABELA
+
+ union
+
+  SELECT CASE WHEN s.serie='ANO6EF' THEN '1ANO6EF'
+            WHEN s.serie='ANO7EF' THEN '2ANO7EF'
+            WHEN s.serie='ANO8EF' THEN '3ANO8EF'
+            WHEN s.serie='ANO9EF' THEN '4ANO9EF'
+            WHEN s.serie='ANO1EM' THEN '5ANO1EM'
+            WHEN s.serie='ANO2EM' THEN '6ANO2EM'
+            WHEN s.serie='ANO3EM' THEN '7ANO3EM'
+            ELSE ''
+         END,
+
+COALESCE(s.processoseletivo + s.r69, 0) as Total,
+COALESCE(s.nafeminino, 0) as NAFeminino,
+COALESCE(s.namasculino, 0) as NAMasculino,
+COALESCE(s.nefeminino, 0) as NEFminino,
+COALESCE(s.nemasculino, 0) as NEMasculino,
+COALESCE(s.civis, 0) as Civil,
+COALESCE(s.eb, 0) as EB,
+COALESCE(s.feminino, 0) as SFeminino,
+COALESCE(s.forcas, 0) as OutrasForcas,
+COALESCE(s.forcasauxiliares, 0) as ForcasAux,
+COALESCE(s.masculino, 0) as SMasculino,
+COALESCE(s.processoseletivo, 0) as ProcSel,
+COALESCE(s.r69, 0) as R69
+
+  FROM alunoscolegiomilitar s
+
+LEFT JOIN alunoscolegiomilitar ef6 ON
+ef6.organizacao_id = $P{id_om} AND ef6.periodo_id = $P{id_periodo}
+AND ef6.serie='ANO6EF'
+
+LEFT JOIN alunoscolegiomilitar ef7 ON
+ef7.organizacao_id = $P{id_om} AND ef7.periodo_id = $P{id_periodo}
+AND ef7.serie='ANO7EF'
+
+LEFT JOIN alunoscolegiomilitar ef8 ON
+ef8.organizacao_id = $P{id_om} AND ef8.periodo_id = $P{id_periodo}
+AND ef8.serie='ANO8EF'
+
+LEFT JOIN alunoscolegiomilitar ef9 ON
+ef9.organizacao_id = $P{id_om} AND ef9.periodo_id = $P{id_periodo}
+AND ef9.serie='ANO9EF'
+
+LEFT JOIN alunoscolegiomilitar em1 ON
+em1.organizacao_id = $P{id_om} AND em1.periodo_id = $P{id_periodo}
+AND em1.serie='ANO1EM'
+
+LEFT JOIN alunoscolegiomilitar em2 ON
+em2.organizacao_id = $P{id_om} AND em2.periodo_id = $P{id_periodo}
+AND em2.serie='ANO2EM'
+
+LEFT JOIN alunoscolegiomilitar em3 ON
+em3.organizacao_id = $P{id_om} AND em3.periodo_id = $P{id_periodo}
+AND em3.serie='ANO3EM'
+
+  WHERE s.organizacao_id = $P{id_om}
+  AND s.periodo_id = $P{id_periodo}
+
+  ) tabela2
+
+    group by SERIE
+
+    order by 1]]>
+	</queryString>
+	<field name="serie" class="java.lang.String"/>
+	<field name="total" class="java.lang.Integer"/>
+	<field name="nafeminino" class="java.lang.Integer"/>
+	<field name="namasculino" class="java.lang.Integer"/>
+	<field name="nefminino" class="java.lang.Integer"/>
+	<field name="nemasculino" class="java.lang.Integer"/>
+	<field name="civil" class="java.lang.Integer"/>
+	<field name="eb" class="java.lang.Integer"/>
+	<field name="sfeminino" class="java.lang.Integer"/>
+	<field name="outrasforcas" class="java.lang.Integer"/>
+	<field name="forcasaux" class="java.lang.Integer"/>
+	<field name="smasculino" class="java.lang.Integer"/>
+	<field name="procsel" class="java.lang.Integer"/>
+	<field name="r69" class="java.lang.Integer"/>
+	<detail>
+		<band height="15">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="39" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serie} == "1ANO6EF" ? "6ª EF" :
+$F{serie} == "2ANO7EF" ? "7ª EF" :
+$F{serie} == "3ANO8EF" ? "8ª EF" :
+$F{serie} == "4ANO9EF" ? "9ª EF" :
+$F{serie} == "5ANO1EM" ? "1ª EM" :
+$F{serie} == "6ANO2EM" ? "2ª EM" :
+$F{serie} == "7ANO3EM" ? "3ª EM" : " - "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="39" y="0" width="39" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total} == 0 ? "-" : $F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="128" y="0" width="25" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{procsel} == 0 ? "-" : $F{procsel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="153" y="0" width="25" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{r69} == 0 ? "-" : $F{r69}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="78" y="0" width="25" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{smasculino} == 0 ? "-" : $F{smasculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="103" y="0" width="25" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sfeminino} == 0 ? "-" : $F{sfeminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="178" y="0" width="25" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{eb} == 0 ? "-" : $F{eb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="203" y="0" width="25" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{outrasforcas} == 0 ? "-" : $F{outrasforcas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="228" y="0" width="25" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{forcasaux} == 0 ? "-" : $F{forcasaux}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="253" y="0" width="25" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{civil} == 0 ? "-" : $F{civil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="303" y="0" width="25" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nafeminino} == 0 ? "-" : $F{nafeminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="328" y="0" width="25" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nemasculino} == 0 ? "-" : $F{nemasculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="278" y="0" width="25" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{namasculino} == 0 ? "-" : $F{namasculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="353" y="0" width="25" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nefminino}== 0 ? "-" :$F{nefminino}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

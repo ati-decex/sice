@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ins_mon_exercito" language="groovy" pageWidth="335" pageHeight="15" whenNoDataType="AllSectionsNoDetail" columnWidth="335" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="id_om_enquadrante" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AMAN" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["SELECT 'PRIMEIRO' as ano UNION SELECT 'SEGUNDO' as ano UNION SELECT 'TERCEIRO' as ano UNION SELECT 'QUARTO' as ano"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ECEME" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["SELECT 'PRIMEIRO' as ano UNION SELECT 'SEGUNDO' as ano "]]></defaultValueExpression>
+	</parameter>
+	<parameter name="OUTRAS" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["SELECT 'PRIMEIRO' as ano "]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SQL" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["SELECT 'PRIMEIRO' as ano UNION SELECT 'SEGUNDO' as ano UNION SELECT 'TERCEIRO' as ano UNION SELECT 'QUARTO' as ano"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/nunes/workspace/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="ano" class="java.lang.String"/>
+	<field name="ofi_mas" class="java.lang.Integer"/>
+	<field name="ofi_fem" class="java.lang.Integer"/>
+	<field name="pra_mas" class="java.lang.Integer"/>
+	<field name="pra_fem" class="java.lang.Integer"/>
+	<field name="total" class="java.lang.Integer"/>
+	<title>
+		<band height="15">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="70" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Exército]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="70" y="0" width="266" height="15"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_om">
+					<subreportParameterExpression><![CDATA[$P{id_om}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$P{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_om_enquadrante">
+					<subreportParameterExpression><![CDATA[$P{id_om_enquadrante}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "relatorioAlunosMilitares/sub_alunos_militares_exercito_ECEME.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+</jasperReport>

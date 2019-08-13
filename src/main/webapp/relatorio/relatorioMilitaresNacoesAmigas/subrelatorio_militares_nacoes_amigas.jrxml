@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_relatorio_minitares_nacoes_amigas" language="groovy" pageWidth="336" pageHeight="15" whenNoDataType="AllSectionsNoDetail" columnWidth="336" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.5937424601000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT DISTINCT
+	COALESCE((alu_pr.masculino + alu_of.masculino), 0) as alunoMasculino,
+	COALESCE((alu_pr.feminino + alu_of.feminino), 0) as alunoFeminino,
+	COALESCE(ins.masculino, 0) as instrutorMasculino,
+	COALESCE(ins.feminino, 0) as instrutorFeminino,
+	COALESCE(mon.masculino, 0) as monitorMasculino,
+	COALESCE(mon.feminino, 0) as monitorFeminino
+
+FROM militaresnacoesamigas alu_pr
+
+LEFT JOIN militaresnacoesamigas ins ON
+ins.organizacao_id = $P{id_om} AND ins.periodo_id = $P{id_periodo}
+AND ins.tipomilitarnacoesamigas='OFICIAL'
+
+LEFT JOIN militaresnacoesamigas mon ON
+mon.organizacao_id = $P{id_om} AND mon.periodo_id = $P{id_periodo}
+AND mon.tipomilitarnacoesamigas='PRACA'
+
+LEFT JOIN militaresnacoesamigas alu_of ON
+alu_of.organizacao_id = $P{id_om} AND alu_of.periodo_id = $P{id_periodo}
+AND alu_of.tipomilitarnacoesamigas='ALUNO_OF'
+
+WHERE
+alu_pr.organizacao_id = $P{id_om} AND alu_pr.periodo_id = $P{id_periodo}
+AND alu_pr.tipomilitarnacoesamigas='ALUNO_PR']]>
+	</queryString>
+	<field name="alunomasculino" class="java.lang.Integer"/>
+	<field name="alunofeminino" class="java.lang.Integer"/>
+	<field name="instrutormasculino" class="java.lang.Integer"/>
+	<field name="instrutorfeminino" class="java.lang.Integer"/>
+	<field name="monitormasculino" class="java.lang.Integer"/>
+	<field name="monitorfeminino" class="java.lang.Integer"/>
+	<columnHeader>
+		<band height="15">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{alunomasculino}==null?"-":$F{alunomasculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="56" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{alunofeminino}==null?"-":$F{alunofeminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="112" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{instrutormasculino}==null?"-":$F{instrutormasculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="168" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{instrutorfeminino}==null?"-":$F{instrutorfeminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="224" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{monitormasculino}==null?"-":$F{monitormasculino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="280" y="0" width="56" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{monitorfeminino}==null?"-":$F{monitorfeminino}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subrelatorio_alunos_colegios_militares" language="groovy" pageWidth="378" pageHeight="15" whenNoDataType="AllSectionsNoDetail" columnWidth="378" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT se.serie,fo.masculino,fo.feminino,(fo.masculino+fo.feminino) as total from
+		(SELECT 0 AS ordem,'ANO1F' AS serie UNION
+		SELECT 1,'ANO2F' AS serie UNION
+		SELECT 2,'ANO3F' AS serie UNION
+		SELECT 3,'ANO4F' AS serie UNION
+		SELECT 4,'ANO5F' AS serie UNION
+		SELECT 5,'ANO6F' AS serie UNION
+		SELECT 6,'ANO7F' AS serie UNION
+		SELECT 7,'ANO8F' AS serie UNION
+		SELECT 8,'ANO9F' AS serie UNION
+		SELECT 9,'ANO1M' AS serie UNION
+		SELECT 10,'ANO2M' AS serie UNION
+		SELECT 11,'ANO3M' AS serie
+		order by 1
+		) as se
+LEFT JOIN fundacaoosorio fo on fo.seriefundacao = se.serie AND periodo_id = $P{id_periodo}]]>
+	</queryString>
+	<field name="serie" class="java.lang.String"/>
+	<field name="masculino" class="java.lang.Integer"/>
+	<field name="feminino" class="java.lang.Integer"/>
+	<field name="total" class="java.lang.Integer"/>
+	<detail>
+		<band height="15">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="240" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serie} == "ANO1F" ? "1ª Ano do Ensino Fundamental" :
+$F{serie} == "ANO2F" ? "2ª Ano do Ensino Fundamental" :
+$F{serie} == "ANO3F" ? "3ª Ano do Ensino Fundamental" :
+$F{serie} == "ANO4F" ? "4ª Ano do Ensino Fundamental" :
+$F{serie} == "ANO5F" ? "5ª Ano do Ensino Fundamental" :
+$F{serie} == "ANO6F" ? "6ª Ano do Ensino Fundamental" :
+$F{serie} == "ANO7F" ? "7ª Ano do Ensino Fundamental" :
+$F{serie} == "ANO8F" ? "8ª Ano do Ensino Fundamental" :
+$F{serie} == "ANO9F" ? "9ª Ano do Ensino Fundamental" :
+$F{serie} == "ANO1M" ? "1ª Ano do Ensino Médio" :
+$F{serie} == "ANO2M" ? "2ª Ano do Ensino Médio" :
+$F{serie} == "ANO3M" ? "3ª Ano do Ensino Médio" : " - "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="240" y="0" width="58" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total} ==null ? "-" :
+$F{total} ==0 ? "-" : $F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="338" y="0" width="40" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{feminino} ==null ? "-" :
+$F{feminino} ==0 ? "-" : $F{feminino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="298" y="0" width="40" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{masculino} ==null ? "-" :
+$F{masculino} ==0 ? "-" : $F{masculino}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

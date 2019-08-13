@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<ui:composition template="/principal.xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+
+		<h:form id="frmUsuario"> 
+					
+			<p:growl id="mensagem" showDetail="true" sticky="true"/>
+			
+			<p:panel style="background-color:#8B8989 !important; margin-bottom: 10px;">
+					<p:outputLabel style="font-weight:bolder; color:white  !important; "  value="#{msgs.liberarAcesso_usuario_administrador}"/>
+			</p:panel>
+						
+						
+							
+							
+			<p:dataTable id="listaUsuarios" value="#{liberarAcesso.usuarios}" var="usuario" widgetVar="usuariosTable" 
+				emptyMessage="#{msgs.sem_registros}" rows="10" paginator="true" 
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="50,100,200,500" rowKey="#{usuario.id}">
+				
+				<p:column filterBy="#{usuario.identidade}" width="80px;" headerText="#{msgs.identidade}" footerText="contains" filterMatchMode="contains">
+           			 <h:outputText value="#{usuario.identidade}" />
+      		    </p:column>
+				
+				
+				<p:column width="50px;" headerText="#{msgs.posto_graduacao}">
+					<h:outputText value="#{usuario.postoGraduacao.value}"/>
+				</p:column>						 						
+			 				
+				<p:column width="120px;" headerText="#{msgs.nome_guerra}">
+					<h:outputText value="#{usuario.nomeGuerra}"/>
+				</p:column>								
+							
+				<p:column width="100px;" headerText="#{msgs.organizacao_militar}" filterBy="" filterMatchMode="contains">
+					<h:outputText value="#{usuario.organizacaoMilitar.sigla}"/>
+				</p:column>							
+				
+									
+			</p:dataTable>								
+													
+		</h:form>
+	
+	</ui:define>
+				
+</ui:composition>

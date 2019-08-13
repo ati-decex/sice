@@ -1,0 +1,2636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sice" language="groovy" pageWidth="363" pageHeight="615" columnWidth="363" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" isIgnorePagination="true">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="127"/>
+	<parameter name="id_om" class="java.lang.Integer"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+  om.sigla,
+  rg.id,
+  rg.isprevisto,
+  rg.organizacao_id,
+  rg.periodo_id,
+  rg.omenquadrante,
+  COALESCE(rg.aluno_masc, 0) aluno_masc,
+  COALESCE(rg.asp_belica_qsg_masc, 0) asp_belica_qsg_masc,
+  COALESCE(rg.asp_belica_temp_masc, 0) asp_belica_temp_masc,
+  COALESCE(rg.asp_cietec_temp_masc, 0) asp_cietec_temp_masc,
+
+COALESCE(rg.asp_compl_temp_masc, 0) asp_compl_temp_masc,
+COALESCE(rg.asp_compl_temp_fem, 0) asp_compl_temp_fem,
+
+  COALESCE(rg.asp_qcm_temp_masc, 0) asp_qcm_temp_masc,
+  COALESCE(rg.asp_saude_temp_masc, 0) asp_saude_temp_masc,
+  COALESCE(rg.cap_belica_qsg_masc, 0) cap_belica_qsg_masc,
+  COALESCE(rg.cap_cietec_qsg_masc, 0) cap_cietec_qsg_masc,
+  COALESCE(rg.cap_compl_qco_masc, 0) cap_compl_qco_masc,
+  COALESCE(rg.cap_praca_qao_masc, 0) cap_praca_qao_masc,
+  COALESCE(rg.cap_qcm_qsg_masc, 0) cap_qcm_qsg_masc,
+  COALESCE(rg.cap_saude_qsg_masc, 0) cap_saude_qsg_masc,
+  COALESCE(rg.cb_ep, 0) cb_ep,
+  COALESCE(rg.cb_et, 0) cb_et,
+  COALESCE(rg.cb_ev, 0) cb_ev,
+  COALESCE(rg.cel_belica_qsg_masc, 0) cel_belica_qsg_masc,
+  COALESCE(rg.cel_belica_quema_masc, 0) cel_belica_quema_masc,
+  COALESCE(rg.cel_cietec_qsg_masc, 0) cel_cietec_qsg_masc,
+  COALESCE(rg.cel_cietec_quema_masc, 0) cel_cietec_quema_masc,
+  COALESCE(rg.cel_compl_qco_masc, 0) cel_compl_qco_masc,
+  COALESCE(rg.cel_qcm_qsg_masc, 0) cel_qcm_qsg_masc,
+  COALESCE(rg.cel_saude_qsg_masc, 0) cel_saude_qsg_masc,
+  COALESCE(rg.cel_saude_quema_masc, 0) cel_saude_quema_masc,
+  COALESCE(rg.genbri_combatente, 0) genbri_combatente,
+  COALESCE(rg.gendiv_combatente, 0) gendiv_combatente,
+  COALESCE(rg.genexe_combatente, 0) genexe_combatente,
+  COALESCE(rg.maj_belica_qsg_masc, 0) maj_belica_qsg_masc,
+  COALESCE(rg.maj_belica_quema_masc, 0) maj_belica_quema_masc,
+  COALESCE(rg.maj_cietec_qsg_masc, 0) maj_cietec_qsg_masc,
+  COALESCE(rg.maj_cietec_quema_masc, 0) maj_cietec_quema_masc,
+  COALESCE(rg.maj_compl_qco_masc, 0) maj_compl_qco_masc,
+  COALESCE(rg.maj_qcm_qsg_masc, 0) maj_qcm_qsg_masc,
+  COALESCE(rg.maj_saude_qsg_masc, 0) maj_saude_qsg_masc,
+  COALESCE(rg.maj_saude_quema_masc, 0) maj_saude_quema_masc,
+  COALESCE(rg.profciv, 0) profciv,
+  COALESCE(rg.pttc_of, 0) pttc_of,
+  COALESCE(rg.pttc_pr, 0) pttc_pr,
+  COALESCE(rg.sd_ep, 0) sd_ep,
+  COALESCE(rg.sd_ev, 0) sd_ev,
+  COALESCE(rg.seq_registro, 0) seq_registro,
+  COALESCE(rg.servciv, 0) servciv,
+  COALESCE(rg.sgt1_masc, 0) sgt1_masc,
+  COALESCE(rg.sgt2_carr_masc, 0) sgt2_carr_masc,
+  COALESCE(rg.sgt2_qe_masc, 0) sgt2_qe_masc,
+  COALESCE(rg.sgt3_carr_masc, 0) sgt3_carr_masc,
+  COALESCE(rg.sgt3_qe_masc, 0) sgt3_qe_masc,
+  COALESCE(rg.sgt3_temp_masc, 0) sgt3_temp_masc,
+  COALESCE(rg.st_masc, 0) st_masc,
+  COALESCE(rg.tcel_belica_qsg_masc, 0) tcel_belica_qsg_masc,
+  COALESCE(rg.tcel_belica_quema_masc, 0) tcel_belica_quema_masc,
+  COALESCE(rg.tcel_cietec_qsg_masc, 0) tcel_cietec_qsg_masc,
+  COALESCE(rg.tcel_cietec_quema_masc, 0) tcel_cietec_quema_masc,
+  COALESCE(rg.tcel_compl_qco_masc, 0) tcel_compl_qco_masc,
+  COALESCE(rg.tcel_qcm_qsg_masc, 0) tcel_qcm_qsg_masc,
+  COALESCE(rg.tcel_saude_qsg_masc, 0) tcel_saude_qsg_masc,
+  COALESCE(rg.tcel_saude_quema_masc, 0) tcel_saude_quema_masc,
+  COALESCE(rg.ten1_belica_qsg_masc, 0) ten1_belica_qsg_masc,
+  COALESCE(rg.ten1_belica_temp_masc, 0) ten1_belica_temp_masc,
+  COALESCE(rg.ten1_cietec_qsg_masc, 0) ten1_cietec_qsg_masc,
+  COALESCE(rg.ten1_cietec_temp_masc, 0) ten1_cietec_temp_masc,
+  COALESCE(rg.ten1_compl_qco_masc, 0) ten1_compl_qco_masc,
+  COALESCE(rg.ten1_compl_temp_masc, 0) ten1_compl_temp_masc,
+  COALESCE(rg.ten1_praca_qao_masc, 0) ten1_praca_qao_masc,
+  COALESCE(rg.ten1_qcm_qsg_masc, 0) ten1_qcm_qsg_masc,
+  COALESCE(rg.ten1_qcm_temp_masc, 0) ten1_qcm_temp_masc,
+  COALESCE(rg.ten1_saude_qsg_masc, 0) ten1_saude_qsg_masc,
+  COALESCE(rg.ten1_saude_temp_masc, 0) ten1_saude_temp_masc,
+  COALESCE(rg.ten2_belica_qsg_masc, 0) ten2_belica_qsg_masc,
+  COALESCE(rg.ten2_belica_temp_masc, 0) ten2_belica_temp_masc,
+  COALESCE(rg.ten2_cietec_qsg_masc, 0) ten2_cietec_qsg_masc,
+  COALESCE(rg.ten2_cietec_temp_masc, 0) ten2_cietec_temp_masc,
+  COALESCE(rg.ten2_compl_temp_masc, 0) ten2_compl_temp_masc,
+  COALESCE(rg.ten2_praca_qao_masc, 0) ten2_praca_qao_masc,
+  COALESCE(rg.ten2_qcm_qsg_masc, 0) ten2_qcm_qsg_masc,
+  COALESCE(rg.ten2_qcm_temp_masc, 0) ten2_qcm_temp_masc,
+  COALESCE(rg.ten2_saude_qsg_masc, 0) ten2_saude_qsg_masc,
+  COALESCE(rg.ten2_saude_temp_masc, 0) ten2_saude_temp_masc,
+  COALESCE(rg.t1, 0) t1,
+  COALESCE(rg.t2, 0) t2,
+  COALESCE(rg.tm, 0) tm,
+  COALESCE(rg.sd_nq, 0) sd_nq,
+  COALESCE(rg.aluno_fem, 0) aluno_fem,
+  COALESCE(rg.asp_belica_qsg_fem, 0) asp_belica_qsg_fem,
+  COALESCE(rg.asp_belica_temp_fem, 0) asp_belica_temp_fem,
+  COALESCE(rg.asp_cietec_temp_fem, 0) asp_cietec_temp_fem,
+  COALESCE(rg.asp_saude_temp_fem, 0) asp_saude_temp_fem,
+  COALESCE(rg.cap_belica_qsg_fem, 0) cap_belica_qsg_fem,
+  COALESCE(rg.cap_cietec_qsg_fem, 0) cap_cietec_qsg_fem,
+  COALESCE(rg.cap_compl_qco_fem, 0) cap_compl_qco_fem,
+  COALESCE(rg.cap_praca_qao_fem, 0) cap_praca_qao_fem,
+  COALESCE(rg.cap_qcm_qsg_fem, 0) cap_qcm_qsg_fem,
+  COALESCE(rg.cap_saude_qsg_fem, 0) cap_saude_qsg_fem,
+  COALESCE(rg.cel_belica_qsg_fem, 0) cel_belica_qsg_fem,
+  COALESCE(rg.cel_belica_quema_fem, 0) cel_belica_quema_fem,
+  COALESCE(rg.cel_cietec_qsg_fem, 0) cel_cietec_qsg_fem,
+  COALESCE(rg.cel_cietec_quema_fem, 0) cel_cietec_quema_fem,
+  COALESCE(rg.cel_compl_qco_fem, 0) cel_compl_qco_fem,
+  COALESCE(rg.cel_qcm_qsg_fem, 0) cel_qcm_qsg_fem,
+  COALESCE(rg.cel_saude_qsg_fem, 0) cel_saude_qsg_fem,
+  COALESCE(rg.cel_saude_quema_fem, 0) cel_saude_quema_fem,
+  COALESCE(rg.genbri_combatente, 0) genbri_combatente,
+  COALESCE(rg.gendiv_combatente, 0) gendiv_combatente,
+  COALESCE(rg.genexe_combatente, 0) genexe_combatente,
+  COALESCE(rg.maj_belica_qsg_fem, 0) maj_belica_qsg_fem,
+  COALESCE(rg.maj_belica_quema_fem, 0) maj_belica_quema_fem,
+  COALESCE(rg.maj_cietec_qsg_fem, 0) maj_cietec_qsg_fem,
+  COALESCE(rg.maj_cietec_quema_fem, 0) maj_cietec_quema_fem,
+  COALESCE(rg.maj_compl_qco_fem, 0) maj_compl_qco_fem,
+  COALESCE(rg.maj_qcm_qsg_fem, 0) maj_qcm_qsg_fem,
+  COALESCE(rg.maj_saude_qsg_fem, 0) maj_saude_qsg_fem,
+  COALESCE(rg.maj_saude_quema_fem, 0) maj_saude_quema_fem,
+  COALESCE(rg.profciv, 0) profciv,
+  COALESCE(rg.pttc_of, 0) pttc_of,
+  COALESCE(rg.pttc_pr, 0) pttc_pr,
+  COALESCE(rg.sd_ep, 0) sd_ep,
+  COALESCE(rg.sd_ev, 0) sd_ev,
+  COALESCE(rg.seq_registro, 0) seq_registro,
+  COALESCE(rg.servciv, 0) servciv,
+  COALESCE(rg.sgt1_fem, 0) sgt1_fem,
+  COALESCE(rg.sgt2_carr_fem, 0) sgt2_carr_fem,
+  COALESCE(rg.sgt3_carr_fem, 0) sgt3_carr_fem,
+  COALESCE(rg.sgt3_temp_fem, 0) sgt3_temp_fem,
+  COALESCE(rg.st_fem, 0) st_fem,
+  COALESCE(rg.tcel_belica_qsg_fem, 0) tcel_belica_qsg_fem,
+  COALESCE(rg.tcel_belica_quema_fem, 0) tcel_belica_quema_fem,
+  COALESCE(rg.tcel_cietec_qsg_fem, 0) tcel_cietec_qsg_fem,
+  COALESCE(rg.tcel_cietec_quema_fem, 0) tcel_cietec_quema_fem,
+  COALESCE(rg.tcel_compl_qco_fem, 0) tcel_compl_qco_fem,
+  COALESCE(rg.tcel_qcm_qsg_fem, 0) tcel_qcm_qsg_fem,
+  COALESCE(rg.tcel_saude_qsg_fem, 0) tcel_saude_qsg_fem,
+  COALESCE(rg.tcel_saude_quema_fem, 0) tcel_saude_quema_fem,
+  COALESCE(rg.ten1_belica_qsg_fem, 0) ten1_belica_qsg_fem,
+  COALESCE(rg.ten1_belica_temp_fem, 0) ten1_belica_temp_fem,
+  COALESCE(rg.ten1_cietec_qsg_fem, 0) ten1_cietec_qsg_fem,
+  COALESCE(rg.ten1_cietec_temp_fem, 0) ten1_cietec_temp_fem,
+  COALESCE(rg.ten1_compl_qco_fem, 0) ten1_compl_qco_fem,
+  COALESCE(rg.ten1_compl_temp_fem, 0) ten1_compl_temp_fem,
+  COALESCE(rg.ten1_praca_qao_fem, 0) ten1_praca_qao_fem,
+  COALESCE(rg.ten1_qcm_qsg_fem, 0) ten1_qcm_qsg_fem,
+  COALESCE(rg.ten1_qcm_temp_fem, 0) ten1_qcm_temp_fem,
+  COALESCE(rg.ten1_saude_qsg_fem, 0) ten1_saude_qsg_fem,
+  COALESCE(rg.ten1_saude_temp_fem, 0) ten1_saude_temp_fem,
+  COALESCE(rg.ten2_belica_qsg_fem, 0) ten2_belica_qsg_fem,
+  COALESCE(rg.ten2_belica_temp_fem, 0) ten2_belica_temp_fem,
+  COALESCE(rg.ten2_cietec_qsg_fem, 0) ten2_cietec_qsg_fem,
+  COALESCE(rg.ten2_cietec_temp_fem, 0) ten2_cietec_temp_fem,
+  COALESCE(rg.ten2_compl_temp_fem, 0) ten2_compl_temp_fem,
+  COALESCE(rg.ten2_saude_qsg_fem, 0) ten2_saude_qsg_fem,
+  COALESCE(rg.ten2_saude_temp_fem, 0) ten2_saude_temp_fem,
+  COALESCE(rg.cel_belica_qfe_fem, 0) cel_belica_qfe_fem,
+  COALESCE(rg.cel_belica_qfe_masc, 0) cel_belica_qfe_masc,
+  COALESCE(rg.maj_belica_qfe_fem, 0) maj_belica_qfe_fem,
+  COALESCE(rg.maj_belica_qfe_masc, 0) maj_belica_qfe_masc,
+  COALESCE(rg.tcel_belica_qfe_fem, 0) tcel_belica_qfe_fem,
+  COALESCE(rg.tcel_belica_qfe_masc, 0) tcel_belica_qfe_masc,
+  rgp.id,
+  rgp.isprevisto,
+  rgp.organizacao_id,
+  rgp.periodo_id,
+  rgp.omenquadrante,
+  COALESCE(rgp.aluno_masc, 0) aluno_masc_p,
+  COALESCE(rgp.asp_belica_qsg_masc, 0) asp_belica_qsg_masc_p,
+
+COALESCE(rgp.asp_compl_temp_masc, 0) asp_compl_temp_masc_p,
+
+  COALESCE(rgp.asp_belica_temp_masc, 0) asp_belica_temp_masc_p,
+  COALESCE(rgp.asp_cietec_temp_masc, 0) asp_cietec_temp_masc_p,
+  COALESCE(rgp.asp_qcm_temp_masc, 0) asp_qcm_temp_masc_p,
+  COALESCE(rgp.asp_saude_temp_masc, 0) asp_saude_temp_masc_p,
+  COALESCE(rgp.cap_belica_qsg_masc, 0) cap_belica_qsg_masc_p,
+  COALESCE(rgp.cap_cietec_qsg_masc, 0) cap_cietec_qsg_masc_p,
+  COALESCE(rgp.cap_compl_qco_masc, 0) cap_compl_qco_masc_p,
+  COALESCE(rgp.cap_praca_qao_masc, 0) cap_praca_qao_masc_p,
+  COALESCE(rgp.cap_qcm_qsg_masc, 0) cap_qcm_qsg_masc_p,
+  COALESCE(rgp.cap_saude_qsg_masc, 0) cap_saude_qsg_masc_p,
+  COALESCE(rgp.cb_ep, 0) cb_ep_p,
+  COALESCE(rgp.cb_et, 0) cb_et_p,
+  COALESCE(rgp.cb_ev, 0) cb_ev_p,
+  COALESCE(rgp.cel_belica_qsg_masc, 0) cel_belica_qsg_masc_p,
+  COALESCE(rgp.cel_belica_quema_masc, 0) cel_belica_quema_masc_p,
+  COALESCE(rgp.cel_cietec_qsg_masc, 0) cel_cietec_qsg_masc_p,
+  COALESCE(rgp.cel_cietec_quema_masc, 0) cel_cietec_quema_masc_p,
+  COALESCE(rgp.cel_compl_qco_masc, 0) cel_compl_qco_masc_p,
+  COALESCE(rgp.cel_qcm_qsg_masc, 0) cel_qcm_qsg_masc_p,
+  COALESCE(rgp.cel_saude_qsg_masc, 0) cel_saude_qsg_masc_p,
+  COALESCE(rgp.cel_saude_quema_masc, 0) cel_saude_quema_masc_p,
+  COALESCE(rgp.genbri_combatente, 0) genbri_combatente_p,
+  COALESCE(rgp.gendiv_combatente, 0) gendiv_combatente_p,
+  COALESCE(rgp.genexe_combatente, 0) genexe_combatente_p,
+  COALESCE(rgp.maj_belica_qsg_masc, 0) maj_belica_qsg_masc_p,
+  COALESCE(rgp.maj_belica_quema_masc, 0) maj_belica_quema_masc_p,
+  COALESCE(rgp.maj_cietec_qsg_masc, 0) maj_cietec_qsg_masc_p,
+  COALESCE(rgp.maj_cietec_quema_masc, 0) maj_cietec_quema_masc_p,
+  COALESCE(rgp.maj_compl_qco_masc, 0) maj_compl_qco_masc_p,
+  COALESCE(rgp.maj_qcm_qsg_masc, 0) maj_qcm_qsg_masc_p,
+  COALESCE(rgp.maj_saude_qsg_masc, 0) maj_saude_qsg_masc_p,
+  COALESCE(rgp.maj_saude_quema_masc, 0) maj_saude_quema_masc_p,
+  COALESCE(rgp.profciv, 0) profciv_p,
+  COALESCE(rgp.pttc_of, 0) pttc_of_p,
+  COALESCE(rgp.pttc_pr, 0) pttc_pr_p,
+  COALESCE(rgp.sd_ep, 0) sd_ep_p,
+  COALESCE(rgp.sd_ev, 0) sd_ev_p,
+  COALESCE(rgp.seq_registro, 0) seq_registro_p,
+  COALESCE(rgp.servciv, 0) servciv_p,
+  COALESCE(rgp.sgt1_masc, 0) sgt1_masc_p,
+  COALESCE(rgp.sgt2_carr_masc, 0) sgt2_carr_masc_p,
+  COALESCE(rgp.sgt2_qe_masc, 0) sgt2_qe_masc_p,
+  COALESCE(rgp.sgt3_carr_masc, 0) sgt3_carr_masc_p,
+  COALESCE(rgp.sgt3_qe_masc, 0) sgt3_qe_masc_p,
+  COALESCE(rgp.sgt3_temp_masc, 0) sgt3_temp_masc_p,
+  COALESCE(rgp.st_masc, 0) st_masc_p,
+  COALESCE(rgp.tcel_belica_qsg_masc, 0) tcel_belica_qsg_masc_p,
+  COALESCE(rgp.tcel_belica_quema_masc, 0) tcel_belica_quema_masc_p,
+  COALESCE(rgp.tcel_cietec_qsg_masc, 0) tcel_cietec_qsg_masc_p,
+  COALESCE(rgp.tcel_cietec_quema_masc, 0) tcel_cietec_quema_masc_p,
+  COALESCE(rgp.tcel_compl_qco_masc, 0) tcel_compl_qco_masc_p,
+  COALESCE(rgp.tcel_qcm_qsg_masc, 0) tcel_qcm_qsg_masc_p,
+  COALESCE(rgp.tcel_saude_qsg_masc, 0) tcel_saude_qsg_masc_p,
+  COALESCE(rgp.tcel_saude_quema_masc, 0) tcel_saude_quema_masc_p,
+  COALESCE(rgp.ten1_belica_qsg_masc, 0) ten1_belica_qsg_masc_p,
+  COALESCE(rgp.ten1_belica_temp_masc, 0) ten1_belica_temp_masc_p,
+  COALESCE(rgp.ten1_cietec_qsg_masc, 0) ten1_cietec_qsg_masc_p,
+  COALESCE(rgp.ten1_cietec_temp_masc, 0) ten1_cietec_temp_masc_p,
+  COALESCE(rgp.ten1_compl_qco_masc, 0) ten1_compl_qco_masc_p,
+  COALESCE(rgp.ten1_compl_temp_masc, 0) ten1_compl_temp_masc_p,
+  COALESCE(rgp.ten1_praca_qao_masc, 0) ten1_praca_qao_masc_p,
+  COALESCE(rgp.ten1_qcm_qsg_masc, 0) ten1_qcm_qsg_masc_p,
+  COALESCE(rgp.ten1_qcm_temp_masc, 0) ten1_qcm_temp_masc_p,
+  COALESCE(rgp.ten1_saude_qsg_masc, 0) ten1_saude_qsg_masc_p,
+  COALESCE(rgp.ten1_saude_temp_masc, 0) ten1_saude_temp_masc_p,
+  COALESCE(rgp.ten2_belica_qsg_masc, 0) ten2_belica_qsg_masc_p,
+  COALESCE(rgp.ten2_belica_temp_masc, 0) ten2_belica_temp_masc_p,
+  COALESCE(rgp.ten2_cietec_qsg_masc, 0) ten2_cietec_qsg_masc_p,
+  COALESCE(rgp.ten2_cietec_temp_masc, 0) ten2_cietec_temp_masc_p,
+  COALESCE(rgp.ten2_compl_temp_masc, 0) ten2_compl_temp_masc_p,
+  COALESCE(rgp.ten2_praca_qao_masc, 0) ten2_praca_qao_masc_p,
+  COALESCE(rgp.ten2_qcm_qsg_masc, 0) ten2_qcm_qsg_masc_p,
+  COALESCE(rgp.ten2_qcm_temp_masc, 0) ten2_qcm_temp_masc_p,
+  COALESCE(rgp.ten2_saude_qsg_masc, 0) ten2_saude_qsg_masc_p,
+  COALESCE(rgp.ten2_saude_temp_masc, 0) ten2_saude_temp_masc_p,
+  COALESCE(rgp.cel_belica_qfe_fem, 0) cel_belica_qfe_fem_p,
+  COALESCE(rgp.cel_belica_qfe_masc, 0) cel_belica_qfe_masc_p,
+  COALESCE(rgp.maj_belica_qfe_fem, 0) maj_belica_qfe_fem_p,
+  COALESCE(rgp.maj_belica_qfe_masc, 0) maj_belica_qfe_masc_p,
+  COALESCE(rgp.tcel_belica_qfe_fem, 0) tcel_belica_qfe_fem_p,
+  COALESCE(rgp.tcel_belica_qfe_masc, 0) tcel_belica_qfe_masc_p,
+  COALESCE(rgp.t1, 0) t1_p,
+  COALESCE(rgp.t2, 0) t2_p,
+  COALESCE(rgp.tm, 0) tm_p,
+  COALESCE(rgp.sd_nq, 0) sd_nq_p
+
+FROM relatoriogeral rgp
+
+INNER JOIN organizacaomilitar om
+	on om.id = rgp.organizacao_id
+
+LEFT JOIN relatoriogeral rg
+	on rg.organizacao_id = $P{id_om} and
+	rg.isprevisto = false and
+	rg.periodo_id =$P{id_periodo} and
+	rg.id = (select max(id) as id from relatoriogeral rg1
+	              where rg1.organizacao_id =$P{id_om} and rg1.isprevisto = false
+	              and rg1.periodo_id =$P{id_periodo} )
+WHERE
+	rgp.organizacao_id =$P{id_om}and
+	rgp.isprevisto = true and
+	rgp.qcp_id = (select max(qcp_id) as qcp_id from relatoriogeral rg1
+	                  where rg1.organizacao_id =$P{id_om}  and rg1.isprevisto = true ) and
+
+        rgp.id = (select max(id) as id from relatoriogeral rg1
+	                  where rg1.organizacao_id =$P{id_om} and rg1.isprevisto = true )
+]]>
+	</queryString>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="id" class="java.lang.Long"/>
+	<field name="isprevisto" class="java.lang.Boolean"/>
+	<field name="organizacao_id" class="java.lang.Long"/>
+	<field name="periodo_id" class="java.lang.Long"/>
+	<field name="omenquadrante" class="java.lang.Long"/>
+	<field name="aluno_masc" class="java.lang.Integer"/>
+	<field name="asp_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="asp_belica_temp_masc" class="java.lang.Integer"/>
+	<field name="asp_cietec_temp_masc" class="java.lang.Integer"/>
+	<field name="asp_qcm_temp_masc" class="java.lang.Integer"/>
+	<field name="asp_saude_temp_masc" class="java.lang.Integer"/>
+	<field name="cap_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="cap_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="cap_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="cap_praca_qao_masc" class="java.lang.Integer"/>
+	<field name="cap_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="cap_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="cb_ep" class="java.lang.Integer"/>
+	<field name="cb_et" class="java.lang.Integer"/>
+	<field name="cb_ev" class="java.lang.Integer"/>
+	<field name="cel_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="cel_belica_quema_masc" class="java.lang.Integer"/>
+	<field name="cel_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="cel_cietec_quema_masc" class="java.lang.Integer"/>
+	<field name="cel_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="cel_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="cel_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="cel_saude_quema_masc" class="java.lang.Integer"/>
+	<field name="genbri_combatente" class="java.lang.Integer"/>
+	<field name="gendiv_combatente" class="java.lang.Integer"/>
+	<field name="genexe_combatente" class="java.lang.Integer"/>
+	<field name="maj_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="maj_belica_quema_masc" class="java.lang.Integer"/>
+	<field name="maj_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="maj_cietec_quema_masc" class="java.lang.Integer"/>
+	<field name="maj_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="maj_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="maj_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="maj_saude_quema_masc" class="java.lang.Integer"/>
+	<field name="profciv" class="java.lang.Integer"/>
+	<field name="pttc_of" class="java.lang.Integer"/>
+	<field name="pttc_pr" class="java.lang.Integer"/>
+	<field name="sd_ep" class="java.lang.Integer"/>
+	<field name="sd_ev" class="java.lang.Integer"/>
+	<field name="seq_registro" class="java.lang.Integer"/>
+	<field name="servciv" class="java.lang.Integer"/>
+	<field name="sgt1_masc" class="java.lang.Integer"/>
+	<field name="sgt2_carr_masc" class="java.lang.Integer"/>
+	<field name="sgt2_qe_masc" class="java.lang.Integer"/>
+	<field name="sgt3_carr_masc" class="java.lang.Integer"/>
+	<field name="sgt3_qe_masc" class="java.lang.Integer"/>
+	<field name="sgt3_temp_masc" class="java.lang.Integer"/>
+	<field name="st_masc" class="java.lang.Integer"/>
+	<field name="tcel_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="tcel_belica_quema_masc" class="java.lang.Integer"/>
+	<field name="tcel_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="tcel_cietec_quema_masc" class="java.lang.Integer"/>
+	<field name="tcel_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="tcel_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="tcel_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="tcel_saude_quema_masc" class="java.lang.Integer"/>
+	<field name="ten1_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten1_belica_temp_masc" class="java.lang.Integer"/>
+	<field name="ten1_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten1_cietec_temp_masc" class="java.lang.Integer"/>
+	<field name="ten1_compl_qco_masc" class="java.lang.Integer"/>
+	<field name="ten1_compl_temp_masc" class="java.lang.Integer"/>
+	<field name="ten1_praca_qao_masc" class="java.lang.Integer"/>
+	<field name="ten1_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten1_qcm_temp_masc" class="java.lang.Integer"/>
+	<field name="ten1_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten1_saude_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_belica_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten2_belica_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_cietec_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten2_cietec_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_compl_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_praca_qao_masc" class="java.lang.Integer"/>
+	<field name="ten2_qcm_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten2_qcm_temp_masc" class="java.lang.Integer"/>
+	<field name="ten2_saude_qsg_masc" class="java.lang.Integer"/>
+	<field name="ten2_saude_temp_masc" class="java.lang.Integer"/>
+	<field name="t1" class="java.lang.Integer"/>
+	<field name="t2" class="java.lang.Integer"/>
+	<field name="tm" class="java.lang.Integer"/>
+	<field name="sd_nq" class="java.lang.Integer"/>
+	<field name="aluno_fem" class="java.lang.Integer"/>
+	<field name="asp_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="asp_belica_temp_fem" class="java.lang.Integer"/>
+	<field name="asp_cietec_temp_fem" class="java.lang.Integer"/>
+	<field name="asp_saude_temp_fem" class="java.lang.Integer"/>
+	<field name="cap_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="cap_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="cap_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="cap_praca_qao_fem" class="java.lang.Integer"/>
+	<field name="cap_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="cap_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="cel_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="cel_belica_quema_fem" class="java.lang.Integer"/>
+	<field name="cel_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="cel_cietec_quema_fem" class="java.lang.Integer"/>
+	<field name="cel_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="cel_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="cel_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="cel_saude_quema_fem" class="java.lang.Integer"/>
+	<field name="maj_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="maj_belica_quema_fem" class="java.lang.Integer"/>
+	<field name="maj_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="maj_cietec_quema_fem" class="java.lang.Integer"/>
+	<field name="maj_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="maj_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="maj_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="maj_saude_quema_fem" class="java.lang.Integer"/>
+	<field name="sgt1_fem" class="java.lang.Integer"/>
+	<field name="sgt2_carr_fem" class="java.lang.Integer"/>
+	<field name="sgt3_carr_fem" class="java.lang.Integer"/>
+	<field name="sgt3_temp_fem" class="java.lang.Integer"/>
+	<field name="st_fem" class="java.lang.Integer"/>
+	<field name="tcel_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="tcel_belica_quema_fem" class="java.lang.Integer"/>
+	<field name="tcel_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="tcel_cietec_quema_fem" class="java.lang.Integer"/>
+	<field name="tcel_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="tcel_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="tcel_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="tcel_saude_quema_fem" class="java.lang.Integer"/>
+	<field name="ten1_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten1_belica_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten1_cietec_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_compl_qco_fem" class="java.lang.Integer"/>
+	<field name="ten1_compl_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_praca_qao_fem" class="java.lang.Integer"/>
+	<field name="ten1_qcm_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten1_qcm_temp_fem" class="java.lang.Integer"/>
+	<field name="ten1_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten1_saude_temp_fem" class="java.lang.Integer"/>
+	<field name="ten2_belica_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten2_belica_temp_fem" class="java.lang.Integer"/>
+	<field name="ten2_cietec_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten2_cietec_temp_fem" class="java.lang.Integer"/>
+	<field name="ten2_compl_temp_fem" class="java.lang.Integer"/>
+	<field name="ten2_saude_qsg_fem" class="java.lang.Integer"/>
+	<field name="ten2_saude_temp_fem" class="java.lang.Integer"/>
+	<field name="cel_belica_qfe_fem" class="java.lang.Integer"/>
+	<field name="cel_belica_qfe_masc" class="java.lang.Integer"/>
+	<field name="maj_belica_qfe_fem" class="java.lang.Integer"/>
+	<field name="maj_belica_qfe_masc" class="java.lang.Integer"/>
+	<field name="tcel_belica_qfe_fem" class="java.lang.Integer"/>
+	<field name="tcel_belica_qfe_masc" class="java.lang.Integer"/>
+	<field name="aluno_masc_p" class="java.lang.Integer"/>
+	<field name="asp_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="asp_belica_temp_masc_p" class="java.lang.Integer"/>
+	<field name="asp_cietec_temp_masc_p" class="java.lang.Integer"/>
+	<field name="asp_qcm_temp_masc_p" class="java.lang.Integer"/>
+	<field name="asp_saude_temp_masc_p" class="java.lang.Integer"/>
+	<field name="cap_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cap_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cap_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="cap_praca_qao_masc_p" class="java.lang.Integer"/>
+	<field name="cap_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cap_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cb_ep_p" class="java.lang.Integer"/>
+	<field name="cb_et_p" class="java.lang.Integer"/>
+	<field name="cb_ev_p" class="java.lang.Integer"/>
+	<field name="cel_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cel_belica_quema_masc_p" class="java.lang.Integer"/>
+	<field name="cel_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cel_cietec_quema_masc_p" class="java.lang.Integer"/>
+	<field name="cel_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="cel_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cel_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="cel_saude_quema_masc_p" class="java.lang.Integer"/>
+	<field name="genbri_combatente_p" class="java.lang.Integer"/>
+	<field name="gendiv_combatente_p" class="java.lang.Integer"/>
+	<field name="genexe_combatente_p" class="java.lang.Integer"/>
+	<field name="maj_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="maj_belica_quema_masc_p" class="java.lang.Integer"/>
+	<field name="maj_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="maj_cietec_quema_masc_p" class="java.lang.Integer"/>
+	<field name="maj_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="maj_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="maj_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="maj_saude_quema_masc_p" class="java.lang.Integer"/>
+	<field name="profciv_p" class="java.lang.Integer"/>
+	<field name="pttc_of_p" class="java.lang.Integer"/>
+	<field name="pttc_pr_p" class="java.lang.Integer"/>
+	<field name="sd_ep_p" class="java.lang.Integer"/>
+	<field name="sd_ev_p" class="java.lang.Integer"/>
+	<field name="seq_registro_p" class="java.lang.Integer"/>
+	<field name="servciv_p" class="java.lang.Integer"/>
+	<field name="sgt1_masc_p" class="java.lang.Integer"/>
+	<field name="sgt2_carr_masc_p" class="java.lang.Integer"/>
+	<field name="sgt2_qe_masc_p" class="java.lang.Integer"/>
+	<field name="sgt3_carr_masc_p" class="java.lang.Integer"/>
+	<field name="sgt3_qe_masc_p" class="java.lang.Integer"/>
+	<field name="sgt3_temp_masc_p" class="java.lang.Integer"/>
+	<field name="st_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_belica_quema_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_cietec_quema_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_saude_quema_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_belica_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_cietec_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_compl_qco_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_compl_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_praca_qao_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_qcm_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten1_saude_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_belica_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_belica_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_cietec_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_cietec_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_compl_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_praca_qao_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_qcm_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_qcm_temp_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_saude_qsg_masc_p" class="java.lang.Integer"/>
+	<field name="ten2_saude_temp_masc_p" class="java.lang.Integer"/>
+	<field name="cel_belica_qfe_fem_p" class="java.lang.Integer"/>
+	<field name="cel_belica_qfe_masc_p" class="java.lang.Integer"/>
+	<field name="maj_belica_qfe_fem_p" class="java.lang.Integer"/>
+	<field name="maj_belica_qfe_masc_p" class="java.lang.Integer"/>
+	<field name="tcel_belica_qfe_fem_p" class="java.lang.Integer"/>
+	<field name="tcel_belica_qfe_masc_p" class="java.lang.Integer"/>
+	<field name="t1_p" class="java.lang.Integer"/>
+	<field name="t2_p" class="java.lang.Integer"/>
+	<field name="tm_p" class="java.lang.Integer"/>
+	<field name="sd_nq_p" class="java.lang.Integer"/>
+	<variable name="TOTAL_CIVIS_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{profciv} + $F{servciv}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_CIVIS_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{profciv} + $F{servciv}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_ALUNOS_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{aluno_masc}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_ALUNOS_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{aluno_fem} + $F{aluno_masc}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_EFETIVO_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{aluno_masc} + $F{asp_belica_qsg_masc} + $F{asp_belica_temp_masc} + $F{asp_cietec_temp_masc} + $F{asp_qcm_temp_masc} + $F{asp_saude_temp_masc} + $F{cap_belica_qsg_masc} + $F{cap_cietec_qsg_masc} + $F{cap_compl_qco_masc} + $F{cap_praca_qao_masc} + $F{cap_qcm_qsg_masc} + $F{cap_saude_qsg_masc} + $F{cb_ep} + $F{cb_et} + $F{cb_ev} + $F{cel_belica_qsg_masc} + $F{cel_cietec_qsg_masc} + $F{cel_cietec_quema_masc} + $F{cel_compl_qco_masc} + $F{cel_qcm_qsg_masc} + $F{cel_saude_qsg_masc} + $F{cel_saude_quema_masc} + $F{genbri_combatente} + $F{gendiv_combatente} + $F{genexe_combatente} + $F{maj_belica_qsg_masc} + $F{maj_belica_quema_masc} + $F{maj_cietec_qsg_masc} + $F{maj_cietec_quema_masc} + $F{maj_compl_qco_masc} + $F{maj_qcm_qsg_masc} + $F{maj_saude_qsg_masc} + $F{maj_saude_quema_masc} + $F{profciv} + $F{pttc_of} + $F{pttc_pr} + $F{sd_ep} + $F{sd_ev} + $F{servciv} + $F{sgt1_masc} + $F{sgt2_carr_masc} + $F{sgt2_qe_masc} + $F{sgt3_carr_masc} + $F{sgt3_qe_masc} + $F{sgt3_temp_masc} + $F{st_masc} + $F{tcel_belica_qsg_masc} + $F{tcel_belica_quema_masc} + $F{tcel_cietec_qsg_masc} + $F{tcel_cietec_quema_masc} + $F{tcel_compl_qco_masc} + $F{tcel_qcm_qsg_masc} + $F{tcel_saude_qsg_masc} + $F{tcel_saude_quema_masc} + $F{ten1_belica_qsg_masc} + $F{ten1_belica_temp_masc} + $F{ten1_cietec_qsg_masc} + $F{ten1_cietec_temp_masc} + $F{ten1_compl_qco_masc} + $F{ten1_compl_temp_masc} + $F{ten1_praca_qao_masc} + $F{ten1_qcm_qsg_masc} + $F{ten1_qcm_temp_masc} + $F{ten1_saude_qsg_masc} + $F{ten1_saude_temp_masc} + $F{ten2_belica_qsg_masc} + $F{ten2_belica_temp_masc} + $F{ten2_cietec_qsg_masc} + $F{ten2_cietec_temp_masc} + $F{ten2_compl_temp_masc} + $F{ten2_praca_qao_masc} + $F{ten2_qcm_qsg_masc} + $F{ten2_qcm_temp_masc} + $F{ten2_saude_qsg_masc} + $F{ten2_saude_temp_masc} + $F{t1} + $F{t2} + $F{tm} + $F{sd_nq}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_EFETIVO_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[+ $F{aluno_fem} + $F{aluno_masc} + $F{asp_belica_qsg_fem} + $F{asp_belica_qsg_masc} + $F{asp_belica_temp_fem} + $F{asp_belica_temp_masc} + $F{asp_cietec_temp_fem} + $F{asp_cietec_temp_masc} + $F{asp_qcm_temp_masc} + $F{asp_saude_temp_fem} + $F{asp_saude_temp_masc} + $F{cap_belica_qsg_fem} + $F{cap_belica_qsg_masc} + $F{cap_cietec_qsg_fem} + $F{cap_cietec_qsg_masc} + $F{cap_compl_qco_fem} + $F{cap_compl_qco_masc} + $F{cap_praca_qao_fem} + $F{cap_praca_qao_masc} + $F{cap_qcm_qsg_fem} + $F{cap_qcm_qsg_masc} + $F{cap_saude_qsg_fem} + $F{cap_saude_qsg_masc} + $F{cb_ep} + $F{cb_et} + $F{cb_ev} + $F{cel_belica_qsg_fem} + $F{cel_belica_qsg_masc} + $F{cel_belica_quema_fem} + $F{cel_belica_quema_masc} + $F{cel_cietec_qsg_fem} + $F{cel_cietec_qsg_masc} + $F{cel_cietec_quema_fem} + $F{cel_cietec_quema_masc} + $F{cel_compl_qco_fem} + $F{cel_compl_qco_masc} + $F{cel_qcm_qsg_fem} + $F{cel_qcm_qsg_masc} + $F{cel_saude_qsg_fem} + $F{cel_saude_qsg_masc} + $F{cel_saude_quema_fem} + $F{cel_saude_quema_masc} + $F{genbri_combatente} + $F{gendiv_combatente} + $F{genexe_combatente} + $F{maj_belica_qsg_fem} + $F{maj_belica_qsg_masc} + $F{maj_belica_quema_fem} + $F{maj_belica_quema_masc} + $F{maj_cietec_qsg_fem} + $F{maj_cietec_qsg_masc} + $F{maj_cietec_quema_fem} + $F{maj_cietec_quema_masc} + $F{maj_compl_qco_fem} + $F{maj_compl_qco_masc} + $F{maj_qcm_qsg_fem} + $F{maj_qcm_qsg_masc} + $F{maj_saude_qsg_fem} + $F{maj_saude_qsg_masc} + $F{maj_saude_quema_fem} + $F{maj_saude_quema_masc} + $F{profciv} + $F{pttc_of} + $F{pttc_pr} + $F{sd_ep} + $F{sd_ev} + $F{servciv} + $F{sgt1_fem} + $F{sgt1_masc} + $F{sgt2_carr_fem} + $F{sgt2_carr_masc} + $F{sgt2_qe_masc} + $F{sgt3_carr_fem} + $F{sgt3_carr_masc} + $F{sgt3_qe_masc} + $F{sgt3_temp_fem} + $F{sgt3_temp_masc} + $F{st_fem} + $F{st_masc} + $F{tcel_belica_qsg_fem} + $F{tcel_belica_qsg_masc} + $F{tcel_belica_quema_fem} + $F{tcel_belica_quema_masc} + $F{tcel_cietec_qsg_fem} + $F{tcel_cietec_qsg_masc} + $F{tcel_cietec_quema_fem} + $F{tcel_cietec_quema_masc} + $F{tcel_compl_qco_fem} + $F{tcel_compl_qco_masc} + $F{tcel_qcm_qsg_fem} + $F{tcel_qcm_qsg_masc} + $F{tcel_saude_qsg_fem} + $F{tcel_saude_qsg_masc} + $F{tcel_saude_quema_fem} + $F{tcel_saude_quema_masc} + $F{ten1_belica_qsg_fem} + $F{ten1_belica_qsg_masc} + $F{ten1_belica_temp_fem} + $F{ten1_belica_temp_masc} + $F{ten1_cietec_qsg_fem} + $F{ten1_cietec_qsg_masc} + $F{ten1_cietec_temp_fem} + $F{ten1_cietec_temp_masc} + $F{ten1_compl_qco_fem} + $F{ten1_compl_qco_masc} + $F{ten1_compl_temp_fem} + $F{ten1_compl_temp_masc} + $F{ten1_praca_qao_fem} + $F{ten1_praca_qao_masc} + $F{ten1_qcm_qsg_fem} + $F{ten1_qcm_qsg_masc} + $F{ten1_qcm_temp_fem} + $F{ten1_qcm_temp_masc} + $F{ten1_saude_qsg_fem} + $F{ten1_saude_qsg_masc} + $F{ten1_saude_temp_fem} + $F{ten1_saude_temp_masc} + $F{ten2_belica_qsg_fem} + $F{ten2_belica_qsg_masc} + $F{ten2_belica_temp_fem} + $F{ten2_belica_temp_masc} + $F{ten2_cietec_qsg_fem} + $F{ten2_cietec_qsg_masc} + $F{ten2_cietec_temp_fem} + $F{ten2_cietec_temp_masc} + $F{ten2_compl_temp_fem} + $F{ten2_compl_temp_masc} + $F{ten2_praca_qao_masc} + $F{ten2_qcm_qsg_masc} + $F{ten2_qcm_temp_masc} + $F{ten2_saude_qsg_fem} + $F{ten2_saude_qsg_masc} + $F{ten2_saude_temp_fem} + $F{ten2_saude_temp_masc} + $F{t1} + $F{t2} + $F{tm} + $F{sd_nq}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PTTC_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{pttc_of} + $F{pttc_pr}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PTTC_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{pttc_of} + $F{pttc_pr}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PR_PREV" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cb_ep} + $F{cb_et} + $F{cb_ev} + $F{sd_ep} + $F{sd_ev} + $F{sgt1_masc} + $F{sgt2_carr_masc} + $F{sgt2_qe_masc} + $F{sgt3_carr_masc} + $F{sgt3_qe_masc} + $F{sgt3_temp_masc} + $F{st_masc} + $F{sd_nq} + $F{tm} + $F{t2} + $F{t1}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PR_EXIST" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cb_ep} + $F{cb_et} + $F{cb_ev} + $F{sd_ep} + $F{sd_ev} + $F{sgt1_fem} + $F{sgt1_masc} + $F{sgt2_carr_fem} + $F{sgt2_carr_masc} + $F{sgt2_qe_masc} + $F{sgt3_carr_fem} + $F{sgt3_carr_masc} + $F{sgt3_qe_masc} + $F{sgt3_temp_fem} + $F{sgt3_temp_masc} + $F{st_fem} + $F{st_masc} + $F{t1} + $F{t2} + $F{tm} + $F{sd_nq}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_OF_PREV_SUP" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{cel_belica_qsg_masc_p} +
+$F{cel_belica_quema_masc_p} +
+$F{cel_belica_qfe_masc_p} +
+$F{cel_cietec_qsg_masc_p} +
+$F{cel_cietec_quema_masc_p} +
+$F{cel_compl_qco_masc_p} +
+$F{cel_qcm_qsg_masc_p} +
+$F{cel_saude_qsg_masc_p} +
+$F{cel_saude_quema_masc_p} +
+$F{maj_belica_qsg_masc_p} +
+$F{maj_belica_quema_masc_p} +
+$F{maj_belica_qfe_masc_p} +
+$F{maj_cietec_qsg_masc_p} +
+$F{maj_cietec_quema_masc_p} +
+$F{maj_compl_qco_masc_p} +
+$F{maj_qcm_qsg_masc_p} +
+$F{maj_saude_qsg_masc_p} +
+$F{maj_saude_quema_masc_p} +
+$F{tcel_belica_qsg_masc_p} +
+$F{tcel_belica_quema_masc_p} +
+$F{tcel_belica_qfe_masc_p} +
+$F{tcel_cietec_qsg_masc_p} +
+$F{tcel_cietec_quema_masc_p} +
+$F{tcel_compl_qco_masc_p} +
+$F{tcel_qcm_qsg_masc_p} +
+$F{tcel_saude_qsg_masc_p} +
+$F{tcel_saude_quema_masc_p}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_OF_EXIST_SUP_MASC" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cel_belica_qsg_masc} +
+$F{cel_belica_quema_masc} +
+$F{cel_belica_qfe_masc} +
+$F{cel_cietec_qsg_masc} +
+$F{cel_cietec_quema_masc} +
+$F{cel_compl_qco_masc} +
+$F{cel_qcm_qsg_masc} +
+$F{cel_saude_qsg_masc} +
+$F{cel_saude_quema_masc} +
+$F{maj_belica_qsg_masc} +
+$F{maj_belica_quema_masc} +
+$F{maj_belica_qfe_masc} +
+$F{maj_cietec_qsg_masc} +
+$F{maj_cietec_quema_masc} +
+$F{maj_compl_qco_masc} +
+$F{maj_qcm_qsg_masc} +
+$F{maj_saude_qsg_masc} +
+$F{maj_saude_quema_masc} +
+$F{tcel_belica_qsg_masc} +
+$F{tcel_belica_quema_masc} +
+$F{tcel_belica_qfe_masc} +
+$F{tcel_cietec_qsg_masc} +
+$F{tcel_cietec_quema_masc} +
+$F{tcel_compl_qco_masc} +
+$F{tcel_qcm_qsg_masc} +
+$F{tcel_saude_qsg_masc} +
+$F{tcel_saude_quema_masc}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_OF_EXIST_SUP_FEM" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{cel_belica_qsg_fem} +
+$F{cel_belica_quema_fem} +
+$F{cel_belica_qfe_fem} +
+$F{cel_cietec_qsg_fem} +
+$F{cel_cietec_quema_fem} +
+$F{cel_compl_qco_fem} +
+$F{cel_qcm_qsg_fem} +
+$F{cel_saude_qsg_fem} +
+$F{cel_saude_quema_fem} +
+$F{maj_belica_qsg_fem} +
+$F{maj_belica_quema_fem} +
+$F{maj_belica_qfe_fem} +
+$F{maj_cietec_qsg_fem} +
+$F{maj_cietec_quema_fem} +
+$F{maj_compl_qco_fem} +
+$F{maj_qcm_qsg_fem} +
+$F{maj_saude_qsg_fem} +
+$F{maj_saude_quema_fem} +
+$F{tcel_belica_qsg_fem} +
+$F{tcel_belica_quema_fem} +
+$F{tcel_belica_qfe_fem} +
+$F{tcel_cietec_qsg_fem} +
+$F{tcel_cietec_quema_fem} +
+$F{tcel_compl_qco_fem} +
+$F{tcel_qcm_qsg_fem} +
+$F{tcel_saude_qsg_fem} +
+$F{tcel_saude_quema_fem}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_GEN_PREV" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{genbri_combatente_p} +
+$F{gendiv_combatente_p} +
+$F{genexe_combatente_p}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_GEN_EXIST" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{genbri_combatente} +
+$F{gendiv_combatente} +
+$F{genexe_combatente}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="465" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="187" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Gen Ex]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="0" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{genexe_combatente_p}==0?'-':$F{genexe_combatente_p}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="15" width="187" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Gen Div]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="30" width="187" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Gen Bda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="60" width="63" height="120" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Cel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="60" width="62" height="45" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Bélica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="60" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QEMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="75" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="15" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{gendiv_combatente_p}==0?'-':$F{gendiv_combatente_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="30" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{genbri_combatente_p}==0?'-':$F{genbri_combatente_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="60" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_belica_quema_masc_p}==0?'-':$F{cel_belica_quema_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Opaque" x="187" y="75" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_belica_qsg_masc_p}==0?'-':$F{cel_belica_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField pattern="0" isBlankWhenNull="false">
+				<reportElement mode="Opaque" x="275" y="0" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{genexe_combatente}==0?'-':$F{genexe_combatente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="15" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{gendiv_combatente}==0?'-':$F{gendiv_combatente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="30" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{genbri_combatente}==0?'-':$F{genbri_combatente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="60" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_belica_quema_masc}==0?'-':$F{cel_belica_quema_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="60" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_belica_quema_fem}==0?'-':$F{cel_belica_quema_fem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="319" y="0" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="319" y="15" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="319" y="30" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="75" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_belica_qsg_masc}==0?'-':$F{cel_belica_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="75" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_belica_qsg_fem}==0?'-':$F{cel_belica_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="105" width="62" height="30" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Saúde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="105" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QEMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="120" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="135" width="62" height="30" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L C&T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="135" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QEMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="150" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="165" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Compl]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="165" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QCO]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="105" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_saude_quema_masc_p}==0?'-':$F{cel_saude_quema_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="120" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_saude_qsg_masc_p}==0?'-':$F{cel_saude_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="135" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_cietec_quema_masc_p}==0?'-':$F{cel_cietec_quema_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="150" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_cietec_qsg_masc_p}==0?'-':$F{cel_cietec_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="165" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_compl_qco_masc_p}==0?'-':$F{cel_compl_qco_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="105" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_saude_quema_masc}==0?'-':$F{cel_saude_quema_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="105" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_saude_quema_fem}==0?'-':$F{cel_saude_quema_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="120" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_saude_qsg_masc}==0?'-':$F{cel_saude_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Opaque" x="319" y="120" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_saude_qsg_fem}==0?'-':$F{cel_saude_qsg_fem}==0?'-':$F{cel_saude_qsg_fem}==0?'-':$F{cel_saude_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="135" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_cietec_quema_masc}==0?'-':$F{cel_cietec_quema_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="135" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_cietec_quema_fem}==0?'-':$F{cel_cietec_quema_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="150" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_cietec_qsg_masc}==0?'-':$F{cel_cietec_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="150" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_cietec_qsg_fem}==0?'-':$F{cel_cietec_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="165" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_compl_qco_masc}==0?'-':$F{cel_compl_qco_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="165" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_compl_qco_fem}==0?'-':$F{cel_compl_qco_fem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="180" width="63" height="135" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[T Cel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="180" width="62" height="45" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Bélica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="225" width="62" height="30" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Saúde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="255" width="62" height="30" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L C&T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="285" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Compl]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="285" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QCO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="270" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="255" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QEMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="240" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="225" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QEMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="195" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="180" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QEMA]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="180" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_belica_quema_masc_p}==0?'-':$F{tcel_belica_quema_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="195" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_belica_qsg_masc_p}==0?'-':$F{tcel_belica_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="225" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_saude_quema_masc_p}==0?'-':$F{tcel_saude_quema_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="240" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_saude_qsg_masc_p}==0?'-':$F{tcel_saude_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="255" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_cietec_quema_masc_p}==0?'-':$F{tcel_cietec_quema_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="270" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_cietec_qsg_masc_p}==0?'-':$F{tcel_cietec_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="285" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_compl_qco_masc_p}==0?'-':$F{tcel_compl_qco_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="180" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_belica_quema_masc}==0?'-':$F{tcel_belica_quema_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="180" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_belica_quema_fem}==0?'-':$F{tcel_belica_quema_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="195" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_belica_qsg_masc}==0?'-':$F{tcel_belica_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="195" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_belica_qsg_fem}==0?'-':$F{tcel_belica_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="225" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_saude_quema_masc}==0?'-':$F{tcel_saude_quema_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="225" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_saude_quema_fem}==0?'-':$F{tcel_saude_quema_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="240" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_saude_qsg_masc}==0?'-':$F{tcel_saude_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="240" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_saude_qsg_fem}==0?'-':$F{tcel_saude_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="255" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_cietec_quema_masc}==0?'-':$F{tcel_cietec_quema_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="255" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_cietec_quema_fem}==0?'-':$F{tcel_cietec_quema_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="270" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_cietec_qsg_masc}==0?'-':$F{tcel_cietec_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="270" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_cietec_qsg_fem}==0?'-':$F{tcel_cietec_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="285" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_compl_qco_masc}==0?'-':$F{tcel_compl_qco_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="285" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_compl_qco_fem}==0?'-':$F{tcel_compl_qco_fem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="315" width="63" height="135" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Maj]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="315" width="62" height="45" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Bélica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="360" width="62" height="30" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Saúde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="390" width="62" height="30" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L C&T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="420" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[L Compl]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="435" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QCM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="435" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="420" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QCO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="405" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="390" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QEMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="375" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="360" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QEMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="330" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="315" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QEMA]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="315" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_belica_quema_masc_p}==0?'-':$F{maj_belica_quema_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="330" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_belica_qsg_masc_p}==0?'-':$F{maj_belica_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="360" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_saude_quema_masc_p}==0?'-':$F{maj_saude_quema_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="375" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_saude_qsg_masc_p}==0?'-':$F{maj_saude_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="390" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_cietec_quema_masc_p}==0?'-':$F{maj_cietec_quema_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="405" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_cietec_qsg_masc_p}==0?'-':$F{maj_cietec_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="420" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_compl_qco_masc_p}==0?'-':$F{maj_compl_qco_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="435" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_qcm_qsg_masc_p}==0?'-':$F{maj_qcm_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="315" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_belica_quema_masc}==0?'-':$F{maj_belica_quema_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="315" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_belica_quema_fem}==0?'-':$F{maj_belica_quema_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="330" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_belica_qsg_masc}==0?'-':$F{maj_belica_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="330" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_belica_qsg_fem}==0?'-':$F{maj_belica_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="360" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_saude_quema_masc}==0?'-':$F{maj_saude_quema_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="360" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_saude_quema_fem}==0?'-':$F{maj_saude_quema_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="375" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_saude_qsg_masc}==0?'-':$F{maj_saude_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="375" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_saude_qsg_fem}==0?'-':$F{maj_saude_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="390" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_cietec_quema_masc}==0?'-':$F{maj_cietec_quema_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="390" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_cietec_quema_fem}==0?'-':$F{maj_cietec_quema_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="405" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_cietec_qsg_masc}==0?'-':$F{maj_cietec_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="405" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_cietec_qsg_fem}==0?'-':$F{maj_cietec_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="420" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_compl_qco_masc}==0?'-':$F{maj_compl_qco_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="420" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_compl_qco_fem}==0?'-':$F{maj_compl_qco_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="435" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_qcm_qsg_masc}==0?'-':$F{maj_qcm_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="435" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_qcm_qsg_fem}==0?'-':$F{maj_qcm_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="90" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_belica_qfe_masc_p}==0?'-':$F{cel_belica_qfe_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="90" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_belica_qfe_masc}==0?'-':$F{cel_belica_qfe_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="90" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cel_belica_qfe_fem}==0?'-':$F{cel_belica_qfe_fem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="90" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QFE]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="300" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_qcm_qsg_fem}==0?'-':$F{tcel_qcm_qsg_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="300" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_qcm_qsg_masc_p}==0?'-':$F{tcel_qcm_qsg_masc_p}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="300" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QCM]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="300" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_qcm_qsg_masc}==0?'-':$F{tcel_qcm_qsg_masc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="300" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QSG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="210" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QFE]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="210" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_belica_qfe_fem}==0?'-':$F{tcel_belica_qfe_fem}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="210" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_belica_qfe_masc_p}==0?'-':$F{tcel_belica_qfe_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="210" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tcel_belica_qfe_masc}==0?'-':$F{tcel_belica_qfe_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="187" y="345" width="88" height="15" forecolor="#FF3333" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_belica_qfe_masc_p}==0?'-':$F{maj_belica_qfe_masc_p}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="275" y="345" width="44" height="15" forecolor="#000000" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_belica_qfe_masc}==0?'-':$F{maj_belica_qfe_masc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="319" y="345" width="44" height="15" backcolor="#FFFFCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maj_belica_qfe_fem}==0?'-':$F{maj_belica_qfe_fem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="345" width="62" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QFE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="45" width="187" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Subtotal Of Gen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="450" width="187" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Subtotal Of Sup]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="187" y="450" width="88" height="15" forecolor="#FF3333" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL_OF_PREV_SUP}==0?'-':$V{TOTAL_OF_PREV_SUP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="275" y="450" width="44" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL_OF_EXIST_SUP_MASC}==0?'-':$V{TOTAL_OF_EXIST_SUP_MASC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="319" y="450" width="44" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL_OF_EXIST_SUP_FEM}==0?'-':$V{TOTAL_OF_EXIST_SUP_FEM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="187" y="45" width="88" height="15" forecolor="#FF3333" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL_GEN_PREV}==0?'-':$V{TOTAL_GEN_PREV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="275" y="45" width="44" height="15" forecolor="#000000" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL_GEN_EXIST}==0?"-":$V{TOTAL_GEN_EXIST}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="319" y="45" width="44" height="15" backcolor="#99CCFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>
