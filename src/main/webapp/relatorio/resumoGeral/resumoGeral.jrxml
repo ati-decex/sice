@@ -6,7 +6,7 @@
 	<parameter name="id_om" class="java.lang.Integer"/>
 	<parameter name="id_periodo" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/nunes/PROJETOS/SICE/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/home/amparo/projetos/SICE/workspace/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="id_om_enquadrante" class="java.lang.Integer"/>
 	<queryString>
@@ -152,7 +152,6 @@ $P{id_om}==17?$P{id_om_enquadrante}==2?"(0,5,9)":"(0,8)":
        $F{id}==8?"AlunosMilitares":
        $F{id}==9?"ProfCivil":
        $F{id}==10?"FundacaoOsorio":
-       $F{id}==15?"MilitarQFE":
        $F{id}==12?"AlunosCivis":"EfetivoExistente")+".jasper"]]></subreportExpression>
 			</subreport>
 		</band>

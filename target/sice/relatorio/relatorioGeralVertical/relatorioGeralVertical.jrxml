@@ -7,7 +7,7 @@
 	<parameter name="id_periodo" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<parameterDescription><![CDATA[]]></parameterDescription>
-		<defaultValueExpression><![CDATA["/home/amparo/projetos/SICE/workspace/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/home/nunes/PROJETOS/SICE/sice/src/main/webapp/relatorio/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT id, sigla, tipo, ordem

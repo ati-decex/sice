@@ -372,8 +372,7 @@ public class RelatorioGeralController extends BaseController {
 			}
 		}
 		
-		//relatoriosDisponiveis.remove(2);
-		removeTela(relatoriosDisponiveis, "ALUNOS_COLEGIO_MILITAR");
+		relatoriosDisponiveis.remove(2);
 		removeTela(relatoriosDisponiveis, "PRACAS_TEMPORARIOS");
 		alteraTituloRelatorioOficiaisTemporarios();
 	}

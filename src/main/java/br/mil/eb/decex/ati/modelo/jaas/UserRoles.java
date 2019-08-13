@@ -40,10 +40,11 @@ public class UserRoles extends BaseModel<Long> implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoAcesso roleName;
 
+	
 	/**
-	 * Usuário JAAS
-	 * @return usuario JAAS
-	 */
+	* Usuário JAAS
+	* @return usuario JAAS
+	*/
 	public Users getUsers() {
 		return users;
 	}
