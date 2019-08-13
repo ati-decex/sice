@@ -2,7 +2,7 @@ package br.mil.eb.decex.ati.vo;
 
 import java.io.Serializable;
 
-import br.mil.eb.decex.ati.clonador_sice.App1;
+//import br.mil.eb.decex.ati.clonador_sice.App1;
 
 public class EfetivoResumidoVO implements Serializable, Comparable<EfetivoResumidoVO> {
 
