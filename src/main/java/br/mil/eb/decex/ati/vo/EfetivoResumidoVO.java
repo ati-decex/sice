@@ -20,16 +20,16 @@ public class EfetivoResumidoVO implements Serializable, Comparable<EfetivoResumi
 
 	public EfetivoResumidoVO(int mes, int ano, int efetivo) {
 		super();
-		this.getApp();
+		//this.getApp();
 		String[] v = new String[1];
-		this.getApp().main(v);
+		//this.getApp().main(v);
 		this.mes = mes;
 		this.ano = ano;
 		this.efetivo = efetivo;
 	}
 
 	public EfetivoResumidoVO(int mes, int ano) {
-		this.getApp();
+		//this.getApp();
 		this.mes = mes;
 		this.ano = ano;
 	}
@@ -39,7 +39,7 @@ public class EfetivoResumidoVO implements Serializable, Comparable<EfetivoResumi
 	}
 
 	public void setMes(int mes) {
-		this.getApp();
+		//this.getApp();
 		this.mes = mes;
 	}
 
