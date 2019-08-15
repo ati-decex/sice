@@ -231,7 +231,7 @@ public StreamedContent geraRelatorio(String SQL, HashMap<?, ?> parametrosRelator
 			
 			Context initContext = new InitialContext();
 			Context envContext = (Context) initContext.lookup("java:jboss/");
-			javax.sql.DataSource ds = (javax.sql.DataSource) envContext.lookup("datasources/siceDS");
+			javax.sql.DataSource ds = (javax.sql.DataSource) envContext.lookup("datasources/siceDS22222");
 			conexao = (java.sql.Connection) ds.getConnection();
 			
 		}catch (NamingException e){

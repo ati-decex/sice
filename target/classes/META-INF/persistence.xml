@@ -5,7 +5,7 @@
 	
 	<persistence-unit name="sicePU" transaction-type="JTA">
 	
-		<jta-data-source>java:jboss/datasources/siceDS</jta-data-source>
+		<jta-data-source>java:jboss/datasources/siceDS22222</jta-data-source>
 		
 		<properties>
 		
