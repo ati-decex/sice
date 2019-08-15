@@ -24,6 +24,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import br.mil.eb.decex.ati.enumerado.TipoOrganizacaoMilitar;
 
 /**
@@ -72,6 +75,7 @@ public class OrganizacaoMilitar extends BaseModel<Long> implements Serializable 
 	private String sigla;
 
 	@OneToMany(mappedBy = "organizacaoMilitar", fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<QCP> qcp;
 
 	@Column
@@ -79,6 +83,7 @@ public class OrganizacaoMilitar extends BaseModel<Long> implements Serializable 
 	private TipoOrganizacaoMilitar tipo;
 
 	@ManyToMany(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "SUPERIORES_SUBORDINADOS", joinColumns = @JoinColumn(name = "superior_subordinado_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "superior_id", referencedColumnName = "id"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "superior_id", "superior_subordinado_id" }) })
 	private List<OrganizacaoMilitar> superiores;
